@@ -1,4 +1,4 @@
-package Moldele;
+package Moldele.Personnage;
 
 public class Caracteristique {
 }

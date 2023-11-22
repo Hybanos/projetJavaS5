@@ -1,4 +1,4 @@
 package Moldele.Item;
 
-public class Item {
+public abstract class Item {
 }
