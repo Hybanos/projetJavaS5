@@ -35,6 +35,12 @@ public abstract class Theme {
     abstract void initJoueur();
     abstract void initEnnemis();
 
+    abstract void initNonConsommable();
+    abstract void initConsommable();
+    abstract void initAttaque();
+    abstract void initProtection();
+
+
     public Set<CorpsACorps> getLesArmesCorpsACorps() {
         return lesArmesCorpsACorps;
     }

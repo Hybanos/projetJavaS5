@@ -16,6 +16,8 @@ public class MedievalFantastique extends Theme {
 
     void initItems() {
         System.out.println("Init. Items");
+        initNonConsommable();
+        initConsommable();
     }
 
     void initDonjon() {
@@ -28,5 +30,23 @@ public class MedievalFantastique extends Theme {
 
     void initEnnemis() {
         System.out.println("Init. Ennemis");
+    }
+
+    void initNonConsommable() {
+        System.out.println("Init. Item-NonConsommable");
+        initAttaque();
+        initProtection();
+    }
+
+    void initProtection() {
+        System.out.println("Init. Item-NonConsommable-Protection");
+    }
+
+    void initAttaque() {
+        System.out.println("Init. Item-NonConsommable-Attaque");
+    }
+
+    void initConsommable() {
+        System.out.println("Init. Item-Consommable");
     }
 }
