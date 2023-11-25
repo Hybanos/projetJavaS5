@@ -1,11 +1,8 @@
 package Modele.Item;
 
+import Modele.Item.Item;
 import Modele.Personnage.Caracteristique;
 
-public abstract class Item {
-    private String nom;
-    private String description;
+public class Consommable extends Item {
     private Caracteristique caracteristique;
-
-    
 }

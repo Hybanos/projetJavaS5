@@ -1,14 +1,5 @@
 package Modele.Theme;
 
-import Modele.Item.Consommable.Buff;
-import Modele.Item.Consommable.Debuff;
-import Modele.Item.Consommable.Energie;
-import Modele.Item.Consommable.Soin;
-import Modele.Item.NonConsommable.Attaque.CorpsACorps;
-import Modele.Item.NonConsommable.Attaque.Projectile;
-import Modele.Item.NonConsommable.Protection.Armure;
-import Modele.Item.NonConsommable.Protection.Bouclier;
-
 import java.util.HashSet;
 import java.util.Set;
 
