@@ -4,6 +4,12 @@ public abstract class Personnage {
     private String nom;
     private ClassePersonnage classe;
     private Inventaire inventaire;
+
+    //statistiques mouvantes
+    private int vie;
+    private int mana;
+
+    //caractéristiques
     private int force;
     private int constitution;
     private int dexterite;

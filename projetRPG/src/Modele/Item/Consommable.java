@@ -1,5 +1,12 @@
 package Modele.Item;
 
 public class Consommable extends Item {
-    private Caracteristique caracteristique;
+    private int vie; //rajout de vie
+    private int mana; //rajout de mana
+
+    public Consommable(String nom, String description, int vie, int mana) {
+        super(nom, description)
+        this.vie = vie;
+        this.mana = mana;
+    }
 }
