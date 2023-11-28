@@ -29,5 +29,4 @@ public abstract class Personnage {
         this.endurance = endurance;
     }
 
-
 }
