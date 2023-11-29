@@ -1,4 +1,7 @@
-package Modele.Theme;
+package Modele.Theme.MF;
+
+import Modele.Theme.MF.Item.Registres;
+import Modele.Theme.Theme;
 
 public class MedievalFantastique extends Theme {
 
@@ -14,39 +17,41 @@ public class MedievalFantastique extends Theme {
         initEnnemis();
     }
 
-    void initItems() {
+    private void initItems() {
         System.out.println("Init. Items");
-        initNonConsommable();
-        initConsommable();
+        lesArmesCorpsACorps = Registres.genererCorpsACorps();
+        lesProjectiles = Registres.genererProjectile();
+        lesMagies = Registres.genererMagie();
+        lesConsommables = Registres.genererConsomable();
     }
 
-    void initDonjon() {
+    private void initDonjon() {
         System.out.println("Init. Donjon");
     }
 
-    void initJoueur() {
+    private void initJoueur() {
         System.out.println("Init. Joueur");
     }
 
-    void initEnnemis() {
+    private void initEnnemis() {
         System.out.println("Init. Ennemis");
     }
 
-    void initNonConsommable() {
+    private void initNonConsommable() {
         System.out.println("Init. Item-NonConsommable");
         initAttaque();
         initProtection();
     }
 
-    void initProtection() {
+    private void initProtection() {
         System.out.println("Init. Item-NonConsommable-Protection");
     }
 
-    void initAttaque() {
+    private void initAttaque() {
         System.out.println("Init. Item-NonConsommable-Attaque");
     }
 
-    void initConsommable() {
+    private void initConsommable() {
         System.out.println("Init. Item-Consommable");
     }
 }

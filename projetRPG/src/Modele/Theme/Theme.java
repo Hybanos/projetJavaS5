@@ -1,17 +1,23 @@
 package Modele.Theme;
 
+import Modele.Item.Consommable;
+import Modele.Item.Equipements.CorpsACorps;
+import Modele.Item.Equipements.Magie;
+import Modele.Item.Equipements.Projectile;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Theme {
-    private Set<CorpsACorps> lesArmesCorpsACorps = new HashSet<>();
-    private Set<Projectile> lesProjectiles = new HashSet<>();
-    private Set<Bouclier> lesBoucliers = new HashSet<>();
-    private Set<Armure> lesArmures = new HashSet<>();
-    private Set<Buff> lesBuffs = new HashSet<>();
-    private Set<Debuff> lesDebuffs = new HashSet<>();
-    private Set<Energie> lesEnergies = new HashSet<>();
-    private Set<Soin> lesSoins = new HashSet<>();
+    protected Set<CorpsACorps> lesArmesCorpsACorps = new HashSet<>();
+    protected Set<Projectile> lesProjectiles = new HashSet<>();
+    protected Set<Magie> lesMagies = new HashSet<>();
+    protected Set<Bouclier> lesBoucliers = new HashSet<>();
+    protected Set<Armure> lesArmures = new HashSet<>();
+    protected Set<Buff> lesBuffs = new HashSet<>();
+    protected Set<Debuff> lesDebuffs = new HashSet<>();
+    protected Set<Energie> lesEnergies = new HashSet<>();
+    protected Set<Consommable> lesConsommables = new HashSet<>();
 
     //Ajouter un attribut pour le Donjon
 
@@ -20,16 +26,7 @@ public abstract class Theme {
         initialiser();
     }
 
-    abstract void initialiser();
-    abstract void initItems();
-    abstract void initDonjon();
-    abstract void initJoueur();
-    abstract void initEnnemis();
-
-    abstract void initNonConsommable();
-    abstract void initConsommable();
-    abstract void initAttaque();
-    abstract void initProtection();
+    protected abstract void initialiser();
 
 
     public Set<CorpsACorps> getLesArmesCorpsACorps() {

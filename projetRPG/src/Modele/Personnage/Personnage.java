@@ -1,20 +1,20 @@
 package Modele.Personnage;
 
 public abstract class Personnage {
-    private String nom;
-    private ClassePersonnage classe;
-    private Inventaire inventaire;
+    public String nom;
+    public ClassePersonnage classe;
+    public Inventaire inventaire;
 
     //statistiques mouvantes
-    private int vie;
-    private int mana;
+    public int vie;
+    public int mana;
 
     //caractéristiques
-    private int force;
-    private int constitution;
-    private int dexterite;
-    private int intelligence;
-    private int endurance;
+    public int force;
+    public int constitution;
+    public int dexterite;
+    public int intelligence;
+    public int endurance;
     
 
 
