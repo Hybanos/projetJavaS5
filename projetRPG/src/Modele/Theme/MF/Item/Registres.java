@@ -4,6 +4,7 @@ import Modele.Item.Consommable;
 import Modele.Item.Equipements.CorpsACorps;
 import Modele.Item.Equipements.Magie;
 import Modele.Item.Equipements.Projectile;
+import Modele.Personnage.ClassePersonnage;
 import Modele.Theme.MF.Item.Consomable.ConsommableBuff;
 
 import java.util.HashSet;
@@ -15,10 +16,10 @@ public class Registres {
 
         set.add(new CorpsACorps("Bâton", "Un simple bâton", 1, 0, 0.5, 0, 0, 0, 0));
         set.add(new CorpsACorps("Épée émoussée", "Une épée très usée mais qui peut s'avérer utile", 2, 0, 0.6, 0, 0, 0, 0));
-        set.add(new CorpsACorps("Épée en fer", "Un simple bâton", 3, 0, 0.6, 0, 0, 0, 0, (j) -> j.force > 2));
-        set.add(new CorpsACorps("Espadon du Forgeron", "Un espadon forgé de la main d'un grand forgeron", 5, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.classe == "barbare" && j.force > 4));
-        set.add(new CorpsACorps("Claymore tueuese de Dragons", "On dit que cette claymore aurait permis de tuer un dragon", 7, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.classe == "Barbare" && j.force > 6));
-        set.add(new CorpsACorps("Fine rapière", "Légère et simple mais rudement efficace", 4, 0.1, 0.8, 0, 0, 0, 0, (j) -> j.classe = "chevalier" && j.dexterite > 2));
+        set.add(new CorpsACorps("Épée en fer", "Un simple bâton", 3, 0, 0.6, 0, 0, 0, 0, (j) -> j.getForce() > 2));
+        set.add(new CorpsACorps("Espadon du Forgeron", "Un espadon forgé de la main d'un grand forgeron", 5, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("barbare") && j.getForce() > 4));
+        set.add(new CorpsACorps("Claymore tueuese de Dragons", "On dit que cette claymore aurait permis de tuer un dragon", 7, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("Barbare") && j.getForce() > 6));
+        set.add(new CorpsACorps("Fine rapière", "Légère et simple mais rudement efficace", 4, 0.1, 0.8, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("chevalier") && j.getDexterite() > 2));
 
         return set;
     }
@@ -26,9 +27,9 @@ public class Registres {
     public static Set<Magie> genererMagie() {
         Set<Magie> set = new HashSet<>();
 
-        set.add(new Magie("Baguette fragile", "Une simple baguette de débutant", 2, 0, 0.5, 0, 0, 0, 0, (j) -> j.classe == "mage"));
-        set.add(new Magie("Baguette précieuse", "Cette baguette brille et a l'air rare", 4, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.classe == "mage" && j.mana > 2));
-        set.add(new Magie("Relique d'un grand Mage", "Cette baguette d'un autre temps a appartenu a un grand mage", 5, 0.07, 0.8, 0, 0, 0, 0, (j) -> j.classe == "mage" && j.mana > 4));
+        set.add(new Magie("Baguette fragile", "Une simple baguette de débutant", 2, 0, 0.5, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("mage")));
+        set.add(new Magie("Baguette précieuse", "Cette baguette brille et a l'air rare", 4, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("mage") && j.mana > 2));
+        set.add(new Magie("Relique d'un grand Mage", "Cette baguette d'un autre temps a appartenu a un grand mage", 5, 0.07, 0.8, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("mage") && j.mana > 4));
 
         return set;
     }
@@ -37,10 +38,10 @@ public class Registres {
         Set<Projectile> set = new HashSet<>();
 
         set.add(new Projectile("Arc coubeh", "Un arc très simple", 2, 0, 0.6, 0, 0, 0, 0));
-        set.add(new Projectile("Grand Arc", "Il fait plus que votre taille, mais c'est normal", 2, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.classe = "archer"));
-        set.add(new Projectile("Arbalète en bois", "Une belle arbalète, dommage qu'il faille un temps de recharge", 4, 0.07, 0.5, 0, 0, 0, 0, (j) -> j.classe == "archer" && j.classe == "chevalier"));
-        set.add(new Projectile("Arc léger", "un petit arc très pratique à manier", 2, 0, 0.5, 0, 0, 0, 0, (j) -> j.classe == "archer" && j.classe == "chevalier"));
-        set.add(new Projectile("Arc en bois d'Orme", "un bel arc en bois noble, de grande qualité !", 6, 0.1, 0.8, 0, 0, 0, 0, (j) -> j.classe = "archer" && j.dexterite > 3));
+        set.add(new Projectile("Grand Arc", "Il fait plus que votre taille, mais c'est normal", 2, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("archer")));
+        set.add(new Projectile("Arbalète en bois", "Une belle arbalète, dommage qu'il faille un temps de recharge", 4, 0.07, 0.5, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("archer") && j.getClasse() == new ClassePersonnage("chevalier")));
+        set.add(new Projectile("Arc léger", "un petit arc très pratique à manier", 2, 0, 0.5, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("archer") && j.getClasse() == new ClassePersonnage("chevalier")));
+        set.add(new Projectile("Arc en bois d'Orme", "un bel arc en bois noble, de grande qualité !", 6, 0.1, 0.8, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("archer") && j.getDexterite() > 3));
 
         return set;
     }
