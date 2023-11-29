@@ -8,4 +8,12 @@ public abstract class Item {
         this.nom = nom;
         this.description = description;
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

@@ -20,7 +20,7 @@ public class Equipement extends Item {
     private int intelligence; //buff stat intelligence
 
     public Equipement(String nom, String description, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence) {
-        super(nom, description)
+        super(nom, description);
         this.degats = degats;
         this.crit = crit;
         this.precision = precision;
@@ -28,5 +28,33 @@ public class Equipement extends Item {
         this.force = force;
         this.dexterite = dexterite;
         this.intelligence = intelligence;
+    }
+
+    public int getDegats() {
+        return degats;
+    }
+
+    public double getCrit() {
+        return crit;
+    }
+
+    public double getPrecision() {
+        return precision;
+    }
+
+    public int getProtection() {
+        return protection;
+    }
+
+    public int getForce() {
+        return force;
+    }
+
+    public int getDexterite() {
+        return dexterite;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
     }
 }
