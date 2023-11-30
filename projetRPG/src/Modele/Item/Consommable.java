@@ -22,7 +22,7 @@ public class Consommable extends Item {
     }
     
     public void appliquer() {
-        personnage.vie += vie;
-        personnage.mana += mana;
+        personnage.setVie(personnage.getVie()+vie);
+        personnage.setMana(personnage.getMana()+mana);
     }
 }

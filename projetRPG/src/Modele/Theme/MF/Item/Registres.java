@@ -28,8 +28,8 @@ public class Registres {
         Set<Magie> set = new HashSet<>();
 
         set.add(new Magie("Baguette fragile", "Une simple baguette de débutant", 2, 0, 0.5, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("mage")));
-        set.add(new Magie("Baguette précieuse", "Cette baguette brille et a l'air rare", 4, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("mage") && j.mana > 2));
-        set.add(new Magie("Relique d'un grand Mage", "Cette baguette d'un autre temps a appartenu a un grand mage", 5, 0.07, 0.8, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("mage") && j.mana > 4));
+        set.add(new Magie("Baguette précieuse", "Cette baguette brille et a l'air rare", 4, 0.07, 0.7, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("mage") && j.getMana() > 2));
+        set.add(new Magie("Relique d'un grand Mage", "Cette baguette d'un autre temps a appartenu a un grand mage", 5, 0.07, 0.8, 0, 0, 0, 0, (j) -> j.getClasse() == new ClassePersonnage("mage") && j.getMana() > 4));
 
         return set;
     }

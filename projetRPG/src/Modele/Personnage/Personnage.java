@@ -1,13 +1,16 @@
 package Modele.Personnage;
 
 public abstract class Personnage {
-    public String nom;
-    public ClassePersonnage classe;
-    public Inventaire inventaire;
+    private String nom;
+    private ClassePersonnage classe;
+    private Inventaire inventaire;
 
     //statistiques mouvantes
-    public int vie;
-    public int mana;
+    private int vie;
+    private int MAX_VIE;
+
+    private int mana;
+    private int MAX_MANA;
 
     //caractéristiques
     private int force;
@@ -60,12 +63,28 @@ public abstract class Personnage {
         this.vie = vie;
     }
 
+    public int getMAX_VIE() {
+        return MAX_VIE;
+    }
+
+    public void setMAX_VIE(int MAX_VIE) {
+        this.MAX_VIE = MAX_VIE;
+    }
+
     public int getMana() {
         return mana;
     }
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getMAX_MANA() {
+        return MAX_MANA;
+    }
+
+    public void setMAX_MANA(int MAX_MANA) {
+        this.MAX_MANA = MAX_MANA;
     }
 
     public int getForce() {
@@ -108,4 +127,8 @@ public abstract class Personnage {
         this.capacite = capacite;
     }
 
+    @Override
+    public String toString() {
+        return nom + "\n" + "Vie : " + vie + "/" + getMAX_VIE() + "\n";
+    }
 }
