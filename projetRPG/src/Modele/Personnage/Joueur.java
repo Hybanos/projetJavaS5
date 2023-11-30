@@ -17,6 +17,12 @@ public class Joueur extends Personnage{
                 "Dextérité : " + getDexterite() + "\n" +
                 "Intelligence : " + getIntelligence() + "\n" +
                 "Capacité Magique : " + getCapacite() + "\n" +
+                "Équipement :\n" +
+                "Arme : " + getArme() + "\n" +
+                "Tête : " + getTete() + "\n" +
+                "Torse : " + getTorse() + "\n" +
+                "Jambes : " + getJambes() + "\n" +
+                "Pieds : " + getPieds() + "\n" +
                 "\nInventaire :\n" + getInventaire();
     }
 }

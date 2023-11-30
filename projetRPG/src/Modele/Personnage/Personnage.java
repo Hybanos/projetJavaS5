@@ -1,5 +1,7 @@
 package Modele.Personnage;
 
+import Modele.Item.Equipement;
+
 public abstract class Personnage {
     private String nom;
     private ClassePersonnage classe;
@@ -19,8 +21,15 @@ public abstract class Personnage {
     private int intelligence;
     private int capacite;
 
+    //emplacements
+    private Equipement arme;
+    private Equipement tete;
+    private Equipement torse;
+    private Equipement jambes;
+    private Equipement pieds;
 
-    public Personnage(String nom, ClassePersonnage classe, Inventaire inventaire, int force, int constitution, int dexterite, int intelligence, int capacite){
+
+    public Personnage(String nom, ClassePersonnage classe, Inventaire inventaire, int force, int constitution, int dexterite, int intelligence, int capacite) {
         this.nom = nom;
         this.classe = classe;
         this.inventaire = inventaire;
@@ -125,6 +134,115 @@ public abstract class Personnage {
 
     public void setCapacite(int capacite) {
         this.capacite = capacite;
+    }
+
+    public Equipement getArme() {
+        return arme;
+    }
+
+    public void setArme(Equipement arme) {
+        this.arme = arme;
+    }
+
+    public Equipement getTete() {
+        return tete;
+    }
+
+    public void setTete(Equipement tete) {
+        this.tete = tete;
+    }
+
+    public Equipement getTorse() {
+        return torse;
+    }
+
+    public void setTorse(Equipement torse) {
+        this.torse = torse;
+    }
+
+    public Equipement getJambes() {
+        return jambes;
+    }
+
+    public void setJambes(Equipement jambes) {
+        this.jambes = jambes;
+    }
+
+    public Equipement getPieds() {
+        return pieds;
+    }
+
+    public void setPieds(Equipement pieds) {
+        this.pieds = pieds;
+    }
+
+    /**
+     * Méthode qui équipe un équipement à la bonne place (jambes, arme, torse,etc...)
+     * @param equipement - équipement à équiper
+     */
+    public void equiper(Equipement equipement) {
+        // méthode pour équiper un équipement
+    }
+
+    /**
+     * Méthode qui renvoie un booléen en fonction du coup qui touche
+     * @return true si le coup touche, false sinon
+     */
+    public boolean calculCoupTouche() {
+        double probabilite = (double) (this.getDexterite() / 10) * this.getArme().getPrecision();
+        double valeurRandom = Math.random();
+        //par exemple, le joueur a 7 de dextérité et un arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
+        return valeurRandom <= probabilite;
+    }
+
+    /**
+     * Méthoe qui calcule les dégâts lorsqu'un coup touche
+     * @return int dégats de base sans ajout de dégats critiques
+     */
+    public int calculDegatsFlat() {
+        return 0;
+    }
+
+    /**
+     * Méthode qui calcule les dégats finaux a envoyer vers l'ennemi, s'il n'y a pas de coup critique, elle renverra la valeur des degats flat
+     * @param degatsFlat valeurs de degats de base
+     * @return int dégâts finaux
+     */
+    public int calculDegatsCrit(int degatsFlat){
+        return 0;
+    }
+
+    /**
+     * Méthode qui attaque avec l'arme sur l'adversaire
+     * @param adversaire - adversaire à envoyer l'attaque
+     */
+    public void attaquerArme(Personnage adversaire) {
+        // méthode pour l'attaque d'un joueur ou d'un ennemi
+    }
+
+    /**
+     * Méthode qui attaque avec le sort sur l'adversaire
+     * @param adversaire - adversaire à envoyer l'attaque
+     */
+    public void attaquerSort(Personnage adversaire) {
+        // méthode pour lancer un sort sur un adversaire
+    }
+
+    /**
+     * Méthode qui calcule les dégâts après réduction par la protection
+     * @param degats - degats de bas avant réduction
+     * @return int dégats finaux à appliquer au joueur
+     */
+    public int calculReducDegats(int degats){
+        return 0;
+    }
+
+    /**
+     * Méthode qui enlève des points de vie à un personnage lorsqu'il se reçoit un coup
+     * @param degats - dégâts infligés par l'adversaire après calcul du coup
+     */
+    public void recevoirCoup(int degats) {
+
     }
 
     @Override

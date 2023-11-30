@@ -55,7 +55,7 @@ public class Registres {
         set.add(new Consommable("Carotte", "", 1, 0));
         set.add(new Consommable("Patate", "", 1, 0));
         set.add(new Consommable("Potion de soin moyenne", "", 5, 0));
-        set.add(new Consommable("Grande potion de soin", "", Integer.MAX_VALUE, 0)); // -1 == potion qui baisse la vie ?
+        set.add(new Consommable("Grande potion de soin", "", 1000, 0)); // -1 == potion qui baisse la vie ?
         set.add(new Consommable("Petite fiole de mana", "", 0, 1));
         set.add(new Consommable("Flacon de mana", "", 2, 3));
         set.add(new Consommable("Grande potion de mana", "", 2, 5));
