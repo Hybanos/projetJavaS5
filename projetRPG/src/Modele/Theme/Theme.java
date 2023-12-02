@@ -1,9 +1,7 @@
 package Modele.Theme;
 
 import Modele.Item.Consommable;
-import Modele.Item.Equipements.CorpsACorps;
-import Modele.Item.Equipements.Magie;
-import Modele.Item.Equipements.Projectile;
+import Modele.Item.Equipements.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +16,7 @@ public abstract class Theme {
     protected Set<Debuff> lesDebuffs = new HashSet<>();
     protected Set<Energie> lesEnergies = new HashSet<>();
     protected Set<Consommable> lesConsommables = new HashSet<>();
+    protected Set<Soin> lesSoins = new HashSet<>();
 
     //Ajouter un attribut pour le Donjon
 

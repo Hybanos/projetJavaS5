@@ -10,4 +10,9 @@ public class ClassePersonnage {
     public String getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 }

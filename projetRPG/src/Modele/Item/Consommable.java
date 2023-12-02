@@ -25,4 +25,9 @@ public class Consommable extends Item {
         personnage.setVie(personnage.getVie()+vie);
         personnage.setMana(personnage.getMana()+mana);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

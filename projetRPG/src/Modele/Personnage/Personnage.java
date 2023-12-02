@@ -22,11 +22,11 @@ public abstract class Personnage {
     private int capacite;
 
     //emplacements
-    private Equipement arme;
-    private Equipement tete;
-    private Equipement torse;
-    private Equipement jambes;
-    private Equipement pieds;
+    private Equipement arme = new Equipement("main", "une main", "arme", 0,0,0,0,0,0,0);
+    private Equipement tete = new Equipement("nu", "tout nu", "tete", 0,0,0,0,0,0,0);
+    private Equipement torse = new Equipement("nu", "tout nu", "torse", 0,0,0,0,0,0,0);
+    private Equipement jambes = new Equipement("nu", "tout nu", "jambes", 0,0,0,0,0,0,0);
+    private Equipement pieds = new Equipement("nu", "tout nu", "pieds", 0,0,0,0,0,0,0);
 
 
     public Personnage(String nom, ClassePersonnage classe, Inventaire inventaire, int force, int constitution, int dexterite, int intelligence, int capacite) {
@@ -38,6 +38,10 @@ public abstract class Personnage {
         this.dexterite = dexterite;
         this.intelligence = intelligence;
         this.capacite = capacite;
+        this.MAX_VIE = constitution * 10;
+        this.vie = MAX_VIE;
+        this.MAX_MANA = capacite * 2;
+        this.mana = MAX_MANA;
     }
 
     public String getNom() {
@@ -176,73 +180,146 @@ public abstract class Personnage {
         this.pieds = pieds;
     }
 
-    /**
-     * Méthode qui équipe un équipement à la bonne place (jambes, arme, torse,etc...)
-     * @param equipement - équipement à équiper
-     */
-    public void equiper(Equipement equipement) {
-        // méthode pour équiper un équipement
-    }
+
+    //Méthodes pour les attaques (lancer et recevoir)
 
     /**
-     * Méthode qui renvoie un booléen en fonction du coup qui touche
+     * Méthode qui renvoie un booléen en fonction de si le coup touche
+     *
      * @return true si le coup touche, false sinon
      */
-    public boolean calculCoupTouche() {
-        double probabilite = (double) (this.getDexterite() / 10) * this.getArme().getPrecision();
-        double valeurRandom = Math.random();
+    public boolean coupTouche() {
+        double probabilite = (double) (this.dexterite / 10) * this.arme.getPrecision();
         //par exemple, le joueur a 7 de dextérité et un arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
-        return valeurRandom <= probabilite;
+        return Math.random() <= probabilite;
     }
 
     /**
      * Méthoe qui calcule les dégâts lorsqu'un coup touche
+     *
      * @return int dégats de base sans ajout de dégats critiques
      */
-    public int calculDegatsFlat() {
-        return 0;
+    public int degatsArme() {
+        return this.force + this.arme.getDegats();
     }
+
 
     /**
      * Méthode qui calcule les dégats finaux a envoyer vers l'ennemi, s'il n'y a pas de coup critique, elle renverra la valeur des degats flat
+     *
      * @param degatsFlat valeurs de degats de base
      * @return int dégâts finaux
      */
-    public int calculDegatsCrit(int degatsFlat){
-        return 0;
+    public int degatsCrit(int degatsFlat) {
+        if (Math.random() <= this.arme.getCrit()) {
+            degatsFlat *= (int) (1 + Math.random());
+        }
+        return degatsFlat;
     }
 
     /**
      * Méthode qui attaque avec l'arme sur l'adversaire
-     * @param adversaire - adversaire à envoyer l'attaque
+     *
+     * @param adversaire adversaire à envoyer l'attaque
+     * @return int degats que le joueur adverse subit
      */
-    public void attaquerArme(Personnage adversaire) {
-        // méthode pour l'attaque d'un joueur ou d'un ennemi
+    public int attaquerArme(Personnage adversaire) {
+        int degats = 0;
+        if (this.coupTouche()) {
+            degats = this.degatsCrit(this.degatsArme());
+        }
+        return adversaire.recevoirCoup(degats);
     }
 
     /**
-     * Méthode qui attaque avec le sort sur l'adversaire
-     * @param adversaire - adversaire à envoyer l'attaque
+     * Méthode qui calcule la valeur de dégâts de base d'un sort
+     *
+     * @param niveau le niveau du sort (1 pour sort simple, 2 pour sort ultime)
+     * @return int dégâts du sort
+     */
+    public int degatsSort(int niveau) {
+        return this.intelligence * 2 * niveau;
+    }
+
+    /**
+     * Méthode qui attaque avec le sort sur l'adversaire (un sort touche toujours)
+     *
+     * @param adversaire adversaire à envoyer l'attaque
      */
     public void attaquerSort(Personnage adversaire) {
-        // méthode pour lancer un sort sur un adversaire
+        int degats = 0;
+        degats = degatsSort(1);
+        adversaire.recevoirCoup(degats);
     }
 
     /**
      * Méthode qui calcule les dégâts après réduction par la protection
-     * @param degats - degats de bas avant réduction
+     *
+     * @param degats degats de bas avant réduction
      * @return int dégats finaux à appliquer au joueur
      */
-    public int calculReducDegats(int degats){
-        return 0;
+    public int reducDegats(int degats) {
+        int armure = this.arme.getProtection() + this.tete.getProtection() + this.torse.getProtection() + this.jambes.getProtection() + this.pieds.getProtection();
+        return degats - (armure / 2);
     }
 
     /**
      * Méthode qui enlève des points de vie à un personnage lorsqu'il se reçoit un coup
-     * @param degats - dégâts infligés par l'adversaire après calcul du coup
+     *
+     * @param degats dégâts infligés par l'adversaire après calcul du coup
+     * @return int degats que le joueur subit
      */
-    public void recevoirCoup(int degats) {
+    public int recevoirCoup(int degats) {
+        int degatsReels = reducDegats(degats);
+        if (degatsReels > 0) {
+            this.vie -= degatsReels;
+        }
+        return degatsReels;
+    }
 
+    //Méthodes de gestion d'inventaire
+
+    /**
+     * Méthode qui équipe un équipement à la bonne place (jambes, arme, torse,etc...)
+     *
+     * @param equipement équipement à équiper
+     * @return boolean l'équipement a bien été équipé
+     */
+    public boolean equiper(Equipement equipement) {
+        boolean effectue = false;
+        if (equipement.getPreRequis().test(this)) {
+            switch (equipement.getEmplacement()) {
+                case "arme":
+                    this.arme = equipement;
+                    break;
+                case "tete":
+                    this.tete = equipement;
+                    break;
+                case "torse":
+                    this.torse = equipement;
+                    break;
+                case "jambes":
+                    this.jambes = equipement;
+                    break;
+                case "pieds":
+                    this.pieds = equipement;
+                    break;
+            }
+            effectue = true;
+        }
+        return effectue;
+        //Il manque la rendue d'item si ça en remplace un + suppression d'item de l'inventaire si ça l'équipe
+    }
+
+    //Méthodes de gestion du joueur
+
+    /**
+     * Renvoie s'il reste de la vie à un joueur
+     *
+     * @return boolean true s'il est en vie, false s'il est mort
+     */
+    public boolean estEnVie() {
+        return vie > 0;
     }
 
     @Override

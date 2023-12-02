@@ -16,4 +16,9 @@ public abstract class Item {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return nom + " - " + description;
+    }
 }

@@ -7,18 +7,17 @@ import Modele.Personnage.Personnage;
 import java.util.function.Predicate;
 
 public class Equipement extends Item {
-    //stats uniquement armes
+    private String emplacement; //arme, tete, torse, jambes, pieds
 
+    //stats uniquement armes
     private int degats; //valeur de dégâts
     private double crit; //taux de crit (ex: 0.07 pour 7%)
     private double precision; //taux de précision (ex: 0.50 pour 50%)
 
     //stats armes et armures
-
     private int protection; //valeur de protection
 
     //stats uniquement armures
-
     private int force; //buff stat force
     private int dexterite; //buff stat dexterite
     private int intelligence; //buff stat intelligence
@@ -26,8 +25,9 @@ public class Equipement extends Item {
     // pré requis
     private Predicate<Personnage> preRequis;
 
-    public Equipement(String nom, String description, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence) {
+    public Equipement(String nom, String description, String emplacement, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence) {
         super(nom, description);
+        this.emplacement = emplacement;
         this.degats = degats;
         this.crit = crit;
         this.precision = precision;
@@ -35,11 +35,17 @@ public class Equipement extends Item {
         this.force = force;
         this.dexterite = dexterite;
         this.intelligence = intelligence;
+        this.preRequis = x -> true;
     }
 
-    public Equipement(String nom, String description, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence, Predicate<Personnage> preRequis) {
-        this(nom, description, degats, crit, precision, protection, force, dexterite, intelligence);
+    public Equipement(String nom, String description, String emplacement, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence, Predicate<Personnage> preRequis) {
+        this(nom, description, emplacement, degats, crit, precision, protection, force, dexterite, intelligence);
         this.preRequis = preRequis;
+    }
+
+
+    public String getEmplacement() {
+        return emplacement;
     }
 
     public int getDegats() {
@@ -68,5 +74,14 @@ public class Equipement extends Item {
 
     public int getIntelligence() {
         return intelligence;
+    }
+
+    public Predicate<Personnage> getPreRequis() {
+        return preRequis;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
