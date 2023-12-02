@@ -25,15 +25,19 @@ public class Inventaire {
         return this.sac.get(index);
     }
 
-    public void supprItem(int index) {
-        this.sac.remove(index);
+    public void supprItem(Item item) {
+        this.sac.remove(item);
     }
 
     @Override
     public String toString() {
         String inv = "";
-        for(int i = 0; i < this.sac.size(); i++){
-            inv += "[" + i + "] " + this.sac.get(i).getNom() + " | " + this.sac.get(i).getDescription() + "\n";
+        if (this.sac.isEmpty()) {
+            inv = "Le sac est vide";
+        } else {
+            for (int i = 0; i < this.sac.size(); i++) {
+                inv += "[" + i + "] " + this.sac.get(i) + "\n";
+            }
         }
         return inv;
     }

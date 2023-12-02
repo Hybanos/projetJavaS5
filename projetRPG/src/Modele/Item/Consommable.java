@@ -20,10 +20,10 @@ public class Consommable extends Item {
     public int getMana() {
         return mana;
     }
-    
-    public void appliquer() {
-        personnage.setVie(personnage.getVie()+vie);
-        personnage.setMana(personnage.getMana()+mana);
+
+    public void utiliser() {
+        personnage.ajouterVie(vie);
+        personnage.ajouterMana(mana);
     }
 
     @Override

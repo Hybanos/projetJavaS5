@@ -22,11 +22,11 @@ public abstract class Personnage {
     private int capacite;
 
     //emplacements
-    private Equipement arme = new Equipement("main", "une main", "arme", 0,0,0,0,0,0,0);
-    private Equipement tete = new Equipement("nu", "tout nu", "tete", 0,0,0,0,0,0,0);
-    private Equipement torse = new Equipement("nu", "tout nu", "torse", 0,0,0,0,0,0,0);
-    private Equipement jambes = new Equipement("nu", "tout nu", "jambes", 0,0,0,0,0,0,0);
-    private Equipement pieds = new Equipement("nu", "tout nu", "pieds", 0,0,0,0,0,0,0);
+    private Equipement arme = new Equipement("Main", "une main", "", 0, 0, 0, 0, 0, 0, 0);
+    private Equipement tete = new Equipement("Tête nue", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+    private Equipement torse = new Equipement("Torse nu", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+    private Equipement jambes = new Equipement("Jambes nues", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+    private Equipement pieds = new Equipement("Pieds nus", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
 
 
     public Personnage(String nom, ClassePersonnage classe, Inventaire inventaire, int force, int constitution, int dexterite, int intelligence, int capacite) {
@@ -291,6 +291,7 @@ public abstract class Personnage {
     public boolean equiper(Equipement equipement) {
         boolean effectue = false;
         if (equipement.getPreRequis().test(this)) {
+            this.ajouterStats(equipement.getForce(), equipement.getDexterite(), equipement.getIntelligence());
             switch (equipement.getEmplacement()) {
                 case "arme":
                     this.arme = equipement;
@@ -308,13 +309,114 @@ public abstract class Personnage {
                     this.pieds = equipement;
                     break;
             }
+            this.inventaire.supprItem(equipement);
             effectue = true;
         }
         return effectue;
-        //Il manque la rendue d'item si ça en remplace un + suppression d'item de l'inventaire si ça l'équipe
+    }
+
+    /**
+     * Méthode qui déséquipe un équipement s'il y en a un, et le remet dans l'inventaire
+     *
+     * @param emplacement emplacement à déséquiper
+     * @return true si c'est bien déséquipé, false sinon
+     */
+    public boolean desequiper(String emplacement) {
+        boolean effectue = false;
+        switch (emplacement) {
+            case "arme":
+                if (this.arme.getEmplacement() != "") {
+                    this.retirerStats(this.arme.getForce(), this.arme.getDexterite(), this.arme.getIntelligence());
+                    this.inventaire.ajouterItem(this.arme);
+                    this.arme = new Equipement("Main", "une main", "", 0, 0, 0, 0, 0, 0, 0);
+                    effectue = true;
+                }
+                break;
+            case "tete":
+                if (this.tete.getEmplacement() != "") {
+                    this.retirerStats(this.tete.getForce(), this.tete.getDexterite(), this.tete.getIntelligence());
+                    this.inventaire.ajouterItem(this.tete);
+                    this.tete = new Equipement("Tête nue", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+                    effectue = true;
+                }
+                break;
+            case "torse":
+                if (this.torse.getEmplacement() != "") {
+                    this.retirerStats(this.torse.getForce(), this.torse.getDexterite(), this.torse.getIntelligence());
+                    this.inventaire.ajouterItem(this.torse);
+                    this.torse = new Equipement("Torse nu", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+                    effectue = true;
+                }
+                break;
+            case "jambes":
+                if (this.jambes.getEmplacement() != "") {
+                    this.retirerStats(this.jambes.getForce(), this.jambes.getDexterite(), this.jambes.getIntelligence());
+                    this.inventaire.ajouterItem(this.jambes);
+                    this.jambes = new Equipement("Jambes nues", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+                    effectue = true;
+                }
+                break;
+            case "pieds":
+                if (this.pieds.getEmplacement() != "") {
+                    this.retirerStats(this.pieds.getForce(), this.pieds.getDexterite(), this.pieds.getIntelligence());
+                    this.inventaire.ajouterItem(this.pieds);
+                    this.pieds = new Equipement("Peids nus", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+                    effectue = true;
+                }
+                break;
+        }
+        return effectue;
     }
 
     //Méthodes de gestion du joueur
+
+    /**
+     * Ajoute de la vie en vérifiant que la statistique max n'est pas dépassée
+     *
+     * @param vie quantité de vie à ajouter
+     */
+    public void ajouterVie(int vie) {
+        if (this.vie + vie >= MAX_VIE) {
+            this.vie = MAX_VIE;
+        } else this.vie += vie;
+    }
+
+    /**
+     * Ajoute du mana en vérifiant que la statistique max n'est pas dépassée
+     *
+     * @param mana quantité de mana à ajouter
+     */
+    public void ajouterMana(int mana) {
+        if (this.mana + mana >= MAX_MANA) {
+            this.mana = MAX_MANA;
+        } else this.mana += mana;
+    }
+
+    /**
+     * Ajoute des statistiques au joueur (utile lorsqu'on équipe)
+     *
+     * @param force        force à ajouter
+     * @param dexterite    dextérité à ajouter
+     * @param intelligence intelligence à ajouter
+     */
+    public void ajouterStats(int force, int dexterite, int intelligence) {
+        this.force += force;
+        this.dexterite += dexterite;
+        this.intelligence += intelligence;
+    }
+
+    /**
+     * Retire des statistiques au joueur (utile lorsqu'on déséquipe)
+     *
+     * @param force        force à retirer
+     * @param dexterite    dextérité à retirer
+     * @param intelligence intelligence à retirer
+     */
+    public void retirerStats(int force, int dexterite, int intelligence) {
+        this.force -= force;
+        this.dexterite -= dexterite;
+        this.intelligence -= intelligence;
+    }
 
     /**
      * Renvoie s'il reste de la vie à un joueur
