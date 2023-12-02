@@ -23,6 +23,7 @@ public class Joueur extends Personnage{
                 "Torse : " + getTorse() + "\n" +
                 "Jambes : " + getJambes() + "\n" +
                 "Pieds : " + getPieds() + "\n" +
+                "Probabilité de toucher : " + (int) (((((double) this.getDexterite() / 10) + this.getArme().getPrecision()) / 2) * 100) + "%" +
                 "\nInventaire :\n" + getInventaire();
     }
 }

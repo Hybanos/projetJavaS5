@@ -189,9 +189,10 @@ public abstract class Personnage {
      * @return true si le coup touche, false sinon
      */
     public boolean coupTouche() {
-        double probabilite = (double) (this.dexterite / 10) * this.arme.getPrecision();
-        //par exemple, le joueur a 7 de dextérité et un arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
-        return Math.random() <= probabilite;
+        double probabilite = (((double) this.dexterite / 10) + this.arme.getPrecision()) / 2;
+        //par exemple, le joueur a 7 de dextérité et une arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
+        double random = Math.random();
+        return random <= probabilite;
     }
 
     /**
@@ -211,10 +212,12 @@ public abstract class Personnage {
      * @return int dégâts finaux
      */
     public int degatsCrit(int degatsFlat) {
-        if (Math.random() <= this.arme.getCrit()) {
-            degatsFlat *= (int) (1 + Math.random());
+        double random = Math.random();
+        int degats = degatsFlat;
+        if (random <= this.arme.getCrit()) {
+            degats = (int) (degatsFlat * (1 + Math.random()));
         }
-        return degatsFlat;
+        return degats;
     }
 
     /**

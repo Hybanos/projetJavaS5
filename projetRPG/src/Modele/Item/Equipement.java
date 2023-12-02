@@ -22,7 +22,7 @@ public class Equipement extends Item {
     private int dexterite; //buff stat dexterite
     private int intelligence; //buff stat intelligence
 
-    // pré requis
+    // pré-requis
     private Predicate<Personnage> preRequis;
 
     public Equipement(String nom, String description, String emplacement, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence) {
