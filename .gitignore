@@ -3,3 +3,4 @@
 *.iml
 projetRPG/.idea/sonarlint/*
 
+*.class
