@@ -2,6 +2,8 @@ package Modele.Personnage;
 
 import Modele.Item.Equipement;
 
+import javax.management.ObjectInstance;
+
 public abstract class Personnage {
     private String nom;
     private ClassePersonnage classe;
@@ -436,6 +438,36 @@ public abstract class Personnage {
         this.force -= force;
         this.dexterite -= dexterite;
         this.intelligence -= intelligence;
+    }
+
+    public boolean utiliserPoints(int points, String stat){
+        boolean effectue = false;
+        if (points <= this.pts_dispo) {
+            effectue = true;
+            switch (stat) {
+                case "force":
+                    this.force += points;
+                    this.pts_dispo -= points;
+                    break;
+                case "constitution":
+                    this.constitution += points;
+                    this.pts_dispo -= points;
+                    break;
+                case "dexterite":
+                    this.dexterite += points;
+                    this.pts_dispo -= points;
+                    break;
+                case "intelligence":
+                    this.intelligence += points;
+                    this.pts_dispo -= points;
+                    break;
+                case "capacite":
+                    this.capacite += points;
+                    this.pts_dispo -= points;
+                    break;
+            }
+        }
+        return effectue;
     }
 
     /**
