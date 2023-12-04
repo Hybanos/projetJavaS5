@@ -13,6 +13,7 @@ public abstract class Personnage {
 
     private int mana;
     private int MAX_MANA;
+    private int pts_dispo;
 
     //caractéristiques
     private int force;
@@ -42,6 +43,7 @@ public abstract class Personnage {
         this.vie = MAX_VIE;
         this.MAX_MANA = capacite * 2;
         this.mana = MAX_MANA;
+        this.pts_dispo = 0;
     }
 
     public String getNom() {
@@ -98,6 +100,14 @@ public abstract class Personnage {
 
     public void setMAX_MANA(int MAX_MANA) {
         this.MAX_MANA = MAX_MANA;
+    }
+
+    public int getPts_dispo() {
+        return pts_dispo;
+    }
+
+    public void setPts_dispo(int pts_dispo) {
+        this.pts_dispo = pts_dispo;
     }
 
     public int getForce() {
@@ -281,6 +291,16 @@ public abstract class Personnage {
     }
 
     //Méthodes de gestion d'inventaire
+
+    /**
+     * Permet de jeter un item de l'inventaire, ce qui le supprimera de son inventaire, et l'ajoutera à celui de la salle
+     *
+     * @param index numéro de l'item à supprimer
+     */
+    public void jeterItem(int index) {
+        //ajouter l'item à l'inventaire de la salle
+        this.inventaire.supprItem(index);
+    }
 
     /**
      * Méthode qui équipe un équipement à la bonne place (jambes, arme, torse,etc...)

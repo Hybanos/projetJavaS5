@@ -29,6 +29,10 @@ public class Inventaire {
         this.sac.remove(item);
     }
 
+    public void supprItem(int index) {
+        this.sac.remove(index);
+    }
+
     @Override
     public String toString() {
         String inv = "";
