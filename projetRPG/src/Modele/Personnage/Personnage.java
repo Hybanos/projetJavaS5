@@ -158,7 +158,7 @@ public abstract class Personnage {
      * @return true si le coup touche, false sinon
      */
     public boolean coupTouche() {
-        double probabilite = (((double) this.dexterite / 10) + this.arme.getPrecision()) / 2;
+        double probabilite = (((double) this.dexterite / 10) + inventaire.getArme().getPrecision()) / 2;
         //par exemple, le joueur a 7 de dextérité et une arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
         double random = Math.random();
         return random <= probabilite;
@@ -170,7 +170,7 @@ public abstract class Personnage {
      * @return int dégats de base sans ajout de dégats critiques
      */
     public int degatsArme() {
-        return this.force + this.arme.getDegats();
+        return this.force + inventaire.getArme().getDegats();
     }
 
 
@@ -183,7 +183,7 @@ public abstract class Personnage {
     public int degatsCrit(int degatsFlat) {
         double random = Math.random();
         int degats = degatsFlat;
-        if (random <= this.arme.getCrit()) {
+        if (random <= inventaire.getArme().getCrit()) {
             degats = (int) (degatsFlat * (1 + Math.random()));
         }
         return degats;
@@ -231,7 +231,7 @@ public abstract class Personnage {
      * @return int dégats finaux à appliquer au joueur
      */
     public int reducDegats(int degats) {
-        int armure = this.arme.getProtection() + this.tete.getProtection() + this.torse.getProtection() + this.jambes.getProtection() + this.pieds.getProtection();
+        int armure = inventaire.getArme().getProtection() + inventaire.getTete().getProtection() + inventaire.getTorse().getProtection() + inventaire.getJambes().getProtection() + inventaire.getPieds().getProtection();
         return degats - (armure / 2);
     }
 
@@ -244,7 +244,7 @@ public abstract class Personnage {
     public int recevoirCoup(int degats) {
         int degatsReels = reducDegats(degats);
         if (degatsReels > 0) {
-            this.vie -= degatsReels;
+            vie -= degatsReels;
         }
         return degatsReels;
     }
@@ -258,7 +258,7 @@ public abstract class Personnage {
      */
     public void jeterItem(int index) {
         //ajouter l'item à l'inventaire de la salle
-        this.inventaire.supprItem(index);
+        inventaire.supprItem(index);
     }
 
     /**
@@ -273,19 +273,19 @@ public abstract class Personnage {
             this.ajouterStats(equipement.getForce(), equipement.getDexterite(), equipement.getIntelligence());
             switch (equipement.getEmplacement()) {
                 case "arme":
-                    this.arme = equipement;
+                    inventaire.setArme(equipement);
                     break;
                 case "tete":
-                    this.tete = equipement;
+                    inventaire.setTete(equipement);
                     break;
                 case "torse":
-                    this.torse = equipement;
+                    inventaire.setTorse(equipement);
                     break;
                 case "jambes":
-                    this.jambes = equipement;
+                    inventaire.setJambes(equipement);
                     break;
                 case "pieds":
-                    this.pieds = equipement;
+                    inventaire.setPieds(equipement);
                     break;
             }
             this.inventaire.supprItem(equipement);
@@ -304,42 +304,42 @@ public abstract class Personnage {
         boolean effectue = false;
         switch (emplacement) {
             case "arme":
-                if (this.arme.getEmplacement() != "") {
-                    this.retirerStats(this.arme.getForce(), this.arme.getDexterite(), this.arme.getIntelligence());
-                    this.inventaire.ajouterItem(this.arme);
-                    this.arme = new Equipement("Main", "une main", "", 0, 0, 0, 0, 0, 0, 0);
+                if (inventaire.getArme().getEmplacement() != "") {
+                    this.retirerStats(inventaire.getArme().getForce(), inventaire.getArme().getDexterite(), inventaire.getArme().getIntelligence());
+                    inventaire.ajouterItem(inventaire.getArme());
+                    inventaire.setArme(new Equipement("Main", "une main", "", 0, 0, 0, 0, 0, 0, 0));
                     effectue = true;
                 }
                 break;
             case "tete":
-                if (this.tete.getEmplacement() != "") {
-                    this.retirerStats(this.tete.getForce(), this.tete.getDexterite(), this.tete.getIntelligence());
-                    this.inventaire.ajouterItem(this.tete);
-                    this.tete = new Equipement("Tête nue", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+                if (inventaire.getTete().getEmplacement() != "") {
+                    this.retirerStats(inventaire.getTete().getForce(), inventaire.getTete().getDexterite(), inventaire.getTete().getIntelligence());
+                    inventaire.ajouterItem(inventaire.getTete());
+                    inventaire.setTete(new Equipement("Tête nue", "tout nu", "", 0, 0, 0, 0, 0, 0, 0));
                     effectue = true;
                 }
                 break;
             case "torse":
-                if (this.torse.getEmplacement() != "") {
-                    this.retirerStats(this.torse.getForce(), this.torse.getDexterite(), this.torse.getIntelligence());
-                    this.inventaire.ajouterItem(this.torse);
-                    this.torse = new Equipement("Torse nu", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+                if (inventaire.getTorse().getEmplacement() != "") {
+                    this.retirerStats(inventaire.getTorse().getForce(), inventaire.getTorse().getDexterite(), inventaire.getTorse().getIntelligence());
+                    inventaire.ajouterItem(inventaire.getTorse());
+                    inventaire.setTorse(new Equipement("Torse nu", "tout nu", "", 0, 0, 0, 0, 0, 0, 0));
                     effectue = true;
                 }
                 break;
             case "jambes":
-                if (this.jambes.getEmplacement() != "") {
-                    this.retirerStats(this.jambes.getForce(), this.jambes.getDexterite(), this.jambes.getIntelligence());
-                    this.inventaire.ajouterItem(this.jambes);
-                    this.jambes = new Equipement("Jambes nues", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+                if (inventaire.getJambes().getEmplacement() != "") {
+                    this.retirerStats(inventaire.getJambes().getForce(), inventaire.getJambes().getDexterite(), inventaire.getJambes().getIntelligence());
+                    inventaire.ajouterItem(inventaire.getJambes());
+                    inventaire.setJambes(new Equipement("Jambes nues", "tout nu", "", 0, 0, 0, 0, 0, 0, 0));
                     effectue = true;
                 }
                 break;
             case "pieds":
-                if (this.pieds.getEmplacement() != "") {
-                    this.retirerStats(this.pieds.getForce(), this.pieds.getDexterite(), this.pieds.getIntelligence());
-                    this.inventaire.ajouterItem(this.pieds);
-                    this.pieds = new Equipement("Peids nus", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+                if (inventaire.getPieds().getEmplacement() != "") {
+                    this.retirerStats(inventaire.getPieds().getForce(), inventaire.getPieds().getDexterite(), inventaire.getPieds().getIntelligence());
+                    inventaire.ajouterItem(inventaire.getPieds());
+                    inventaire.setPieds(new Equipement("Peids nus", "tout nu", "", 0, 0, 0, 0, 0, 0, 0));
                     effectue = true;
                 }
                 break;
