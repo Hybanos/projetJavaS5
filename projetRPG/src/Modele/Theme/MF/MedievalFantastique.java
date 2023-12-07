@@ -19,9 +19,7 @@ public class MedievalFantastique extends Theme {
 
     private void initItems() {
         System.out.println("Init. Items");
-        lesArmesCorpsACorps = Registres.genererCorpsACorps();
-        lesProjectiles = Registres.genererProjectile();
-        lesMagies = Registres.genererMagie();
+        lesArmes = Registres.genererArmes();
         lesConsommables = Registres.genererConsomable();
     }
 

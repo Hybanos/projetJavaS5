@@ -1,68 +1,75 @@
 package Modele.Personnage;
 
+import Controleur.Controleur;
 import Modele.Item.Equipement;
 import Modele.Item.Item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Inventaire {
+
+    private Controleur c = Controleur.getInstance();
     private List<Item> sac;
 
     //emplacements
-    private Equipement arme = new Equipement("Main", "une main", "", 0, 0, 0, 0, 0, 0, 0);
-    private Equipement tete = new Equipement("Tête nue", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
-    private Equipement torse = new Equipement("Torse nu", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
-    private Equipement jambes = new Equipement("Jambes nues", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
-    private Equipement pieds = new Equipement("Pieds nus", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+    private Map<String, Equipement> equipements;
 
     private final int tailleMax = 20;
 
     public Inventaire() {
         this.sac = new ArrayList<>();
+        this.equipements = new HashMap<>();
+        equipements.put("arme", c.getTheme().getLesArmes().get(100));
+        equipements.put("tete", c.getTheme().getLesArmes().get(200));
+        equipements.put("torse", c.getTheme().getLesArmes().get(200));
+        equipements.put("jambes", c.getTheme().getLesArmes().get(200));
+        equipements.put("pieds", c.getTheme().getLesArmes().get(200));
     }
 
     public void trierInventaire() {
         //méthode de comparation + il faut redéfinir compareTo dans Item enfin c'est perdu quoi
     }
     public Equipement getArme() {
-        return arme;
+        return equipements.get("arme");
     }
 
     public void setArme(Equipement arme) {
-        this.arme = arme;
+        equipements.put("arme", arme);
     }
 
     public Equipement getTete() {
-        return tete;
+        return equipements.get("tete");
     }
 
     public void setTete(Equipement tete) {
-        this.tete = tete;
+        equipements.put("tete", tete);
     }
 
     public Equipement getTorse() {
-        return torse;
+        return equipements.get("torse");
     }
 
     public void setTorse(Equipement torse) {
-        this.torse = torse;
+        equipements.put("torse", torse);
     }
 
     public Equipement getJambes() {
-        return jambes;
+        return equipements.get("jambes");
     }
 
     public void setJambes(Equipement jambes) {
-        this.jambes = jambes;
+        equipements.put("jambes", jambes);
     }
 
     public Equipement getPieds() {
-        return pieds;
+        return equipements.get("pieds");
     }
 
     public void setPieds(Equipement pieds) {
-        this.pieds = pieds;
+        equipements.put("pieds", pieds);
     }
 
     public void ajouterItem(Item item) {

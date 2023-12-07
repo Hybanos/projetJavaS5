@@ -1,17 +1,14 @@
 package Modele.Theme;
 
 import Modele.Item.Consommable;
+import Modele.Item.Equipement;
 import Modele.Item.Equipements.*;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public abstract class Theme {
-    protected Map<Integer, CorpsACorps> lesArmesCorpsACorps = new HashMap<>();
-    protected Map<Integer, Projectile> lesProjectiles = new HashMap<>();
-    protected Map<Integer, Magie> lesMagies = new HashMap<>();
+    protected Map<Integer, Equipement> lesArmes = new HashMap<>();
     protected Map<Integer, Bouclier> lesBoucliers = new HashMap<>();
     protected Map<Integer, Armure> lesArmures = new HashMap<>();
     protected Map<Integer, Buff> lesBuffs = new HashMap<>();
@@ -30,20 +27,12 @@ public abstract class Theme {
     protected abstract void initialiser();
 
 
-    public Map<Integer, CorpsACorps> getLesArmesCorpsACorps() {
-        return lesArmesCorpsACorps;
+    public Map<Integer, Equipement> getLesArmes() {
+        return lesArmes;
     }
 
-    public void setLesArmesCorpsACorps(Map<Integer, CorpsACorps> lesArmesCorpsACorps) {
-        this.lesArmesCorpsACorps = lesArmesCorpsACorps;
-    }
-
-    public Map<Integer, Projectile> getLesProjectiles() {
-        return lesProjectiles;
-    }
-
-    public void setLesProjectiles(Map<Integer, Projectile> lesProjectiles) {
-        this.lesProjectiles = lesProjectiles;
+    public void setLesArmes(Map<Integer, Equipement> lesArmes) {
+        this.lesArmes = lesArmes;
     }
 
     public Map<Integer,Bouclier> getLesBoucliers() {

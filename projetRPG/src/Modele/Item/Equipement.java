@@ -44,6 +44,7 @@ public class Equipement extends Item {
     }
 
 
+
     public String getEmplacement() {
         return emplacement;
     }
