@@ -7,6 +7,14 @@ import java.util.List;
 
 public class Inventaire {
     private List<Item> sac;
+
+    //emplacements
+    private Equipement arme = new Equipement("Main", "une main", "", 0, 0, 0, 0, 0, 0, 0);
+    private Equipement tete = new Equipement("Tête nue", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+    private Equipement torse = new Equipement("Torse nu", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+    private Equipement jambes = new Equipement("Jambes nues", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+    private Equipement pieds = new Equipement("Pieds nus", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+
     private final int tailleMax = 20;
 
     public Inventaire() {

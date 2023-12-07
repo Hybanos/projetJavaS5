@@ -24,12 +24,7 @@ public abstract class Personnage {
     private int intelligence;
     private int capacite;
 
-    //emplacements
-    private Equipement arme = new Equipement("Main", "une main", "", 0, 0, 0, 0, 0, 0, 0);
-    private Equipement tete = new Equipement("Tête nue", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
-    private Equipement torse = new Equipement("Torse nu", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
-    private Equipement jambes = new Equipement("Jambes nues", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
-    private Equipement pieds = new Equipement("Pieds nus", "tout nu", "", 0, 0, 0, 0, 0, 0, 0);
+    // on a déplacé le stuff dans inventaire
 
 
     public Personnage(String nom, ClassePersonnage classe, Inventaire inventaire, int force, int constitution, int dexterite, int intelligence, int capacite) {
