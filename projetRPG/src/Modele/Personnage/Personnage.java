@@ -147,45 +147,7 @@ public abstract class Personnage {
         this.capacite = capacite;
     }
 
-    public Equipement getArme() {
-        return arme;
-    }
 
-    public void setArme(Equipement arme) {
-        this.arme = arme;
-    }
-
-    public Equipement getTete() {
-        return tete;
-    }
-
-    public void setTete(Equipement tete) {
-        this.tete = tete;
-    }
-
-    public Equipement getTorse() {
-        return torse;
-    }
-
-    public void setTorse(Equipement torse) {
-        this.torse = torse;
-    }
-
-    public Equipement getJambes() {
-        return jambes;
-    }
-
-    public void setJambes(Equipement jambes) {
-        this.jambes = jambes;
-    }
-
-    public Equipement getPieds() {
-        return pieds;
-    }
-
-    public void setPieds(Equipement pieds) {
-        this.pieds = pieds;
-    }
 
 
     //Méthodes pour les attaques (lancer et recevoir)
