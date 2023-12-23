@@ -1,6 +1,5 @@
 package Modele.Theme.MF;
 
-import Modele.Theme.MF.Item.Registres;
 import Modele.Theme.Theme;
 
 public class MedievalFantastique extends Theme {
@@ -19,8 +18,8 @@ public class MedievalFantastique extends Theme {
 
     private void initItems() {
         System.out.println("Init. Items");
-        lesArmes = Registres.genererArmes();
-        lesConsommables = Registres.genererConsomable();
+        lesConsommables = RegistresMF.genererConsomable();
+        lesEquipements = RegistresMF.genererEquipements();
     }
 
     private void initDonjon() {

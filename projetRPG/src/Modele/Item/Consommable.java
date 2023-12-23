@@ -1,7 +1,5 @@
 package Modele.Item;
 
-import Modele.Personnage.Personnage;
-
 public class Consommable extends Item {
     private int vie; //rajout de vie
     private int mana; //rajout de mana
@@ -18,11 +16,6 @@ public class Consommable extends Item {
 
     public int getMana() {
         return mana;
-    }
-
-    public void utiliser() {
-        personnage.ajouterVie(vie);
-        personnage.ajouterMana(mana);
     }
 
     @Override

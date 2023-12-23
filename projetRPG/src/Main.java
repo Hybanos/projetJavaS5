@@ -3,8 +3,6 @@ import Modele.Personnage.ClassePersonnage;
 import Modele.Personnage.Inventaire;
 import Modele.Personnage.Joueur;
 
-import java.util.Objects;
-
 public class Main {
     public static void main(String[] args) {
         ClassePersonnage barbare = new ClassePersonnage("barbare");
@@ -18,6 +16,7 @@ public class Main {
         System.out.println(j2.equiper(e3));
         System.out.println(j2.equiper(e2));
         System.out.println(j2.equiper(e3));
+        System.out.println(j2.desequiper("jambes"));
         System.out.println(j2.desequiper("jambes"));
         System.out.println(j1);
         System.out.println(j2);

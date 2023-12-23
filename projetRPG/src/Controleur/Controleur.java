@@ -4,8 +4,8 @@ import Modele.Theme.MF.MedievalFantastique;
 import Modele.Theme.Theme;
 
 public class Controleur {
-    //A voir si on fait pas un contrôleur pas thème
-        // apparement pas clair
+    //À voir si on ne fait pas un contrôleur par thème
+        //Apparement pas clair
 
     private static Controleur instance;
     private Theme theme;
