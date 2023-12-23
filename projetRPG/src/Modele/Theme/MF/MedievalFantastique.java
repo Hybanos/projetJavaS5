@@ -5,7 +5,7 @@ import Modele.Theme.Theme;
 public class MedievalFantastique extends Theme {
 
     public MedievalFantastique() {
-        super();
+        super("mf");
     }
 
     public void initialiser() {

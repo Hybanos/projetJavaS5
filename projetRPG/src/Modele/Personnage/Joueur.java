@@ -385,7 +385,7 @@ public class Joueur {
         return nom + "\n" +
                 "Vie : " + vie + "/" + MAX_VIE + "\n" +
                 "Mana : " + mana + "/" + MAX_MANA + "\n" +
-                "Classe : " + classe + "\n" +
+                "Classe : " + classe.getType() + "\n" +
                 "\nStatistiques :\n" +
                 "Force : " + force + "\n" +
                 "Constitution : " + constitution + "\n" +

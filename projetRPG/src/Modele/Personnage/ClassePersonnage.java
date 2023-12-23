@@ -13,6 +13,6 @@ public class ClassePersonnage {
 
     @Override
     public String toString() {
-        return type;
+        return "Classe : " + type + "\n";
     }
 }

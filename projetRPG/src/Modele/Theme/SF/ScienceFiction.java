@@ -4,9 +4,12 @@ import Modele.Theme.MF.RegistresMF;
 import Modele.Theme.Theme;
 
 public class ScienceFiction extends Theme {
+
+    public ScienceFiction() {
+        super("sf");
+    }
     @Override
     protected void initialiser() {
-
     }
 
     private void initItems() {
