@@ -1,6 +1,9 @@
 package Vue;
 
 import Controleur.Controleur;
+import Modele.Donjon.Salle;
+import Modele.Personnage.Inventaire;
+import Modele.Personnage.Joueur;
 
 import java.util.Scanner;
 
@@ -74,4 +77,44 @@ public class Ihm {
     }
 
     // Afficher
+
+    public void afficherJoueur(Joueur j) {
+        System.out.println(j);
+    }
+
+    public void afficherEssentiel(Joueur j) {
+        System.out.println(j.getNom() + "\n" +
+                "Vie : " + j.getVie() + "/" + j.getMAX_VIE() + "\n" +
+                "Mana : " + j.getMana() + "/" + j.getMAX_MANA() + "\n");
+    }
+
+    public void afficherSalle(){
+
+    }
+
+    public void afficherInventaire(Joueur j) {
+        System.out.println(j.getNom() + "\n" +
+                "Équipement :\n" +
+                "Arme : " + j.getInventaire().getEquipement("arme") + "\n" +
+                "Tête : " + j.getInventaire().getEquipement("tete") + "\n" +
+                "Torse : " + j.getInventaire().getEquipement("torse") + "\n" +
+                "Jambes : " + j.getInventaire().getEquipement("jambes") + "\n" +
+                "Pieds : " + j.getInventaire().getEquipement("pieds") + "\n" +
+                "\nInventaire :\n" + j.getInventaire());
+    }
+
+    public void afficherInventaire(Salle s) {
+        System.out.println(s.getLesItems());
+    }
+
+    public void afficherStatistiques(Joueur j) {
+        System.out.println(j.getNom() + "\n" +
+                "\nStatistiques :\n" +
+                "Force : " + j.getForce() + "\n" +
+                "Constitution : " + j.getConstitution() + "\n" +
+                "Dextérité : " + j.getDexterite() + "\n" +
+                "Intelligence : " + j.getIntelligence() + "\n" +
+                "Capacité Magique : " + j.getCapacite() + "\n" +
+                "Probabilité de toucher : " + (int) (((((double) j.getDexterite() / 10) + j.getInventaire().getEquipement("arme").getPrecision()) / 2) * 100) + "%");
+    }
 }

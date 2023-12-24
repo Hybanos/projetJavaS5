@@ -392,13 +392,13 @@ public class Joueur {
                 "Dextérité : " + dexterite + "\n" +
                 "Intelligence : " + intelligence + "\n" +
                 "Capacité Magique : " + capacite + "\n" +
+                "Probabilité de toucher : " + (int) (((((double) dexterite / 10) + inventaire.getEquipement("arme").getPrecision()) / 2) * 100) + "%" +
                 "Équipement :\n" +
                 "Arme : " + inventaire.getEquipement("arme") + "\n" +
                 "Tête : " + inventaire.getEquipement("tete") + "\n" +
                 "Torse : " + inventaire.getEquipement("torse") + "\n" +
                 "Jambes : " + inventaire.getEquipement("jambes") + "\n" +
                 "Pieds : " + inventaire.getEquipement("pieds") + "\n" +
-                "Probabilité de toucher : " + (int) (((((double) getDexterite() / 10) + inventaire.getEquipement("arme").getPrecision()) / 2) * 100) + "%" +
                 "\nInventaire :\n" + inventaire;
     }
 }
