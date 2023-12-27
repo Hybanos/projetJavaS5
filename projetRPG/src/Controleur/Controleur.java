@@ -4,20 +4,21 @@ import Modele.Personnage.ClassePersonnage;
 import Modele.Personnage.Inventaire;
 import Modele.Personnage.Joueur;
 import Modele.Theme.MF.MedievalFantastique;
+import Modele.Theme.MF.RegistresMF;
 import Modele.Theme.SF.ScienceFiction;
 import Modele.Theme.Theme;
 import Vue.Ihm;
 
-import java.util.concurrent.TimeUnit;
+import java.util.AbstractMap;
+import java.util.HashMap;
 
 public class Controleur {
     //À voir si on ne fait pas un contrôleur par thème
-        //Apparemment pas clair
-            //En vrai peut-être quand même
+    //Apparemment pas clair
+    //En vrai peut-être quand même
 
     private static Controleur instance;
     private Theme theme;
-
     private Ihm ihm;
 
     public static Controleur getInstance() {
@@ -41,7 +42,7 @@ public class Controleur {
     public void lancerPartie() {
         this.ihm = new Ihm();
         ihm.afficherDemarrage();
-        Joueur joueur = initJoueur(ihm);
+        Joueur joueur = initJoueur();
         if (joueur == null) {
             System.exit(0);
         }
@@ -52,7 +53,7 @@ public class Controleur {
                 System.exit(0);
             }
             if (choix == 1) {
-                ihm.interractionInventaire(joueur);
+                gererInventaire(joueur);
             }
             if (choix == 2) {
                 // Lancer le dongeon
@@ -60,7 +61,7 @@ public class Controleur {
         }
     }
 
-    public Joueur initJoueur(Ihm ihm) {
+    public Joueur initJoueur() {
         while (true) {
             String theme = ihm.choixTheme();
             if ("q".equalsIgnoreCase(theme)) {
@@ -69,17 +70,17 @@ public class Controleur {
             if (ihm.demanderValidation(theme)) {
                 if ("médiéval fantastique".equalsIgnoreCase(theme)) {
                     this.theme = new MedievalFantastique();
-                    return persoMF(ihm);
+                    return persoMF();
                 }
                 if ("science fiction".equalsIgnoreCase(theme)) {
                     this.theme = new ScienceFiction();
-                    return persoSF(ihm);
+                    return persoSF();
                 }
             }
         }
     }
 
-    public Joueur persoMF(Ihm ihm){
+    public Joueur persoMF() {
         while (true) {
             String nom = ihm.choixNomJoueur();
             if (ihm.demanderValidation(nom)) {
@@ -90,19 +91,19 @@ public class Controleur {
                     }
                     if (ihm.demanderValidation(classe)) {
                         if ("barbare".equalsIgnoreCase(classe)) {
-                            return new Joueur(nom, new ClassePersonnage("barbare"), new Inventaire(), 4, 5, 2, 1, 2);
+                            return new Joueur(nom, theme.getLesClasses().get(1), new Inventaire(), 4, 5, 2, 1, 2);
                         }
                         if ("mage".equalsIgnoreCase(classe)) {
-                            return new Joueur(nom, new ClassePersonnage("mage"), new Inventaire(), 2, 1, 2, 4, 5);
+                            return new Joueur(nom, theme.getLesClasses().get(2), new Inventaire(), 2, 1, 2, 4, 5);
                         }
                         if ("archer".equalsIgnoreCase(classe)) {
-                            return new Joueur(nom, new ClassePersonnage("archer"), new Inventaire(), 2, 2, 4, 3, 3);
+                            return new Joueur(nom, theme.getLesClasses().get(3), new Inventaire(), 2, 2, 4, 3, 3);
                         }
                         if ("chevalier".equalsIgnoreCase(classe)) {
-                            return new Joueur(nom, new ClassePersonnage("chevalier"), new Inventaire(), 3, 4, 3, 2, 2);
+                            return new Joueur(nom, theme.getLesClasses().get(4), new Inventaire(), 3, 4, 3, 2, 2);
                         }
                         if ("assassin".equalsIgnoreCase(classe)) {
-                            return new Joueur(nom, new ClassePersonnage("assassin"), new Inventaire(), 3, 3, 4, 2, 2);
+                            return new Joueur(nom, theme.getLesClasses().get(5), new Inventaire(), 3, 3, 4, 2, 2);
                         }
                     }
                 }
@@ -110,8 +111,34 @@ public class Controleur {
         }
     }
 
-    public Joueur persoSF(Ihm ihm) {
+    public Joueur persoSF() {
         return null;
     }
 
+    public void gererInventaire(Joueur j) {
+        while (true) {
+            int choix = ihm.interractionInventaire(j);
+            if (choix == 98) {
+                break;
+            }
+            if (choix == 99) {
+                while (true) {
+                    AbstractMap.SimpleEntry<Integer, Integer> addStat = ihm.interractionStatistiques(j);
+                    if (addStat == null) {
+                        break;
+                    } else {
+                        if (j.utiliserPoints(addStat.getKey(), addStat.getValue())) {
+                            System.out.println("Points ajoutés");
+                        } else {
+                            System.out.println("Vous n'avez pas assez de points");
+                        }
+                    }
+                }
+            }
+            if (choix <= 19) {
+                //Faire l'utilisation des items
+                j.setPts_dispo(j.getPts_dispo() + 3);
+            }
+        }
+    }
 }

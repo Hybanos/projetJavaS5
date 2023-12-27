@@ -10,10 +10,16 @@ public class MedievalFantastique extends Theme {
 
     public void initialiser() {
         System.out.println("Init. Medieval Fantasique");
+        initClasses();
         initItems();
         initDonjon();
         initJoueur();
         initEnnemis();
+    }
+
+    private void initClasses() {
+        System.out.println("Init. Classes");
+
     }
 
     private void initItems() {

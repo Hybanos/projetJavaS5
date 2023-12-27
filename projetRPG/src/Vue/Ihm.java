@@ -2,9 +2,14 @@ package Vue;
 
 import Controleur.Controleur;
 import Modele.Donjon.Salle;
+import Modele.Item.Item;
 import Modele.Personnage.Joueur;
 
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Ihm {
 
@@ -179,21 +184,69 @@ public class Ihm {
         while (true) {
             afficherEssentiel(j);
             afficherInventaire(j);
-            System.out.println("\n\n[Q] Quitter\n[S] Ouvrir le panneau des statistiques\n[E] <nombre> Interaction avec l'objet indiqué");
+            System.out.println("\n[Q] Quitter\n[S] Ouvrir le panneau des statistiques\n[E] <nombre> Interaction avec l'objet indiqué");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
-                    return 0;
+                    return 98;
+                }
+                if ("s".equalsIgnoreCase(rep) || "stats".equalsIgnoreCase(rep) || "statistiques".equalsIgnoreCase(rep)) {
+                    return 99;
+                }
+                Pattern pattern1 = Pattern.compile("^[E,e][0-9]$");
+                Pattern pattern2 = Pattern.compile("^[E,e][0-1][0-9]$");
+                Pattern pattern3 = Pattern.compile("^[E,e] [0-9]$");
+                Pattern pattern4 = Pattern.compile("^[E,e] [0-1][0-9]$");
+
+                boolean compa1 = pattern1.matcher(rep).find();
+                boolean compa2 = pattern2.matcher(rep).find();
+                boolean compa3 = pattern3.matcher(rep).find();
+                boolean compa4 = pattern4.matcher(rep).find();
+
+                if (compa1 || compa2) {
+                    return Integer.parseInt(rep.substring(1));
+                }
+                if (compa3 || compa4) {
+                    return Integer.parseInt(rep.substring(2));
                 }
             }
         }
+    }
+
+    public AbstractMap.SimpleEntry<Integer, Integer> interractionStatistiques(Joueur j) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            afficherStatistiques(j);
+            System.out.println("[Q] Quitter\n[A] <stat> <nombre> Ajouter des points\n(Exemple : -> A 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> Intelligence\n5 -> Capacité Magique");
+            if (sc.hasNextLine()) {
+                String rep = sc.nextLine();
+                if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
+                    return null;
+                }
+                Pattern pattern1 = Pattern.compile("^[Aa] [1-5] [0-9]$");
+                Pattern pattern2 = Pattern.compile("^[Aa] [1-5] [0-9][0-9]$");
+
+                boolean compa1 = pattern1.matcher(rep).find();
+                boolean compa2 = pattern2.matcher(rep).find();
+
+                if (compa1 || compa2) {
+                    return new AbstractMap.SimpleEntry<Integer, Integer>(Integer.parseInt(rep.substring(2, 3)), Integer.parseInt(rep.substring(4)));
+                }
+            }
+        }
+    }
+
+    public int interractionItem(Joueur j, Item i) {
+        return 0;
     }
 
 
     // Afficher
 
     public void afficherJoueur(Joueur j) {
-        System.out.println(j);
+        afficherEssentiel(j);
+        afficherStatistiques(j);
+        afficherInventaire(j);
     }
 
     public void afficherEssentiel(Joueur j) {
@@ -202,18 +255,24 @@ public class Ihm {
                 "Mana : " + j.getMana() + "/" + j.getMAX_MANA() + "\n");
     }
 
-    public void afficherSalle() {
-
+    public void afficherStatistiques(Joueur j) {
+        System.out.println("Statistiques :\n" +
+                "- Force : " + j.getForce() + "\n" +
+                "- Constitution : " + j.getConstitution() + "\n" +
+                "- Dextérité : " + j.getDexterite() + "\n" +
+                "- Intelligence : " + j.getIntelligence() + "\n" +
+                "- Capacité Magique : " + j.getCapacite() + "\n" +
+                "- Points Disponibles : " + j.getPts_dispo() + "\n" +
+                "- Probabilité de toucher : " + (int) (((((double) j.getDexterite() / 10) + j.getInventaire().getEquipement("arme").getPrecision()) / 2) * 100) + "%\n");
     }
 
     public void afficherInventaire(Joueur j) {
-        System.out.println("Inventaire de " + j.getNom() +
-                "\n\nÉquipement :\n" +
-                "Arme : " + j.getInventaire().getEquipement("arme") + "\n" +
-                "Tête : " + j.getInventaire().getEquipement("tete") + "\n" +
-                "Torse : " + j.getInventaire().getEquipement("torse") + "\n" +
-                "Jambes : " + j.getInventaire().getEquipement("jambes") + "\n" +
-                "Pieds : " + j.getInventaire().getEquipement("pieds") + "\n" +
+        System.out.println("Équipement :\n" +
+                "- Arme : " + j.getInventaire().getEquipement("arme") + "\n" +
+                "- Tête : " + j.getInventaire().getEquipement("tete") + "\n" +
+                "- Torse : " + j.getInventaire().getEquipement("torse") + "\n" +
+                "- Jambes : " + j.getInventaire().getEquipement("jambes") + "\n" +
+                "- Pieds : " + j.getInventaire().getEquipement("pieds") + "\n" +
                 "\nInventaire :\n" + j.getInventaire());
     }
 
@@ -221,15 +280,8 @@ public class Ihm {
         System.out.println(s.getLesItems());
     }
 
-    public void afficherStatistiques(Joueur j) {
-        System.out.println(j.getNom() +
-                "\n\nStatistiques :\n" +
-                "Force : " + j.getForce() + "\n" +
-                "Constitution : " + j.getConstitution() + "\n" +
-                "Dextérité : " + j.getDexterite() + "\n" +
-                "Intelligence : " + j.getIntelligence() + "\n" +
-                "Capacité Magique : " + j.getCapacite() + "\n" +
-                "Probabilité de toucher : " + (int) (((((double) j.getDexterite() / 10) + j.getInventaire().getEquipement("arme").getPrecision()) / 2) * 100) + "%");
+    public void afficherSalle() {
+
     }
 
     public void afficherDemarrage() {

@@ -16,19 +16,31 @@ public class RegistresMF {
     }
     */
 
+    public static Map<Integer, ClassePersonnage> genererClasses() {
+        Map<Integer, ClassePersonnage> map = new HashMap<>();
+
+        map.put(1, new ClassePersonnage("barbare"));
+        map.put(2, new ClassePersonnage("mage"));
+        map.put(3, new ClassePersonnage("archer"));
+        map.put(4, new ClassePersonnage("chevalier"));
+        map.put(5, new ClassePersonnage("assassin"));
+
+        return map;
+    }
+
     public static Map<Integer, Consommable> genererConsomable() {
         Map<Integer, Consommable> map = new HashMap<>();
         
-        map.put(1,new Consommable("Baguette de pain frais", "", 2, 0));
-        map.put(2,new Consommable("Morceau de pain rassis", "", 1, 0));
-        map.put(3,new Consommable("Petit potion de soin", "", 3, 0));
-        map.put(4,new Consommable("Carotte", "", 1, 0));
-        map.put(5,new Consommable("Patate", "", 1, 0));
-        map.put(6,new Consommable("Potion de soin moyenne", "", 5, 0));
-        map.put(7,new Consommable("Grande potion de soin", "", 1000, 0)); // -1 == potion qui baisse la vie ?
-        map.put(8,new Consommable("Petite fiole de mana", "", 0, 1));
-        map.put(9,new Consommable("Flacon de mana", "", 2, 3));
-        map.put(10,new Consommable("Grande potion de mana", "", 2, 5));
+        map.put(11,new Consommable("Baguette de pain frais", "", 2, 0));
+        map.put(12,new Consommable("Morceau de pain rassis", "", 1, 0));
+        map.put(13,new Consommable("Petit potion de soin", "", 3, 0));
+        map.put(14,new Consommable("Carotte", "", 1, 0));
+        map.put(15,new Consommable("Patate", "", 1, 0));
+        map.put(16,new Consommable("Potion de soin moyenne", "", 5, 0));
+        map.put(17,new Consommable("Grande potion de soin", "", 1000, 0)); // -1 == potion qui baisse la vie ?
+        map.put(18,new Consommable("Petite fiole de mana", "", 0, 1));
+        map.put(19,new Consommable("Flacon de mana", "", 2, 3));
+        map.put(20,new Consommable("Grande potion de mana", "", 2, 5));
 
         return map;
     }

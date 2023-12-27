@@ -342,28 +342,35 @@ public class Joueur {
         this.intelligence -= intelligence;
     }
 
-    public boolean utiliserPoints(int points, String stat) {
+    /**
+     * Permet d'utiliser les points disponibles sur la statistique renseignée
+     *
+     * @param stat   statistique concernée (1 Force, 2 Constitution, 3 Dextérité, 4 Intelligence, 5 Capacité magique)
+     * @param points nombre de points à utiliser
+     * @return true si les points ont bien été mis (false sinon, ex : pas assez de points)
+     */
+    public boolean utiliserPoints(int stat, int points) {
         boolean effectue = false;
         if (points <= this.pts_dispo) {
             effectue = true;
             switch (stat) {
-                case "force":
+                case 1:
                     this.force += points;
                     this.pts_dispo -= points;
                     break;
-                case "constitution":
+                case 2:
                     this.constitution += points;
                     this.pts_dispo -= points;
                     break;
-                case "dexterite":
+                case 3:
                     this.dexterite += points;
                     this.pts_dispo -= points;
                     break;
-                case "intelligence":
+                case 4:
                     this.intelligence += points;
                     this.pts_dispo -= points;
                     break;
-                case "capacite":
+                case 5:
                     this.capacite += points;
                     this.pts_dispo -= points;
                     break;
@@ -382,23 +389,6 @@ public class Joueur {
     }
 
     public String toString() {
-        return nom + "\n" +
-                "Vie : " + vie + "/" + MAX_VIE + "\n" +
-                "Mana : " + mana + "/" + MAX_MANA + "\n" +
-                "Classe : " + classe.getType() + "\n" +
-                "\nStatistiques :\n" +
-                "Force : " + force + "\n" +
-                "Constitution : " + constitution + "\n" +
-                "Dextérité : " + dexterite + "\n" +
-                "Intelligence : " + intelligence + "\n" +
-                "Capacité Magique : " + capacite + "\n" +
-                "Probabilité de toucher : " + (int) (((((double) dexterite / 10) + inventaire.getEquipement("arme").getPrecision()) / 2) * 100) + "%\n" +
-                "Équipement :\n" +
-                "Arme : " + inventaire.getEquipement("arme") + "\n" +
-                "Tête : " + inventaire.getEquipement("tete") + "\n" +
-                "Torse : " + inventaire.getEquipement("torse") + "\n" +
-                "Jambes : " + inventaire.getEquipement("jambes") + "\n" +
-                "Pieds : " + inventaire.getEquipement("pieds") + "\n" +
-                "\nInventaire :\n" + inventaire;
+        return "Personnage : " + nom;
     }
 }
