@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Inventaire {
 
-    private Controleur c = Controleur.getInstance();
+    private final Controleur c = Controleur.getInstance();
     private List<Item> sac;
 
     //emplacements

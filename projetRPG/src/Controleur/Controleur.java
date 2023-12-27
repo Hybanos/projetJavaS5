@@ -18,8 +18,16 @@ public class Controleur {
     private static Controleur instance;
     private Theme theme;
 
+    private Ihm ihm;
+
     public static Controleur getInstance() {
-        return instance == null ? new Controleur() : instance;
+        if (instance == null)
+            instance = new Controleur();
+        return instance;
+    }
+
+    public Controleur() {
+        instance = this;
     }
 
     public Theme getTheme() {
@@ -30,11 +38,10 @@ public class Controleur {
         this.theme = theme;
     }
 
-    public Controleur() {
-        Ihm ihm = new Ihm(this);
+    public void lancerPartie() {
+        this.ihm = new Ihm();
         ihm.afficherDemarrage();
         Joueur joueur = initJoueur(ihm);
-        System.out.println("test1");
         if (joueur == null) {
             System.exit(0);
         }
@@ -62,10 +69,7 @@ public class Controleur {
             if (ihm.demanderValidation(theme)) {
                 if ("médiéval fantastique".equalsIgnoreCase(theme)) {
                     this.theme = new MedievalFantastique();
-                    Joueur j = persoMF(ihm);
-                    System.out.println("test2");
-                    System.out.println(j);
-                    return j;
+                    return persoMF(ihm);
                 }
                 if ("science fiction".equalsIgnoreCase(theme)) {
                     this.theme = new ScienceFiction();
@@ -86,9 +90,7 @@ public class Controleur {
                     }
                     if (ihm.demanderValidation(classe)) {
                         if ("barbare".equalsIgnoreCase(classe)) {
-                            Joueur j = new Joueur(nom, new ClassePersonnage("barbare"), new Inventaire(), 4, 5, 2, 1, 2);
-                            System.out.println("test3");
-                            return j;
+                            return new Joueur(nom, new ClassePersonnage("barbare"), new Inventaire(), 4, 5, 2, 1, 2);
                         }
                         if ("mage".equalsIgnoreCase(classe)) {
                             return new Joueur(nom, new ClassePersonnage("mage"), new Inventaire(), 2, 1, 2, 4, 5);

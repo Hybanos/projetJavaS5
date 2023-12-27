@@ -8,10 +8,9 @@ import java.util.Scanner;
 
 public class Ihm {
 
-    private Controleur c;
+    private final Controleur c =  Controleur.getInstance();
 
-    public Ihm(Controleur c) {
-        this.c = c;
+    public Ihm() {
     }
 
 
@@ -178,15 +177,9 @@ public class Ihm {
     public int interractionInventaire(Joueur j){
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("Inventaire de " + j.getNom() + "\n" +
-                    "Équipement :\n" +
-                    "Arme : " + j.getInventaire().getEquipement("arme") + "\n" +
-                    "Tête : " + j.getInventaire().getEquipement("tete") + "\n" +
-                    "Torse : " + j.getInventaire().getEquipement("torse") + "\n" +
-                    "Jambes : " + j.getInventaire().getEquipement("jambes") + "\n" +
-                    "Pieds : " + j.getInventaire().getEquipement("pieds") + "\n" +
-                    "\nInventaire :\n" + j.getInventaire() +
-                    "\n [Q] Quitter");
+            afficherEssentiel(j);
+            afficherInventaire(j);
+            System.out.println("\n\n[Q] Quitter\n[S] Ouvrir le panneau des statistiques\n[E] <nombre> Interaction avec l'objet indiqué");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
@@ -204,8 +197,8 @@ public class Ihm {
     }
 
     public void afficherEssentiel(Joueur j) {
-        System.out.println(j.getNom() + "\n" +
-                "Vie : " + j.getVie() + "/" + j.getMAX_VIE() + "\n" +
+        System.out.println(j.getNom() +
+                "\n\nVie : " + j.getVie() + "/" + j.getMAX_VIE() + "\n" +
                 "Mana : " + j.getMana() + "/" + j.getMAX_MANA() + "\n");
     }
 
@@ -213,13 +206,24 @@ public class Ihm {
 
     }
 
+    public void afficherInventaire(Joueur j) {
+        System.out.println("Inventaire de " + j.getNom() +
+                "\n\nÉquipement :\n" +
+                "Arme : " + j.getInventaire().getEquipement("arme") + "\n" +
+                "Tête : " + j.getInventaire().getEquipement("tete") + "\n" +
+                "Torse : " + j.getInventaire().getEquipement("torse") + "\n" +
+                "Jambes : " + j.getInventaire().getEquipement("jambes") + "\n" +
+                "Pieds : " + j.getInventaire().getEquipement("pieds") + "\n" +
+                "\nInventaire :\n" + j.getInventaire());
+    }
+
     public void afficherInventaire(Salle s) {
         System.out.println(s.getLesItems());
     }
 
     public void afficherStatistiques(Joueur j) {
-        System.out.println(j.getNom() + "\n" +
-                "\nStatistiques :\n" +
+        System.out.println(j.getNom() +
+                "\n\nStatistiques :\n" +
                 "Force : " + j.getForce() + "\n" +
                 "Constitution : " + j.getConstitution() + "\n" +
                 "Dextérité : " + j.getDexterite() + "\n" +
