@@ -1,3 +1,4 @@
+import Controleur.Controleur;
 import Modele.Item.Equipement;
 import Modele.Personnage.ClassePersonnage;
 import Modele.Personnage.Inventaire;
@@ -29,5 +30,6 @@ public class Main {
         if (j1.getVie() > j2.getVie()) {
             System.out.println("J1 a gagné");
         } else System.out.println("J2 a gagné");
+        Controleur c = new Controleur();
     }
 }
