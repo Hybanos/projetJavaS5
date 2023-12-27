@@ -360,6 +360,8 @@ public class Joueur {
                     break;
                 case 2:
                     this.constitution += points;
+                    this.MAX_VIE = constitution * 10;
+                    this.vie += points * 10;
                     this.pts_dispo -= points;
                     break;
                 case 3:
@@ -372,6 +374,8 @@ public class Joueur {
                     break;
                 case 5:
                     this.capacite += points;
+                    this.MAX_MANA = capacite * 2;
+                    this.mana += points * 2;
                     this.pts_dispo -= points;
                     break;
             }
