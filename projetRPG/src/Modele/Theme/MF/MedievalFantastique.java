@@ -19,7 +19,7 @@ public class MedievalFantastique extends Theme {
 
     private void initClasses() {
         System.out.println("Init. Classes");
-
+        lesClasses = RegistresMF.genererClasses();
     }
 
     private void initItems() {
@@ -38,23 +38,5 @@ public class MedievalFantastique extends Theme {
 
     private void initEnnemis() {
         System.out.println("Init. Ennemis");
-    }
-
-    private void initNonConsommable() {
-        System.out.println("Init. Item-NonConsommable");
-        initAttaque();
-        initProtection();
-    }
-
-    private void initProtection() {
-        System.out.println("Init. Item-NonConsommable-Protection");
-    }
-
-    private void initAttaque() {
-        System.out.println("Init. Item-NonConsommable-Attaque");
-    }
-
-    private void initConsommable() {
-        System.out.println("Init. Item-Consommable");
     }
 }

@@ -8,6 +8,10 @@ public class Bibelot extends Item {
         super(nom, description);
     }
 
+    public int getType(){
+        return 1;
+    }
+
     @Override
     public String toString() {
         return super.toString();

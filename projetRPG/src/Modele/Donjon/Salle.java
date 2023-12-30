@@ -32,6 +32,9 @@ public class Salle {
     public Inventaire getLesItems(){
         return lesItems;
     }
+    public void ajouterItem(Item i) {
+        lesItems.ajouterItem(i);
+    }
     public void setSallePrecedente(Salle sallePrecedente){
         this.sallePrecedente = sallePrecedente;
     }

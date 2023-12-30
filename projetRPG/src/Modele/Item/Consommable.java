@@ -10,6 +10,10 @@ public class Consommable extends Item {
         this.mana = mana;
     }
 
+    public int getType(){
+        return 2;
+    }
+
     public int getVie() {
         return vie;
     }

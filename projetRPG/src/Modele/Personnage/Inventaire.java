@@ -42,12 +42,8 @@ public class Inventaire {
         return this.sac.get(index);
     }
 
-    public void supprItem(Item item) {
-        this.sac.remove(item);
-    }
-
-    public void supprItem(int index) {
-        this.sac.remove(index);
+    public Item supprItem(int index) {
+        return this.sac.remove(index);
     }
 
     public void resetEquipement(String emplacement) {

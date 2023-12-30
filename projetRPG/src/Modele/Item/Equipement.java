@@ -41,7 +41,9 @@ public class Equipement extends Item {
         this.preRequis = preRequis;
     }
 
-
+    public int getType(){
+        return 3;
+    }
 
     public String getEmplacement() {
         return emplacement;

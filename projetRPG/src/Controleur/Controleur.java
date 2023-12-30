@@ -1,5 +1,7 @@
 package Controleur;
 
+import Modele.Item.Equipement;
+import Modele.Item.Item;
 import Modele.Personnage.ClassePersonnage;
 import Modele.Personnage.Inventaire;
 import Modele.Personnage.Joueur;
@@ -53,6 +55,14 @@ public class Controleur {
                 System.exit(0);
             }
             if (choix == 1) {
+                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(102));
+                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(102));
+                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(111));
+                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(213));
+                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(213));
+                joueur.getInventaire().ajouterItem(theme.getLesConsommables().get(15));
+                joueur.getInventaire().ajouterItem(theme.getLesConsommables().get(15));
+                joueur.recevoirCoup(4);
                 gererInventaire(joueur);
             }
             if (choix == 2) {
@@ -136,8 +146,39 @@ public class Controleur {
                 }
             }
             if (choix <= 19) {
-                //Faire l'utilisation des items
-                j.setPts_dispo(j.getPts_dispo() + 3);
+                while (true) {
+                    int action = ihm.interractionItem(j, choix);
+                    if (action == 0) {
+                        break;
+                    }
+                    if (action == 1) {
+                        //Si un joueur est hors du donjon faire :
+                        j.jeterItem(choix);
+                        break;
+                        //Si un joueur est dans un donjon faire :
+                        //Donjon.getSalleActuelle.ajouterItem(j.jeterItem(choix);
+                        //break;
+                    }
+                    if (action == 2) {
+                        j.utiliser(choix);
+                        break;
+                    }
+                    if (action == 3) {
+                        Equipement aEquiper = (Equipement) j.getInventaire().getItem(choix); //Equipement à équiper dans l'inventaire
+                        Equipement dejaEquipe = j.desequiper(aEquiper.getEmplacement()); //Equipement deja équipé
+                        if (j.equiper(aEquiper)) {
+                            j.getInventaire().supprItem(choix);
+                            if (dejaEquipe != null) {
+                                j.getInventaire().ajouterItem(dejaEquipe);
+                            }
+                        } else {
+                            if (dejaEquipe != null) {
+                                j.equiper(dejaEquipe);
+                            }
+                        }
+                        break;
+                    }
+                }
             }
         }
     }

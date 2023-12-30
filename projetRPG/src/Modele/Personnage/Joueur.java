@@ -1,6 +1,8 @@
 package Modele.Personnage;
 
+import Modele.Item.Consommable;
 import Modele.Item.Equipement;
+import Modele.Item.Item;
 
 public class Joueur {
     private String nom;
@@ -252,15 +254,20 @@ public class Joueur {
      *
      * @param index numéro de l'item à supprimer
      */
-    public void jeterItem(int index) {
-        //ajouter l'item à l'inventaire de la salle
-        inventaire.supprItem(index);
+    public Item jeterItem(int index) {
+        return inventaire.supprItem(index);
+    }
+
+    public void utiliser(int index) {
+        Consommable consommable = (Consommable) inventaire.getItem(index);
+        this.ajouterVie(consommable.getVie());
+        this.ajouterMana(consommable.getMana());
+        this.inventaire.supprItem(index);
     }
 
     /**
      * Méthode qui équipe un équipement à la bonne place (jambes, arme, torse,etc...)
      *
-     * @param equipement équipement à équiper
      * @return boolean l'équipement a bien été équipé
      */
     public boolean equiper(Equipement equipement) {
@@ -268,7 +275,6 @@ public class Joueur {
         if (equipement.getPreRequis().test(this)) {
             this.ajouterStats(equipement.getForce(), equipement.getDexterite(), equipement.getIntelligence());
             inventaire.setEquipement(equipement);
-            this.inventaire.supprItem(equipement);
             effectue = true;
         }
         return effectue;
@@ -278,18 +284,15 @@ public class Joueur {
      * Méthode qui déséquipe un équipement s'il y en a un, et le remet dans l'inventaire
      *
      * @param emplacement emplacement à déséquiper
-     * @return true si c'est bien déséquipé, false sinon
+     * @return l'équipement si c'est bien déséquipé, null sinon
      */
-    public boolean desequiper(String emplacement) {
-        boolean effectue = false;
+    public Equipement desequiper(String emplacement) {
         if (inventaire.getEquipement(emplacement).getEmplacement() != "partout") { // Attention ne pas simplifier par juste emplacement car les items spéciaux "tout nu" sont en emplacement "partout"
             Equipement eqp = inventaire.getEquipement(emplacement);
             this.retirerStats(eqp.getForce(), eqp.getDexterite(), eqp.getIntelligence());
-            inventaire.ajouterItem(eqp);
             inventaire.resetEquipement(emplacement);
-            effectue = true;
-        }
-        return effectue;
+            return eqp;
+        } else return null;
     }
 
     //Méthodes de gestion du joueur

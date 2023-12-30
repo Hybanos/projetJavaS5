@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class Ihm {
 
-    private final Controleur c =  Controleur.getInstance();
+    private final Controleur c = Controleur.getInstance();
 
     public Ihm() {
     }
@@ -26,10 +26,10 @@ public class Ihm {
         while (true) {
             System.out.println("""
                     Veuillez choisir le thème de la partie :
-                    
+                                        
                     [1] Médiéval Fantastique - Plongez dans un monde féérique avec sa magie et ses différents monstres imaginaires !
                     [2] Science Fiction - Battez-vous pour prendre le contrôle du vaisseau spatial, mais ça ne sera pas de tout repos !
-                    
+                                        
                     [Q] Quitter
                     """);
             if (sc.hasNextLine()) {
@@ -68,13 +68,13 @@ public class Ihm {
         while (true) {
             System.out.println("""
                     Veuillez choisir votre classe :
-                    
+                                        
                     [1] Barbare : Force ++ / Constitution +++ / Dextérité - / Intelligence -- / Mana -
                     [2] Mage : Force - / Constitution -- / Dextérité - / Intelligence ++ / Mana +++
                     [3] Archer : Force - / Constitution - / Dextérité ++ / Intelligence + / Mana +
                     [4] Chevalier : Force + / Constitution ++ / Dextérité + / Intelligence - / Mana -
                     [5] Assassin : Force + / Constitution + / Dextérité ++ / Intelligence - / Mana --
-                    
+                                        
                     [Q] Quitter
                     """);
             if (sc.hasNextLine()) {
@@ -106,12 +106,12 @@ public class Ihm {
         while (true) {
             System.out.println("""
                     Veuillez choisir votre classe :
-                    
+                                        
                     [1] Robot : Force - / Constitution - / Dextérité ++ / Pouvoir + / Énergie +
                     [2] Alien : Force - / Constitution -- / Dextérité - / Pouvoir +++ / Énergie ++
                     [3] Sportif : Force +++ / Constitution ++ / Dextérité - / Pouvoir -- / Énergie -
                     [4] Pirate spatial : Force + / Constitution ++ / Dextérité + / Pouvoir - / Énergie -
-                    
+                                        
                     [Q] Quitter
                     """);
             if (sc.hasNextLine()) {
@@ -157,13 +157,13 @@ public class Ihm {
         while (true) {
             String mot = "";
             if (c.getTheme().getNom().equals("mf"))
-                mot = "dongeon";
+                mot = "donjon";
             if (c.getTheme().getNom().equals("sf"))
                 mot = "vaisseau";
             System.out.println("Menu du jeu :\n\n" +
-                        "[A] Accéder à l'inventaire\n" +
-                        "[B] Entrer dans le " + mot + ".\n\n" +
-                        "[Q] Quitter");
+                    "[A] Accéder à l'inventaire\n" +
+                    "[B] Entrer dans le " + mot + ".\n\n" +
+                    "[Q] Quitter");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
@@ -179,7 +179,7 @@ public class Ihm {
         }
     }
 
-    public int interractionInventaire(Joueur j){
+    public int interractionInventaire(Joueur j) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             afficherEssentiel(j);
@@ -236,8 +236,30 @@ public class Ihm {
         }
     }
 
-    public int interractionItem(Joueur j, Item i) {
-        return 0;
+    public int interractionItem(Joueur j, int i) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println(j.getInventaire().getItem(i) + "\n\n[J] Jeter l'Objet");
+            if (j.getInventaire().getItem(i).getType() == 2) {
+                System.out.println("[E] Utiliser l'Objet");
+            }
+            if (j.getInventaire().getItem(i).getType() == 3) {
+                System.out.println("[E] Équiper l'Objet");
+            }
+            System.out.println("[Q] Quitter\n");
+            if (sc.hasNextLine()) {
+                String rep = sc.nextLine();
+                if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
+                    return 0;
+                }
+                if ("j".equalsIgnoreCase(rep)) {
+                    return 1;
+                }
+                if ("e".equalsIgnoreCase(rep) && j.getInventaire().getItem(i).getType() != 1) {
+                    return j.getInventaire().getItem(i).getType(); // Renvoie 2 si c'est un consommable, et 3 si c'est un équipement
+                }
+            }
+        }
     }
 
 
@@ -286,16 +308,16 @@ public class Ihm {
 
     public void afficherDemarrage() {
         System.out.println("""
-                ---------------------------------------------------------------------------------------------------
-                |+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
-                |+++#####++++++++#####++++++##+++##++++++######+++++#######++++++#####++++++##+++##++++++######+++|
-                |+++##++##++++++##+++##+++++###++##+++++###+++++++++##++++++++++##+++##+++++###++##+++++##++++++++|
-                |+++##+++##+++++##+++##+++++####+##+++++##++++++++++##++++++++++##+++##+++++####+##++++++###++++++|
-                |+++##+++##+++++##+++##+++++##+####+++++##++###+++++#####+++++++##+++##+++++##+####++++++++###++++|
-                |+++##++##++++++##+++##+++++##++###+++++##+++##+++++##++++++++++##+++##+++++##++###++++++++++##+++|
-                |+++#####++++++++#####++++++##+++##++++++#####++++++#######++++++#####++++++##+++##+++++######++++|
-                |+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
-                ---------------------------------------------------------------------------------------------------
+                ---------------------------------------------------------------------------------------
+                |+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
+                |+++#####++++++++#####++++++##+++##++++++++++##++++++#####++++++##+++##++++++######+++|
+                |+++##++##++++++##+++##+++++###++##++++++++++##+++++##+++##+++++###++##+++++##++++++++|
+                |+++##+++##+++++##+++##+++++####+##++++++++++##+++++##+++##+++++####+##++++++###++++++|
+                |+++##+++##+++++##+++##+++++##+####++++++++++##+++++##+++##+++++##+####++++++++###++++|
+                |+++##++##++++++##+++##+++++##++###+++++##+++##+++++##+++##+++++##++###++++++++++##+++|
+                |+++#####++++++++#####++++++##+++##++++++#####+++++++#####++++++##+++##+++++######++++|
+                |+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
+                ---------------------------------------------------------------------------------------
                                         
                                         
                 Bienvenue dans le RPG du semestre 5 !
