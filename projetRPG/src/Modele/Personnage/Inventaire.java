@@ -46,6 +46,11 @@ public class Inventaire {
         return this.sac.remove(index);
     }
 
+    /**
+     * Permet de réinitialiser un emplacement d'équipement
+     *
+     * @param emplacement emplacement de l'équipement
+     */
     public void resetEquipement(String emplacement) {
         if (Objects.equals(emplacement, "arme")) {
             equipements.put("arme", c.getTheme().getLesEquipements().get(100));

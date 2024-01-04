@@ -41,6 +41,9 @@ public class Controleur {
         this.theme = theme;
     }
 
+    /**
+     * Contrôleur principal, permet de gérer le jeu
+     */
     public void lancerPartie() {
         this.ihm = new Ihm();
         ihm.afficherDemarrage();
@@ -63,7 +66,7 @@ public class Controleur {
                 joueur.getInventaire().ajouterItem(theme.getLesConsommables().get(15));
                 joueur.getInventaire().ajouterItem(theme.getLesConsommables().get(15));
                 joueur.recevoirCoup(4);
-                gererInventaire(joueur);
+                gererInventaireJoueur(joueur);
             }
             if (choix == 2) {
                 // Lancer le dongeon
@@ -71,6 +74,11 @@ public class Controleur {
         }
     }
 
+    /**
+     * Initialise le joueur et le thème
+     *
+     * @return un joueur qui sera celui jouable
+     */
     public Joueur initJoueur() {
         while (true) {
             String theme = ihm.choixTheme();
@@ -90,6 +98,11 @@ public class Controleur {
         }
     }
 
+    /**
+     * Permet de créer un joueur avec son nom et sa classe en fonction du thème
+     *
+     * @return un joueur
+     */
     public Joueur persoMF() {
         while (true) {
             String nom = ihm.choixNomJoueur();
@@ -125,7 +138,12 @@ public class Controleur {
         return null;
     }
 
-    public void gererInventaire(Joueur j) {
+    /**
+     * Permet une gestion de l'inventaire, que ce soit en menu ou en donjon
+     *
+     * @param j le joueur concerné
+     */
+    public void gererInventaireJoueur(Joueur j) {
         while (true) {
             int choix = ihm.interractionInventaire(j);
             if (choix == 98) {

@@ -165,7 +165,7 @@ public class Joueur {
     /**
      * Méthoe qui calcule les dégâts lorsqu'un coup touche
      *
-     * @return int dégats de base sans ajout de dégats critiques
+     * @return les dégats de base sans ajout de dégats critiques
      */
     public int degatsArme() {
         return this.force + inventaire.getEquipement("arme").getDegats();
@@ -176,7 +176,7 @@ public class Joueur {
      * Méthode qui calcule les dégats finaux a envoyer vers l'ennemi, s'il n'y a pas de coup critique, elle renverra la valeur des degats flat
      *
      * @param degatsFlat valeurs de degats de base
-     * @return int dégâts finaux
+     * @return les dégâts finaux
      */
     public int degatsCrit(int degatsFlat) {
         double random = Math.random();
@@ -191,7 +191,7 @@ public class Joueur {
      * Méthode qui attaque avec l'arme sur l'adversaire
      *
      * @param adversaire adversaire à envoyer l'attaque
-     * @return int degats que le joueur adverse subit
+     * @return les dégats que le joueur adverse subit
      */
     public int attaquerArme(Joueur adversaire) {
         int degats = 0;
@@ -205,7 +205,7 @@ public class Joueur {
      * Méthode qui calcule la valeur de dégâts de base d'un sort
      *
      * @param niveau le niveau du sort (1 pour sort simple, 2 pour sort ultime)
-     * @return int dégâts du sort
+     * @return les dégâts du sort
      */
     public int degatsSort(int niveau) {
         return this.intelligence * 2 * niveau;
@@ -226,7 +226,7 @@ public class Joueur {
      * Méthode qui calcule les dégâts après réduction par la protection
      *
      * @param degats degats de bas avant réduction
-     * @return int dégats finaux à appliquer au joueur
+     * @return les dégats finaux à appliquer au joueur
      */
     public int reducDegats(int degats) {
         int armure = inventaire.getEquipement("arme").getProtection() + inventaire.getEquipement("tete").getProtection() + inventaire.getEquipement("torse").getProtection() + inventaire.getEquipement("jambes").getProtection() + inventaire.getEquipement("pieds").getProtection();
@@ -237,7 +237,7 @@ public class Joueur {
      * Méthode qui enlève des points de vie à un personnage lorsqu'il se reçoit un coup
      *
      * @param degats dégâts infligés par l'adversaire après calcul du coup
-     * @return int degats que le joueur subit
+     * @return les degats que le joueur subit
      */
     public int recevoirCoup(int degats) {
         int degatsReels = reducDegats(degats);
@@ -252,7 +252,7 @@ public class Joueur {
     /**
      * Permet de jeter un item de l'inventaire, ce qui le supprimera de son inventaire, et l'ajoutera à celui de la salle
      *
-     * @param index numéro de l'item à supprimer
+     * @param index le numéro de l'item à supprimer
      */
     public Item jeterItem(int index) {
         return inventaire.supprItem(index);
@@ -268,7 +268,7 @@ public class Joueur {
     /**
      * Méthode qui équipe un équipement à la bonne place (jambes, arme, torse,etc...)
      *
-     * @return boolean l'équipement a bien été équipé
+     * @return true si l'équipement a bien été équipé, false sinon
      */
     public boolean equiper(Equipement equipement) {
         boolean effectue = false;
@@ -284,7 +284,7 @@ public class Joueur {
      * Méthode qui déséquipe un équipement s'il y en a un, et le remet dans l'inventaire
      *
      * @param emplacement emplacement à déséquiper
-     * @return l'équipement si c'est bien déséquipé, null sinon
+     * @return l'équipement s'il bien déséquipé, null sinon
      */
     public Equipement desequiper(String emplacement) {
         if (inventaire.getEquipement(emplacement).getEmplacement() != "partout") { // Attention ne pas simplifier par juste emplacement car les items spéciaux "tout nu" sont en emplacement "partout"
@@ -389,7 +389,7 @@ public class Joueur {
     /**
      * Renvoie s'il reste de la vie à un joueur
      *
-     * @return boolean true s'il est en vie, false s'il est mort
+     * @return true s'il est en vie, false s'il est mort
      */
     public boolean estEnVie() {
         return vie > 0;
