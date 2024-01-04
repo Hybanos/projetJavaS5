@@ -38,6 +38,15 @@ public class Salle {
     public void setSallePrecedente(Salle sallePrecedente){
         this.sallePrecedente = sallePrecedente;
     }
+    public void setSalleSuivante(Salle salleSuivante){
+        this.salleSuivante = salleSuivante;
+    }
+    public Salle getSalleSuivante(){
+        return salleSuivante;
+    }
+    public Salle getSallePrecedente(){
+        return sallePrecedente;
+    }
 
     public void ajouterSalleFin(Salle salle){
         if (salleSuivante == null){
@@ -47,4 +56,5 @@ public class Salle {
             salleSuivante.ajouterSalleFin(salle);
         }
     }
+
 }
