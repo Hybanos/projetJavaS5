@@ -21,6 +21,11 @@ public class Ihm {
 
     // Demander
 
+    /**
+     * Demande au joueur de choisir un thème
+     *
+     * @return le thème choisi
+     */
     public String choixTheme() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -63,6 +68,11 @@ public class Ihm {
         }
     }
 
+    /**
+     * Demande au joueur de choisir une classe parmis celles médiéval fantastique
+     *
+     * @return la classe choisie
+     */
     public String choixClasseMF() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -101,6 +111,11 @@ public class Ihm {
         }
     }
 
+    /**
+     * Demande au joueur de chosiir une classe parmis celles science fiction
+     *
+     * @return la classe choisie
+     */
     public String choixClasseSF() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -135,6 +150,12 @@ public class Ihm {
         }
     }
 
+    /**
+     * Permet de demander une validation sur un choix
+     *
+     * @param texte un texte pour personnaliser la demande
+     * @return true si le choix est validé, false sinon
+     */
     public boolean demanderValidation(String texte) {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -142,7 +163,7 @@ public class Ihm {
 
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
-                if ("o".equalsIgnoreCase(rep) || "oui".equalsIgnoreCase(rep) || "y".equalsIgnoreCase(rep) || "yes".equalsIgnoreCase(rep)) {
+                if ("o".equalsIgnoreCase(rep) || "oui".equalsIgnoreCase(rep) || "y".equalsIgnoreCase(rep) || "yes".equalsIgnoreCase(rep) || "ok".equalsIgnoreCase(rep)) {
                     return true;
                 }
                 if ("n".equalsIgnoreCase(rep) || "non".equalsIgnoreCase(rep) || "no".equalsIgnoreCase(rep)) {
@@ -152,6 +173,11 @@ public class Ihm {
         }
     }
 
+    /**
+     * Permet une intterraction avec le menu du jeu
+     *
+     * @return un entier correspondant au choix fait
+     */
     public int interractionMenu() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -179,6 +205,12 @@ public class Ihm {
         }
     }
 
+    /**
+     * Permet une interraction avec l'inventaire d'un joueur
+     *
+     * @param j le joueur concerné
+     * @return un entier correspondant à l'action faite
+     */
     public int interractionInventaire(Joueur j) {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -213,6 +245,12 @@ public class Ihm {
         }
     }
 
+    /**
+     * Permet une interraction avec les statistiques du joueur
+     *
+     * @param j le joueur concerné
+     * @return un couple <ValeurD'Ajout, IndiceStatistique> pour savoir combien à quelle statistique ajouter les points
+     */
     public AbstractMap.SimpleEntry<Integer, Integer> interractionStatistiques(Joueur j) {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -230,12 +268,19 @@ public class Ihm {
                 boolean compa2 = pattern2.matcher(rep).find();
 
                 if (compa1 || compa2) {
-                    return new AbstractMap.SimpleEntry<Integer, Integer>(Integer.parseInt(rep.substring(2, 3)), Integer.parseInt(rep.substring(4)));
+                    return new AbstractMap.SimpleEntry<>(Integer.parseInt(rep.substring(2, 3)), Integer.parseInt(rep.substring(4)));
                 }
             }
         }
     }
 
+    /**
+     * Permet une interraction avec un item en particulier (jeter, equiper, utiliser, etc..)
+     *
+     * @param j le joueur qui fait l'interraction
+     * @param i l'index de l'item concerné par l'interraction
+     * @return un entier correcpondant à l'action choisie
+     */
     public int interractionItem(Joueur j, int i) {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -265,18 +310,33 @@ public class Ihm {
 
     // Afficher
 
+    /**
+     * Permet d'afficher un joueur complet
+     *
+     * @param j le joueur à afficher
+     */
     public void afficherJoueur(Joueur j) {
         afficherEssentiel(j);
         afficherStatistiques(j);
         afficherInventaire(j);
     }
 
+    /**
+     * Permet d'afficher uniquement l'essentiel (nom, vie et mana) d'un joueur
+     *
+     * @param j le joueur concerné
+     */
     public void afficherEssentiel(Joueur j) {
         System.out.println(j.getNom() +
                 "\n\nVie : " + j.getVie() + "/" + j.getMAX_VIE() + "\n" +
                 "Mana : " + j.getMana() + "/" + j.getMAX_MANA() + "\n");
     }
 
+    /**
+     * Permet d'afficher les statistiques du joueur
+     *
+     * @param j le joueur concerné
+     */
     public void afficherStatistiques(Joueur j) {
         System.out.println("Statistiques :\n" +
                 "- Force : " + j.getForce() + "\n" +
@@ -288,6 +348,11 @@ public class Ihm {
                 "- Probabilité de toucher : " + (int) (((((double) j.getDexterite() / 10) + j.getInventaire().getEquipement("arme").getPrecision()) / 2) * 100) + "%\n");
     }
 
+    /**
+     * Permet d'afficher l'inventaire d'un joueur
+     *
+     * @param j le joueur concerné
+     */
     public void afficherInventaire(Joueur j) {
         System.out.println("Équipement :\n" +
                 "- Arme : " + j.getInventaire().getEquipement("arme") + "\n" +
@@ -298,14 +363,25 @@ public class Ihm {
                 "\nInventaire :\n" + j.getInventaire());
     }
 
+    /**
+     * Permet d'afficher l'inventaire d'un salle
+     *
+     * @param s la salle concernée
+     */
     public void afficherInventaire(Salle s) {
         System.out.println(s.getLesItems());
     }
 
+    /**
+     * Permet d'afficher une salle
+     */
     public void afficherSalle() {
 
     }
 
+    /**
+     * Une petite méthode supplémentaire juste pour s'ammuser à écrire un mots en très gros
+     */
     public void afficherDemarrage() {
         System.out.println("""
                 ---------------------------------------------------------------------------------------
