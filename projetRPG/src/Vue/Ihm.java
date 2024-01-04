@@ -142,7 +142,7 @@ public class Ihm {
 
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
-                if ("o".equalsIgnoreCase(rep) || "oui".equalsIgnoreCase(rep) || "y".equalsIgnoreCase(rep) || "yes".equalsIgnoreCase(rep)) {
+                if ("o".equalsIgnoreCase(rep) || "oui".equalsIgnoreCase(rep) || "y".equalsIgnoreCase(rep) || "yes".equalsIgnoreCase(rep) ||"ok".equalsIgnoreCase(rep)) {
                     return true;
                 }
                 if ("n".equalsIgnoreCase(rep) || "non".equalsIgnoreCase(rep) || "no".equalsIgnoreCase(rep)) {
