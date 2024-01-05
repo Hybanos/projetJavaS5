@@ -204,22 +204,25 @@ public class Joueur {
     /**
      * Méthode qui calcule la valeur de dégâts de base d'un sort
      *
-     * @param niveau le niveau du sort (1 pour sort simple, 2 pour sort ultime)
      * @return les dégâts du sort
      */
-    public int degatsSort(int niveau) {
-        return this.intelligence * 2 * niveau;
+    public int degatsSort() {
+        return this.intelligence * 2;
     }
 
     /**
      * Méthode qui attaque avec le sort sur l'adversaire (un sort touche toujours)
      *
      * @param adversaire adversaire à envoyer l'attaque
+     * @return les dégâts que le joueur adverse subit
      */
-    public void attaquerSort(Joueur adversaire) {
-        int degats = 0;
-        degats = degatsSort(1);
-        adversaire.recevoirCoup(degats);
+    public int attaquerSort(Joueur adversaire) {
+        if (this.mana >= 2) {
+            this.mana -= 2;
+            return adversaire.recevoirCoup(degatsSort());
+        } else {
+            return 0;
+        }
     }
 
     /**

@@ -58,14 +58,6 @@ public class Controleur {
                 System.exit(0);
             }
             if (choix == 1) {
-                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(102));
-                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(102));
-                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(111));
-                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(213));
-                joueur.getInventaire().ajouterItem(theme.getLesEquipements().get(213));
-                joueur.getInventaire().ajouterItem(theme.getLesConsommables().get(15));
-                joueur.getInventaire().ajouterItem(theme.getLesConsommables().get(15));
-                joueur.recevoirCoup(4);
                 gererInventaireJoueur(joueur);
             }
             if (choix == 2) {

@@ -13,7 +13,6 @@ public class MedievalFantastique extends Theme {
         initClasses();
         initItems();
         initDonjon();
-        initJoueur();
         initEnnemis();
     }
 
@@ -32,11 +31,8 @@ public class MedievalFantastique extends Theme {
         System.out.println("Init. Donjon");
     }
 
-    private void initJoueur() {
-        System.out.println("Init. Joueur");
-    }
-
     private void initEnnemis() {
         System.out.println("Init. Ennemis");
+        lesEnnemis = RegistresMF.genererEnnemis();
     }
 }
