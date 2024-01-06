@@ -9,6 +9,11 @@ public class Ennemi extends Personnage {
         this.attaquePref = attaquePref;
     }
 
+    public Ennemi(Ennemi e) {
+        super(e.getNom(), e.getForce(), e.getConstitution(), e.getDexterite(), e.getIntelligence(), e.getCapacite());
+        attaquePref = e.attaquePref;
+    }
+
     /**
      * Méthode qui renvoie un booléen en fonction de si le coup touche
      *
@@ -63,5 +68,9 @@ public class Ennemi extends Personnage {
     @Override
     public ClassePersonnage getClasse() {
         return null;
+    }
+
+    public Ennemi copy() {
+        return new Ennemi(this);
     }
 }

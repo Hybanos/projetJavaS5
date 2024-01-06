@@ -23,6 +23,7 @@ public class MedievalFantastique extends Theme {
 
     private void initItems() {
         System.out.println("Init. Items");
+        lesBibelots = RegistresMF.genererBibelots();
         lesConsommables = RegistresMF.genererConsomable();
         lesEquipements = RegistresMF.genererEquipements();
     }

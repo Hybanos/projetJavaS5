@@ -6,13 +6,14 @@ import Modele.Item.Equipement;
 import Modele.Personnage.Ennemi;
 import Modele.Personnage.Inventaire;
 import Modele.Personnage.Joueur;
-import Modele.Personnage.Personnage;
 import Modele.Theme.MF.MedievalFantastique;
+import Modele.Theme.MF.RegistresMF;
 import Modele.Theme.SF.ScienceFiction;
 import Modele.Theme.Theme;
 import Vue.Ihm;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 
 public class Controleur {
     //À voir si on ne fait pas un contrôleur par thème
@@ -24,7 +25,9 @@ public class Controleur {
     private Ihm ihm = null;
     private Donjon donjon = null;
     private Salle salle = null;
-    private int vie = 2;
+    private int lvlSalle = 1;
+    private int lvlMax = 10;
+    private int retours = 2;
 
     public static Controleur getInstance() {
         if (instance == null)
@@ -79,49 +82,118 @@ public class Controleur {
      * @param j le joueur concerné
      */
     public void controleurDonjon(Joueur j) {
-        controleurSalle(j);
+        while (true) {
+            int resultat = controleurSalle(j);
+            if (resultat == 0) {
+                if (lvlSalle < lvlMax) {
+                    lvlSalle++;
+                    ArrayList<Ennemi> ennemis = genererEnnemis(lvlSalle);
+                    Inventaire objets = genererObjets(lvlSalle);
+                    salle.ajouterSalleFin(new Salle(ennemis, objets));
+                    salle = donjon.salleSuivante();
+                    j.setPts_dispo(j.getPts_dispo() + lvlSalle);
+                    j.ajouterMana(1);
+                } else {
+                    System.out.println("Bravo ! vous avez fini le jeu !");
+                    j.ajouterItem(theme.getLesBibelots().get(99));
+                    j.setEnDonjon(false);
+                    break;
+                }
+            }
+        }
+    }
+
+    public ArrayList<Ennemi> genererEnnemis(int niveau) {
+        ArrayList<Ennemi> liste = new ArrayList<>();
+
+        for (int i = 1; i <= niveau; i++) {
+            if (i % 5 == 0) {
+                liste.add(theme.getLesEnnemis().get(21 + (int) (Math.random() * 2)).copy());
+            }
+            if (i % 3 == 0) {
+                liste.add(theme.getLesEnnemis().get(11 + (int) (Math.random() * 5)).copy());
+            } else {
+                liste.add(theme.getLesEnnemis().get(1 + (int) (Math.random() * 6)).copy());
+            }
+        }
+
+        return liste;
+    }
+
+    public Inventaire genererObjets(int niveau) {
+        Inventaire inv = new Inventaire();
+        return inv;
     }
 
     /**
      * Permet une gestion de la salle plus précisément
      *
      * @param j le joueur dans la salle
+     * @return 0 si le joueur a gagné et passe à la salle suivante, 1 s'il est mort et décide de revenir au menu principal, 2 s'il est mort et décide de revenir à la salle précédente
      */
-    public void controleurSalle(Joueur j) {
+    public int controleurSalle(Joueur j) {
         while (true) {
-            for (int i = 0; i < salle.getLesEnnemis().size(); i++) {
-                Ennemi ennemi = salle.getLesEnnemis().get(i);
-                if (ennemi.estEnVie()) {
-                    System.out.println("L'ennemi " + ennemi.getNom() + " vous a fait " + ennemi.attaquer(j) + " dégâts.");
+            if (j.estEnVie()) {
+                int choix;
+                if (salle.estVide()) {
+                    System.out.println("Bravo vous avez tué tous les ennemis dans cette salle !");
+                    choix = ihm.interractionSalle(j, salle, 2);
                 } else {
-                    salle.getLesEnnemis().remove(i);
-                }
-            }
-            if (salle.estVide()) {
-                System.out.println("Bravo vous avez tué tous les ennemis dans cette salle !");
-            }
-            while (true) {
-                int choix = ihm.interractionSalle(j, salle);
-                if (choix == 98) {
-                    break; // A voir quand tu quittes c'est complexe
+                    choix = ihm.interractionSalle(j, salle, 1);
                 }
                 if (choix == 99) {
                     gererInventaireJoueur(j);
-                    break;
+                }
+                if (choix == 98) {
+                    gererInventaireSalle(j, salle);
                 }
                 if (choix == 97) {
-                    gererInventaireSalle(j, salle);
-                    break;
+                    return 0;
                 }
                 if (choix < salle.getLesEnnemis().size()) {
-                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix) + " a raçu " + j.attaquerArme(salle.getLesEnnemis().get(choix)) + " dégâts.");
-                    break;
+                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix) + " a reçu " + j.attaquerArme(salle.getLesEnnemis().get(choix)) + " dégâts.");
                 }
                 if (choix >= 10 && choix < salle.getLesEnnemis().size() + 10) {
-                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix - 10) + " a raçu " + j.attaquerSort(salle.getLesEnnemis().get(choix - 10)) + " dégâts.");
-                    break;
+                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix - 10) + " a reçu " + j.attaquerSort(salle.getLesEnnemis().get(choix - 10)) + " dégâts.");
+                }
+                for (int i = 0; i < salle.getLesEnnemis().size(); i++) {
+                    Ennemi ennemi = salle.getLesEnnemis().get(i);
+                    if (ennemi.estEnVie()) {
+                        System.out.println("L'ennemi " + ennemi.getNom() + " vous a fait " + ennemi.attaquer(j) + " dégâts.");
+                    } else {
+                        salle.getLesEnnemis().remove(i);
+                        System.out.println("Vous avez tué " + ennemi.getNom() + " !");
+                    }
+                }
+            } else {
+                return controleurMort();
+            }
+        }
+    }
+
+    /**
+     * Permet une gestion de la mort du joueur
+     *
+     * @return 1 s'il décide de quitter le donjon, 2 s'il décide de retourner dans le passé
+     */
+    public int controleurMort() {
+        if (retours > 0) {
+            while (true) {
+                int choix = ihm.interractionMort(retours);
+                switch (choix) {
+                    case 98:
+                        if (ihm.demanderValidation("de quitter le donjon : vous sortirez 1 PV et sans vos consommables")) {
+                            return 1;
+                        }
+                    case 99:
+                        if (ihm.demanderValidation("de retourner dans le passé : vous reviendrez à la pièce précédente (utilisera 1 retour)")) {
+                            retours--;
+                            return 2;
+                        }
                 }
             }
+        } else {
+            return 2;
         }
     }
 

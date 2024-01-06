@@ -290,44 +290,66 @@ public class Ihm {
      * @param s la salle concernée
      * @return un entier correcpondant à l'interraction
      */
-    public int interractionSalle(Joueur j, Salle s) {
+    public int interractionSalle(Joueur j, Salle s, int option) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             afficherEssentiel(j);
             afficherSalle(s);
-            System.out.println("\n[A] Attaquer le monstre indiqué avec son arme\n[S] Attaquer le monstre indiqué avec un sort\n[E] Accéder à l'inventaire du joueur\n[R] Voir les objets dans la pièce\n[Q] Quitter");
+            String message = "\n[E] Accéder à l'inventaire du joueur\n[R] Voir les objets dans la pièce";
+            if (option == 1) {
+                message = "\n[A] Attaquer le monstre indiqué avec son arme\n[S] Attaquer le monstre indiqué avec un sort" + message;
+            }
+            if (option == 2) {
+                message = "\n[N] Accéder à la pièce suivante" + message;
+            }
+            System.out.println(message);
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
-                if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
-                    return 98;
-                }
                 if ("e".equalsIgnoreCase(rep)) {
                     return 99;
                 }
                 if ("r".equalsIgnoreCase(rep)) {
+                    return 98;
+                }
+                if ("n".equalsIgnoreCase(rep) && option == 2) {
                     return 97;
                 }
-                Pattern pattern1 = Pattern.compile("^[Aa][0-9]$");
-                Pattern pattern2 = Pattern.compile("^[Aa] [0-9]$");
-                Pattern pattern3 = Pattern.compile("^[Ss][0-9]$");
-                Pattern pattern4 = Pattern.compile("^[Ss] [0-9]$");
+                if (option == 1) {
+                    Pattern pattern1 = Pattern.compile("^[Aa][0-9]$");
+                    Pattern pattern2 = Pattern.compile("^[Aa] [0-9]$");
+                    Pattern pattern3 = Pattern.compile("^[Ss][0-9]$");
+                    Pattern pattern4 = Pattern.compile("^[Ss] [0-9]$");
 
-                boolean compa1 = pattern1.matcher(rep).find();
-                boolean compa2 = pattern2.matcher(rep).find();
-                boolean compa3 = pattern3.matcher(rep).find();
-                boolean compa4 = pattern4.matcher(rep).find();
+                    boolean compa1 = pattern1.matcher(rep).find();
+                    boolean compa2 = pattern2.matcher(rep).find();
+                    boolean compa3 = pattern3.matcher(rep).find();
+                    boolean compa4 = pattern4.matcher(rep).find();
 
-                if (compa1) {
-                    return Integer.parseInt(rep.substring(1));
+                    if (compa1) {
+                        return Integer.parseInt(rep.substring(1));
+                    }
+                    if (compa2) {
+                        return Integer.parseInt(rep.substring(2));
+                    }
+                    if (compa3) {
+                        return Integer.parseInt(rep.substring(1)) + 10;
+                    }
+                    if (compa4) {
+                        return Integer.parseInt(rep.substring(2)) + 10;
+                    }
                 }
-                if (compa2) {
-                    return Integer.parseInt(rep.substring(2));
-                }
-                if (compa3) {
-                    return Integer.parseInt(rep.substring(1))+10;
-                }
-                if (compa4) {
-                    return Integer.parseInt(rep.substring(2))+10;
+            }
+        }
+    }
+
+    public int interractionMort(int retours) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("Vous êtes morts...\n\n[1] Menu principal\n[2] Revenir dans la salle précédente (Retours possibles : " + retours + ")");
+            if (sc.hasNextLine()) {
+                String rep = sc.nextLine();
+                if ("1".equals(rep) || "2".equals(rep)) {
+                    return Integer.parseInt(rep);
                 }
             }
         }

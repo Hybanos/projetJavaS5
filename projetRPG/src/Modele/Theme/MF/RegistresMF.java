@@ -1,6 +1,7 @@
 package Modele.Theme.MF;
 
 import Controleur.Controleur;
+import Modele.Item.Bibelot;
 import Modele.Item.Consommable;
 import Modele.Item.Equipement;
 import Modele.Personnage.ClassePersonnage;
@@ -29,6 +30,14 @@ public class RegistresMF {
         map.put(3, new ClassePersonnage("archer"));
         map.put(4, new ClassePersonnage("chevalier"));
         map.put(5, new ClassePersonnage("assassin"));
+
+        return map;
+    }
+
+    public static Map<Integer, Bibelot> genererBibelots() {
+        Map<Integer, Bibelot> map = new HashMap<>();
+
+        map.put(99, new Bibelot("Couronne du vainqueur", "Une belle couronne qui prouve que vous avez fini le jeu"));
 
         return map;
     }
@@ -88,19 +97,19 @@ public class RegistresMF {
         //Ennemis faibles
         map.put(1, new Ennemi("Gobelin", 1, 1, 1, 1, 1, 1));
         map.put(2, new Ennemi("Squelette", 2, 2, 2, 1, 1, 1));
-        map.put(3, new Ennemi("Fantôme", 1, 1, 1, 3, 3, 2));
-        map.put(4, new Ennemi("Zombie", 3, 4, 1, 1, 1, 1));
-        map.put(5, new Ennemi("Loup", 4, 3, 1, 1, 1, 1));
-        map.put(6, new Ennemi("Archer", 1, 1, 4, 2, 2, 1));
+        map.put(3, new Ennemi("Fantôme", 1, 1, 1, 2, 99, 2));
+        map.put(4, new Ennemi("Zombie", 2, 3, 1, 1, 1, 1));
+        map.put(5, new Ennemi("Loup", 3, 2, 1, 1, 1, 1));
+        map.put(6, new Ennemi("Archer", 2, 1, 4, 1, 1, 1));
         //Ennemis moyens
-        map.put(11, new Ennemi("Sorcière", 1, 1, 1, 1, 1, 2));
-        map.put(12, new Ennemi("Soldat Zombie", 1, 1, 1, 1, 1, 1));
-        map.put(13, new Ennemi("Loup Garou", 1, 1, 1, 1, 1, 1));
-        map.put(14, new Ennemi("Mage Noir", 1, 1, 1, 1, 1, 2));
-        map.put(15, new Ennemi("Arbaliétrier", 1, 1, 1, 1, 1, 1));
+        map.put(11, new Ennemi("Sorcière", 1, 1, 1, 3, 99, 2));
+        map.put(12, new Ennemi("Soldat Zombie", 3, 4, 1, 1, 1, 1));
+        map.put(13, new Ennemi("Loup Garou", 4, 3, 1, 1, 1, 1));
+        map.put(14, new Ennemi("Mage Noir", 1, 2, 1, 3, 99, 2));
+        map.put(15, new Ennemi("Arbaliétrier", 3, 1, 5, 1, 1, 1));
         //Ennemis forts
-        map.put(21, new Ennemi("Dragon", 1, 1, 1, 1, 1, 2));
-        map.put(22, new Ennemi("Cerbère", 1, 1, 1, 1, 1, 1));
+        map.put(21, new Ennemi("Dragon", 1, 3, 1, 5, 99, 2));
+        map.put(22, new Ennemi("Cerbère", 5, 5, 5, 1, 1, 1));
 
         return map;
     }

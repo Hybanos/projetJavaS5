@@ -18,10 +18,8 @@ public class Donjon {
 
     public Donjon() {
         ArrayList<Ennemi> enemis = new ArrayList<>();
-        enemis.add(c.getTheme().getLesEnnemis().get(1));
+        enemis.add(c.getTheme().getLesEnnemis().get(1).copy());
         Inventaire items = new Inventaire();
-        items.ajouterItem(c.getTheme().getLesConsommables().get(3));
-        items.ajouterItem(c.getTheme().getLesConsommables().get(3));
         items.ajouterItem(c.getTheme().getLesConsommables().get(3));
         premiereSalle = new Salle(enemis, items);
         premiereSalleBackUp = premiereSalle;
@@ -69,9 +67,10 @@ public class Donjon {
         sallePrecedente.setSalleSuivante(salle);
     }
 
-    public void salleSuivante() {
+    public Salle salleSuivante() {
         salleActuelle = salleActuelle.getSalleSuivante();
         salleActuelleBackUp = salleActuelleBackUp.getSalleSuivante();
+        return salleActuelle;
     }
 
     public void sallePrecedente() {
