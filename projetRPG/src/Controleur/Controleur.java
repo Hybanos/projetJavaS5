@@ -84,21 +84,30 @@ public class Controleur {
     public void controleurDonjon(Joueur j) {
         while (true) {
             int resultat = controleurSalle(j);
-            if (resultat == 0) {
-                if (lvlSalle < lvlMax) {
-                    lvlSalle++;
-                    ArrayList<Ennemi> ennemis = genererEnnemis(lvlSalle);
-                    Inventaire objets = genererObjets(lvlSalle);
-                    salle.ajouterSalleFin(new Salle(ennemis, objets));
-                    salle = donjon.salleSuivante();
-                    j.setPts_dispo(j.getPts_dispo() + lvlSalle);
-                    j.ajouterMana(1);
-                } else {
-                    System.out.println("Bravo ! vous avez fini le jeu !");
-                    j.ajouterItem(theme.getLesBibelots().get(99));
+            switch (resultat) {
+                case 0:
+                    if (lvlSalle < lvlMax) {
+                        lvlSalle++;
+                        ArrayList<Ennemi> ennemis = genererEnnemis(lvlSalle);
+                        Inventaire objets = genererObjets(lvlSalle);
+                        salle.ajouterSalleFin(new Salle(ennemis, objets));
+                        salle = donjon.salleSuivante();
+                        j.setPts_dispo(j.getPts_dispo() + lvlSalle);
+                        j.ajouterMana(1);
+                        break;
+                    } else {
+                        System.out.println("Bravo ! vous avez fini le jeu !");
+                        j.ajouterItem(theme.getLesBibelots().get(300));
+                        j.setEnDonjon(false);
+                        return;
+                    }
+                case 1:
+                    j.setVie(1);
+                    j.getInventaire().supprConsommables();
                     j.setEnDonjon(false);
-                    break;
-                }
+                    return;
+                case 2:
+
             }
         }
     }
@@ -187,7 +196,6 @@ public class Controleur {
                         }
                     case 99:
                         if (ihm.demanderValidation("de retourner dans le passé : vous reviendrez à la pièce précédente (utilisera 1 retour)")) {
-                            retours--;
                             return 2;
                         }
                 }

@@ -10,11 +10,10 @@ public class Inventaire {
 
     private final Controleur c = Controleur.getInstance();
     private List<Item> sac;
+    private final int tailleMax = 20;
 
     //emplacements
     private Map<String, Equipement> equipements;
-    private int nbItems = 0;
-    private final int tailleMax = 20;
 
     public Inventaire() {
         this.sac = new ArrayList<>();
@@ -42,10 +41,9 @@ public class Inventaire {
      */
     public boolean ajouterItem(Item item) {
         boolean effectue = false;
-        if (nbItems <= tailleMax - 1) {
+        if (sac.size() <= tailleMax - 1) {
             this.sac.add(item);
             effectue = true;
-            nbItems++;
         }
         return effectue;
     }
@@ -55,16 +53,11 @@ public class Inventaire {
     }
 
     public Item supprItem(int index) {
-        nbItems--;
         return this.sac.remove(index);
     }
 
     public int getNbItems() {
-        return nbItems;
-    }
-
-    public void setNbItems(int nbItems) {
-        this.nbItems = nbItems;
+        return sac.size();
     }
 
     public int getTailleMax() {
@@ -85,6 +78,18 @@ public class Inventaire {
             equipements.put("arme", c.getTheme().getLesEquipements().get(100));
         } else {
             equipements.put(emplacement, c.getTheme().getLesEquipements().get(200));
+        }
+    }
+
+    /**
+     * Permet de supprimer les consommables de la liste (lorsque le joueur meurt et retourne au menu principal notamment)
+     */
+    public void supprConsommables() {
+        for (int i = 0; i < sac.size(); i++) {
+            if (sac.get(i).getType() == 2) {
+                sac.remove(i);
+                i = i == 0 ? i - 1 : 0;
+            }
         }
     }
 
