@@ -348,8 +348,9 @@ public class Ihm {
             System.out.println("Vous êtes morts...\n\n[1] Menu principal\n[2] Revenir dans la salle précédente (Retours possibles : " + retours + ")");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
-                if ("1".equals(rep) || "2".equals(rep)) {
-                    return Integer.parseInt(rep);
+                if ("1".equalsIgnoreCase(rep) || "2".equalsIgnoreCase(rep)) {
+                    int ch = Integer.parseInt(rep);
+                    return ch;
                 }
             }
         }

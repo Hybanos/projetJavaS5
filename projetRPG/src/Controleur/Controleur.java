@@ -57,6 +57,10 @@ public class Controleur {
         if (joueur == null) {
             System.exit(0);
         }
+        joueur.ajouterItem(theme.getLesEquipements().get(101));
+        joueur.ajouterItem(theme.getLesEquipements().get(201));
+        joueur.ajouterItem(theme.getLesEquipements().get(213));
+        joueur.ajouterItem(theme.getLesConsommables().get(1));
         System.out.println("Fin de la création du personnage, redirection vers le menu principal ...");
         while (true) {
             int choix = ihm.interractionMenu();
@@ -93,7 +97,7 @@ public class Controleur {
                         salle.ajouterSalleFin(new Salle(ennemis, objets));
                         salle = donjon.salleSuivante();
                         j.setPts_dispo(j.getPts_dispo() + lvlSalle);
-                        j.ajouterMana(1);
+                        j.ajouterMana(3);
                         break;
                     } else {
                         System.out.println("Bravo ! vous avez fini le jeu !");
@@ -105,6 +109,7 @@ public class Controleur {
                     j.setVie(1);
                     j.getInventaire().supprConsommables();
                     j.setEnDonjon(false);
+                    retours--;
                     return;
                 case 2:
 
@@ -131,6 +136,19 @@ public class Controleur {
 
     public Inventaire genererObjets(int niveau) {
         Inventaire inv = new Inventaire();
+
+        for (int i = 1; i <= niveau; i++) {
+            if (i % 3 == 0) {
+                inv.ajouterItem(theme.getLesEquipements().get(100 + (int) (Math.random() * 20)));
+                inv.ajouterItem(theme.getLesEquipements().get(200 + (int) (Math.random() * 21)));
+            }
+            if (i % 2 == 0) {
+                inv.ajouterItem(theme.getLesConsommables().get(1 + (int) (Math.random() * 10)));
+            } else {
+                inv.ajouterItem(theme.getLesBibelots().get(301 + (int) (Math.random() * 6)));
+            }
+        }
+
         return inv;
     }
 
@@ -190,11 +208,11 @@ public class Controleur {
             while (true) {
                 int choix = ihm.interractionMort(retours);
                 switch (choix) {
-                    case 98:
-                        if (ihm.demanderValidation("de quitter le donjon : vous sortirez 1 PV et sans vos consommables")) {
+                    case 1:
+                        if (ihm.demanderValidation("de quitter le donjon : vous sortirez avec 1 PV et sans vos consommables")) {
                             return 1;
                         }
-                    case 99:
+                    case 2:
                         if (ihm.demanderValidation("de retourner dans le passé : vous reviendrez à la pièce précédente (utilisera 1 retour)")) {
                             return 2;
                         }

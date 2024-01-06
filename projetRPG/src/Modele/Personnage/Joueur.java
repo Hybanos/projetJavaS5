@@ -128,7 +128,7 @@ public class Joueur extends Personnage {
         if (degatsReels > 0) {
             setVie(getVie() - degatsReels);
         }
-        return degatsReels;
+        return Math.max(degatsReels, 0);
     }
 
     //Méthodes de gestion d'inventaire
