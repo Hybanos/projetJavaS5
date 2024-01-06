@@ -4,53 +4,22 @@ import Modele.Item.Consommable;
 import Modele.Item.Equipement;
 import Modele.Item.Item;
 
-public class Joueur {
-    private String nom;
+public class Joueur extends Personnage {
+
     private ClassePersonnage classe;
     private Inventaire inventaire;
-
-    //statistiques mouvantes
-    private int vie;
-    private int MAX_VIE;
-
-    private int mana;
-    private int MAX_MANA;
+    private boolean enDonjon;
     private int pts_dispo;
 
-    //caractéristiques
-    private int force;
-    private int constitution;
-    private int dexterite;
-    private int intelligence;
-    private int capacite;
-
-    // on a déplacé le stuff dans l'inventaire
-
-
     public Joueur(String nom, ClassePersonnage classe, Inventaire inventaire, int force, int constitution, int dexterite, int intelligence, int capacite) {
-        this.nom = nom;
+        super(nom, force, constitution, dexterite, intelligence, capacite);
         this.classe = classe;
         this.inventaire = inventaire;
-        this.force = force;
-        this.constitution = constitution;
-        this.dexterite = dexterite;
-        this.intelligence = intelligence;
-        this.capacite = capacite;
-        this.MAX_VIE = constitution * 10;
-        this.vie = MAX_VIE;
-        this.MAX_MANA = capacite * 2;
-        this.mana = MAX_MANA;
+        this.enDonjon = false;
         this.pts_dispo = 0;
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
+    @Override
     public ClassePersonnage getClasse() {
         return classe;
     }
@@ -67,36 +36,12 @@ public class Joueur {
         this.inventaire = inventaire;
     }
 
-    public int getVie() {
-        return vie;
+    public boolean isEnDonjon() {
+        return enDonjon;
     }
 
-    public void setVie(int vie) {
-        this.vie = vie;
-    }
-
-    public int getMAX_VIE() {
-        return MAX_VIE;
-    }
-
-    public void setMAX_VIE(int MAX_VIE) {
-        this.MAX_VIE = MAX_VIE;
-    }
-
-    public int getMana() {
-        return mana;
-    }
-
-    public void setMana(int mana) {
-        this.mana = mana;
-    }
-
-    public int getMAX_MANA() {
-        return MAX_MANA;
-    }
-
-    public void setMAX_MANA(int MAX_MANA) {
-        this.MAX_MANA = MAX_MANA;
+    public void setEnDonjon(boolean enDonjon) {
+        this.enDonjon = enDonjon;
     }
 
     public int getPts_dispo() {
@@ -107,56 +52,14 @@ public class Joueur {
         this.pts_dispo = pts_dispo;
     }
 
-    public int getForce() {
-        return force;
-    }
-
-    public void setForce(int force) {
-        this.force = force;
-    }
-
-    public int getConstitution() {
-        return constitution;
-    }
-
-    public void setConstitution(int constitution) {
-        this.constitution = constitution;
-    }
-
-    public int getDexterite() {
-        return dexterite;
-    }
-
-    public void setDexterite(int dexterite) {
-        this.dexterite = dexterite;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    public int getCapacite() {
-        return capacite;
-    }
-
-    public void setCapacite(int capacite) {
-        this.capacite = capacite;
-    }
-
-
-    //Méthodes pour les attaques (lancer et recevoir)
-
     /**
      * Méthode qui renvoie un booléen en fonction de si le coup touche
      *
      * @return true si le coup touche, false sinon
      */
+    @Override
     public boolean coupTouche() {
-        double probabilite = (((double) this.dexterite / 10) + inventaire.getEquipement("arme").getPrecision()) / 2;
+        double probabilite = (((double) this.getDexterite() / 10) + inventaire.getEquipement("arme").getPrecision()) / 2;
         //par exemple, le joueur a 7 de dextérité et une arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
         double random = Math.random();
         return random <= probabilite;
@@ -168,7 +71,7 @@ public class Joueur {
      * @return les dégats de base sans ajout de dégats critiques
      */
     public int degatsArme() {
-        return this.force + inventaire.getEquipement("arme").getDegats();
+        return this.getForce() + inventaire.getEquipement("arme").getDegats();
     }
 
 
@@ -193,36 +96,13 @@ public class Joueur {
      * @param adversaire adversaire à envoyer l'attaque
      * @return les dégats que le joueur adverse subit
      */
-    public int attaquerArme(Joueur adversaire) {
+    @Override
+    public int attaquerArme(Personnage adversaire) {
         int degats = 0;
         if (this.coupTouche()) {
             degats = this.degatsCrit(this.degatsArme());
         }
         return adversaire.recevoirCoup(degats);
-    }
-
-    /**
-     * Méthode qui calcule la valeur de dégâts de base d'un sort
-     *
-     * @return les dégâts du sort
-     */
-    public int degatsSort() {
-        return this.intelligence * 2;
-    }
-
-    /**
-     * Méthode qui attaque avec le sort sur l'adversaire (un sort touche toujours)
-     *
-     * @param adversaire adversaire à envoyer l'attaque
-     * @return les dégâts que le joueur adverse subit
-     */
-    public int attaquerSort(Joueur adversaire) {
-        if (this.mana >= 2) {
-            this.mana -= 2;
-            return adversaire.recevoirCoup(degatsSort());
-        } else {
-            return 0;
-        }
     }
 
     /**
@@ -242,10 +122,11 @@ public class Joueur {
      * @param degats dégâts infligés par l'adversaire après calcul du coup
      * @return les degats que le joueur subit
      */
+    @Override
     public int recevoirCoup(int degats) {
         int degatsReels = reducDegats(degats);
         if (degatsReels > 0) {
-            vie -= degatsReels;
+            setVie(getVie() - degatsReels);
         }
         return degatsReels;
     }
@@ -259,6 +140,15 @@ public class Joueur {
      */
     public Item jeterItem(int index) {
         return inventaire.supprItem(index);
+    }
+
+    /**
+     * Permet d'ajouter un item à l'inventaire du joueur
+     *
+     * @param item
+     */
+    public boolean ajouterItem(Item item) {
+        return inventaire.ajouterItem(item);
     }
 
     public void utiliser(int index) {
@@ -298,56 +188,6 @@ public class Joueur {
         } else return null;
     }
 
-    //Méthodes de gestion du joueur
-
-    /**
-     * Ajoute de la vie en vérifiant que la statistique max n'est pas dépassée
-     *
-     * @param vie quantité de vie à ajouter
-     */
-    public void ajouterVie(int vie) {
-        if (this.vie + vie >= MAX_VIE) {
-            this.vie = MAX_VIE;
-        } else this.vie += vie;
-    }
-
-    /**
-     * Ajoute du mana en vérifiant que la statistique max n'est pas dépassée
-     *
-     * @param mana quantité de mana à ajouter
-     */
-    public void ajouterMana(int mana) {
-        if (this.mana + mana >= MAX_MANA) {
-            this.mana = MAX_MANA;
-        } else this.mana += mana;
-    }
-
-    /**
-     * Ajoute des statistiques au joueur (utile lorsqu'on équipe)
-     *
-     * @param force        force à ajouter
-     * @param dexterite    dextérité à ajouter
-     * @param intelligence intelligence à ajouter
-     */
-    public void ajouterStats(int force, int dexterite, int intelligence) {
-        this.force += force;
-        this.dexterite += dexterite;
-        this.intelligence += intelligence;
-    }
-
-    /**
-     * Retire des statistiques au joueur (utile lorsqu'on déséquipe)
-     *
-     * @param force        force à retirer
-     * @param dexterite    dextérité à retirer
-     * @param intelligence intelligence à retirer
-     */
-    public void retirerStats(int force, int dexterite, int intelligence) {
-        this.force -= force;
-        this.dexterite -= dexterite;
-        this.intelligence -= intelligence;
-    }
-
     /**
      * Permet d'utiliser les points disponibles sur la statistique renseignée
      *
@@ -361,44 +201,31 @@ public class Joueur {
             effectue = true;
             switch (stat) {
                 case 1:
-                    this.force += points;
+                    this.setForce(getForce() + points);
                     this.pts_dispo -= points;
                     break;
                 case 2:
-                    this.constitution += points;
-                    this.MAX_VIE = constitution * 10;
-                    this.vie += points * 10;
+                    this.setConstitution(getConstitution() + points);
+                    this.setMAX_VIE(getMAX_VIE() + getConstitution() * 10);
+                    this.setVie(getVie() + points * 10);
                     this.pts_dispo -= points;
                     break;
                 case 3:
-                    this.dexterite += points;
+                    this.setDexterite(getDexterite() + points);
                     this.pts_dispo -= points;
                     break;
                 case 4:
-                    this.intelligence += points;
+                    this.setIntelligence(getIntelligence() + points);
                     this.pts_dispo -= points;
                     break;
                 case 5:
-                    this.capacite += points;
-                    this.MAX_MANA = capacite * 2;
-                    this.mana += points * 2;
+                    this.setCapacite(getCapacite() + points);
+                    this.setMAX_MANA(getCapacite() * 2);
+                    this.setMana(getMana() + points * 2);
                     this.pts_dispo -= points;
                     break;
             }
         }
         return effectue;
-    }
-
-    /**
-     * Renvoie s'il reste de la vie à un joueur
-     *
-     * @return true s'il est en vie, false s'il est mort
-     */
-    public boolean estEnVie() {
-        return vie > 0;
-    }
-
-    public String toString() {
-        return "Personnage : " + nom;
     }
 }

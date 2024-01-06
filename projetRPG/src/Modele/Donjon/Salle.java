@@ -5,51 +5,66 @@ import Modele.Item.Item;
 import Modele.Personnage.Ennemi;
 import Modele.Personnage.Inventaire;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Salle {
-    private Set<Ennemi> lesEnnemis = new HashSet<>();
+    private ArrayList<Ennemi> lesEnnemis = new ArrayList<>();
     private Inventaire lesItems = new Inventaire();
     private Salle salleSuivante = null;
     private Salle sallePrecedente = null;
 
 
-    public Salle(Set<Ennemi> lesEnnemis, Set<Item> lesItems){
+    public Salle(ArrayList<Ennemi> lesEnnemis, Inventaire lesItems) {
         this.lesEnnemis = lesEnnemis;
-        for (Item i : lesItems) {
-            this.lesItems.ajouterItem(i);
-        }
+        this.lesItems = lesItems;
     }
-    public Salle(Salle salle){
+
+    public Salle(Salle salle) {
         lesEnnemis = salle.getLesEnnemis();
         lesItems = salle.getLesItems();
     }
 
-    public Set<Ennemi> getLesEnnemis(){
+    public ArrayList<Ennemi> getLesEnnemis() {
         return lesEnnemis;
     }
-    public Inventaire getLesItems(){
+
+    public void setLesEnnemis(ArrayList<Ennemi> lesEnnemis) {
+        this.lesEnnemis = lesEnnemis;
+    }
+
+    public Inventaire getLesItems() {
         return lesItems;
     }
-    public void ajouterItem(Item i) {
-        lesItems.ajouterItem(i);
+
+    public void setLesItems(Inventaire lesItems) {
+        this.lesItems = lesItems;
     }
-    public void setSallePrecedente(Salle sallePrecedente){
-        this.sallePrecedente = sallePrecedente;
-    }
-    public void setSalleSuivante(Salle salleSuivante){
-        this.salleSuivante = salleSuivante;
-    }
-    public Salle getSalleSuivante(){
+
+    public Salle getSalleSuivante() {
         return salleSuivante;
     }
-    public Salle getSallePrecedente(){
+
+    public void setSalleSuivante(Salle salleSuivante) {
+        this.salleSuivante = salleSuivante;
+    }
+
+    public Salle getSallePrecedente() {
         return sallePrecedente;
     }
 
-    public void ajouterSalleFin(Salle salle){
-        if (salleSuivante == null){
+    public void setSallePrecedente(Salle sallePrecedente) {
+        this.sallePrecedente = sallePrecedente;
+    }
+
+    public void ajouterItem(Item i) {
+        lesItems.ajouterItem(i);
+    }
+
+    public void ajouterSalleFin(Salle salle) {
+        if (salleSuivante == null) {
             salleSuivante = salle;
             salle.setSallePrecedente(this);
         } else {
@@ -57,4 +72,23 @@ public class Salle {
         }
     }
 
+    public boolean estVide() {
+        return lesEnnemis.size() == 0;
+    }
+
+    /**
+     * Permet d'afficher les ennemis et leur vie
+     * @return un affichage contenant tous les ennemis dans une salle
+     */
+    public String affichertLesEnnemis() {
+        String affichage = "";
+        if (this.lesEnnemis.isEmpty()) {
+            affichage = "Il n'y a pas d'ennemis.";
+        } else {
+            for (int i = 0; i < this.lesEnnemis.size(); i++) {
+                affichage += "[" + i + "] " + this.lesEnnemis.get(i) + "\n";
+            }
+        }
+        return affichage;
+    }
 }

@@ -1,6 +1,6 @@
 package Modele.Item;
 
-import Modele.Personnage.Joueur;
+import Modele.Personnage.Personnage;
 
 import java.util.function.Predicate;
 
@@ -21,7 +21,7 @@ public class Equipement extends Item {
     private int intelligence; //buff stat intelligence
 
     // pré-requis
-    private Predicate<Joueur> preRequis;
+    private Predicate<Personnage> preRequis;
 
     public Equipement(String nom, String description, String emplacement, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence) {
         super(nom, description);
@@ -36,7 +36,7 @@ public class Equipement extends Item {
         this.preRequis = x -> true;
     }
 
-    public Equipement(String nom, String description, String emplacement, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence, Predicate<Joueur> preRequis) {
+    public Equipement(String nom, String description, String emplacement, int degats, double crit, double precision, int protection, int force, int dexterite, int intelligence, Predicate<Personnage> preRequis) {
         this(nom, description, emplacement, degats, crit, precision, protection, force, dexterite, intelligence);
         this.preRequis = preRequis;
     }
@@ -77,7 +77,7 @@ public class Equipement extends Item {
         return intelligence;
     }
 
-    public Predicate<Joueur> getPreRequis() {
+    public Predicate<Personnage> getPreRequis() {
         return preRequis;
     }
 

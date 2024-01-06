@@ -2,12 +2,10 @@ package Vue;
 
 import Controleur.Controleur;
 import Modele.Donjon.Salle;
-import Modele.Item.Item;
 import Modele.Personnage.Joueur;
+import Modele.Personnage.Personnage;
 
 import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -211,12 +209,12 @@ public class Ihm {
      * @param j le joueur concerné
      * @return un entier correspondant à l'action faite
      */
-    public int interractionInventaire(Joueur j) {
+    public int interractionInventaireJoueur(Joueur j) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             afficherEssentiel(j);
-            afficherInventaire(j);
-            System.out.println("\n[Q] Quitter\n[S] Ouvrir le panneau des statistiques\n[E] <nombre> Interaction avec l'objet indiqué");
+            afficherInventaireJoueur(j);
+            System.out.println("\n[S] Ouvrir le panneau des statistiques\n[E] <nombre> Interaction avec l'objet indiqué\n[Q] Quitter");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
@@ -225,21 +223,111 @@ public class Ihm {
                 if ("s".equalsIgnoreCase(rep) || "stats".equalsIgnoreCase(rep) || "statistiques".equalsIgnoreCase(rep)) {
                     return 99;
                 }
-                Pattern pattern1 = Pattern.compile("^[E,e][0-9]$");
-                Pattern pattern2 = Pattern.compile("^[E,e][0-1][0-9]$");
-                Pattern pattern3 = Pattern.compile("^[E,e] [0-9]$");
-                Pattern pattern4 = Pattern.compile("^[E,e] [0-1][0-9]$");
+                int index = patternsItems(rep);
+                if (index != -1) {
+                    return index;
+                }
+            }
+        }
+    }
+
+    /**
+     * Permet une interraction avec l'inventaire de la salle
+     *
+     * @param j le joueur interragissant
+     * @param s la salle concernée
+     * @return l'entier correcpondant l'action faite
+     */
+    public int interractionInventaireSalle(Joueur j, Salle s) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            afficherEssentiel(j);
+            afficherInventaireSalle(s);
+            System.out.println("\n[E] <nombre> Récupérer l'objet indiqué\n[Q] Quitter");
+            if (sc.hasNextLine()) {
+                String rep = sc.nextLine();
+                if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
+                    return 98;
+                }
+                int index = patternsItems(rep);
+                if (index != -1) {
+                    return index;
+                }
+            }
+        }
+    }
+
+    /**
+     * Une méthode utile pour éviter la duplication de code
+     *
+     * @param rep la réponse à traiter
+     * @return une chiffre de 0 à 19 pour l'item dans l'inventaire
+     */
+    public int patternsItems(String rep) {
+        Pattern pattern1 = Pattern.compile("^[E,e][0-9]$");
+        Pattern pattern2 = Pattern.compile("^[E,e][0-1][0-9]$");
+        Pattern pattern3 = Pattern.compile("^[E,e] [0-9]$");
+        Pattern pattern4 = Pattern.compile("^[E,e] [0-1][0-9]$");
+
+        boolean compa1 = pattern1.matcher(rep).find();
+        boolean compa2 = pattern2.matcher(rep).find();
+        boolean compa3 = pattern3.matcher(rep).find();
+        boolean compa4 = pattern4.matcher(rep).find();
+
+        if (compa1 || compa2) {
+            return Integer.parseInt(rep.substring(1));
+        }
+        if (compa3 || compa4) {
+            return Integer.parseInt(rep.substring(2));
+        }
+        return -1;
+    }
+
+    /**
+     * Permet d'interragir avec une salle
+     *
+     * @param j le joueur interragissant
+     * @param s la salle concernée
+     * @return un entier correcpondant à l'interraction
+     */
+    public int interractionSalle(Joueur j, Salle s) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            afficherEssentiel(j);
+            afficherSalle(s);
+            System.out.println("\n[A] Attaquer le monstre indiqué avec son arme\n[S] Attaquer le monstre indiqué avec un sort\n[E] Accéder à l'inventaire du joueur\n[R] Voir les objets dans la pièce\n[Q] Quitter");
+            if (sc.hasNextLine()) {
+                String rep = sc.nextLine();
+                if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
+                    return 98;
+                }
+                if ("e".equalsIgnoreCase(rep)) {
+                    return 99;
+                }
+                if ("r".equalsIgnoreCase(rep)) {
+                    return 97;
+                }
+                Pattern pattern1 = Pattern.compile("^[Aa][0-9]$");
+                Pattern pattern2 = Pattern.compile("^[Aa] [0-9]$");
+                Pattern pattern3 = Pattern.compile("^[Ss][0-9]$");
+                Pattern pattern4 = Pattern.compile("^[Ss] [0-9]$");
 
                 boolean compa1 = pattern1.matcher(rep).find();
                 boolean compa2 = pattern2.matcher(rep).find();
                 boolean compa3 = pattern3.matcher(rep).find();
                 boolean compa4 = pattern4.matcher(rep).find();
 
-                if (compa1 || compa2) {
+                if (compa1) {
                     return Integer.parseInt(rep.substring(1));
                 }
-                if (compa3 || compa4) {
+                if (compa2) {
                     return Integer.parseInt(rep.substring(2));
+                }
+                if (compa3) {
+                    return Integer.parseInt(rep.substring(1))+10;
+                }
+                if (compa4) {
+                    return Integer.parseInt(rep.substring(2))+10;
                 }
             }
         }
@@ -255,7 +343,7 @@ public class Ihm {
         Scanner sc = new Scanner(System.in);
         while (true) {
             afficherStatistiques(j);
-            System.out.println("[Q] Quitter\n[A] <stat> <nombre> Ajouter des points\n(Exemple : -> A 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> Intelligence\n5 -> Capacité Magique");
+            System.out.println("[A] <stat> <nombre> Ajouter des points\n(Exemple : -> A 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> Intelligence\n5 -> Capacité Magique\n[Q] Quitter");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
@@ -318,7 +406,7 @@ public class Ihm {
     public void afficherJoueur(Joueur j) {
         afficherEssentiel(j);
         afficherStatistiques(j);
-        afficherInventaire(j);
+        afficherInventaireJoueur(j);
     }
 
     /**
@@ -353,14 +441,15 @@ public class Ihm {
      *
      * @param j le joueur concerné
      */
-    public void afficherInventaire(Joueur j) {
+    public void afficherInventaireJoueur(Joueur j) {
         System.out.println("Équipement :\n" +
                 "- Arme : " + j.getInventaire().getEquipement("arme") + "\n" +
                 "- Tête : " + j.getInventaire().getEquipement("tete") + "\n" +
                 "- Torse : " + j.getInventaire().getEquipement("torse") + "\n" +
                 "- Jambes : " + j.getInventaire().getEquipement("jambes") + "\n" +
                 "- Pieds : " + j.getInventaire().getEquipement("pieds") + "\n" +
-                "\nInventaire :\n" + j.getInventaire());
+                "\nInventaire : " + j.getInventaire().getNbItems() + "/" + j.getInventaire().getTailleMax() + "\n" +
+                j.getInventaire());
     }
 
     /**
@@ -368,15 +457,16 @@ public class Ihm {
      *
      * @param s la salle concernée
      */
-    public void afficherInventaire(Salle s) {
-        System.out.println(s.getLesItems());
+    public void afficherInventaireSalle(Salle s) {
+        System.out.println("Objets au sol :\n" +
+                s.getLesItems());
     }
 
     /**
      * Permet d'afficher une salle
      */
-    public void afficherSalle() {
-
+    public void afficherSalle(Salle s) {
+        System.out.println(s.affichertLesEnnemis());
     }
 
     /**

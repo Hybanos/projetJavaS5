@@ -24,7 +24,6 @@ public class RegistresMF {
     public static Map<Integer, ClassePersonnage> genererClasses() {
         Map<Integer, ClassePersonnage> map = new HashMap<>();
 
-        map.put(0, new ClassePersonnage("monstre"));
         map.put(1, new ClassePersonnage("barbare"));
         map.put(2, new ClassePersonnage("mage"));
         map.put(3, new ClassePersonnage("archer"));
@@ -39,7 +38,7 @@ public class RegistresMF {
 
         map.put(1, new Consommable("Baguette de pain frais", "", 2, 0));
         map.put(2, new Consommable("Morceau de pain rassis", "", 1, 0));
-        map.put(3, new Consommable("Petit potion de soin", "", 3, 0));
+        map.put(3, new Consommable("Petite potion de soin", "", 3, 0));
         map.put(4, new Consommable("Carotte", "", 1, 0));
         map.put(5, new Consommable("Patate", "", 1, 0));
         map.put(6, new Consommable("Potion de soin moyenne", "", 5, 0));
@@ -86,21 +85,22 @@ public class RegistresMF {
     public static Map<Integer, Ennemi> genererEnnemis() {
         Map<Integer, Ennemi> map = new HashMap<>();
 
-        map.put(1, new Ennemi("Gobelin", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 1, 1, 1));
-        map.put(2, new Ennemi("Squelette", c.getTheme().getLesClasses().get(0), new Inventaire(), 2, 2, 2, 1, 1, 1));
-        map.put(3, new Ennemi("Fantôme", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 3, 3, 2));
-        map.put(4, new Ennemi("Zombie", c.getTheme().getLesClasses().get(0), new Inventaire(), 3, 4, 1, 1, 1, 1));
-        map.put(5, new Ennemi("Loup", c.getTheme().getLesClasses().get(0), new Inventaire(), 4, 3, 1, 1, 1, 1));
-        map.put(6, new Ennemi("Archer", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 4, 2, 2, 1));
-
-        map.put(11, new Ennemi("Sorcière", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 1, 1, 2));
-        map.put(12, new Ennemi("Soldat Zombie", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 1, 1, 1));
-        map.put(13, new Ennemi("Loup Garou", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 1, 1, 1));
-        map.put(14, new Ennemi("Mage Noir", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 1, 1, 2));
-        map.put(15, new Ennemi("Arbaliétrier", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 1, 1, 1));
-
-        map.put(21, new Ennemi("Dragon", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 1, 1, 2));
-        map.put(22, new Ennemi("Cerbère", c.getTheme().getLesClasses().get(0), new Inventaire(), 1, 1, 1, 1, 1, 1));
+        //Ennemis faibles
+        map.put(1, new Ennemi("Gobelin", 1, 1, 1, 1, 1, 1));
+        map.put(2, new Ennemi("Squelette", 2, 2, 2, 1, 1, 1));
+        map.put(3, new Ennemi("Fantôme", 1, 1, 1, 3, 3, 2));
+        map.put(4, new Ennemi("Zombie", 3, 4, 1, 1, 1, 1));
+        map.put(5, new Ennemi("Loup", 4, 3, 1, 1, 1, 1));
+        map.put(6, new Ennemi("Archer", 1, 1, 4, 2, 2, 1));
+        //Ennemis moyens
+        map.put(11, new Ennemi("Sorcière", 1, 1, 1, 1, 1, 2));
+        map.put(12, new Ennemi("Soldat Zombie", 1, 1, 1, 1, 1, 1));
+        map.put(13, new Ennemi("Loup Garou", 1, 1, 1, 1, 1, 1));
+        map.put(14, new Ennemi("Mage Noir", 1, 1, 1, 1, 1, 2));
+        map.put(15, new Ennemi("Arbaliétrier", 1, 1, 1, 1, 1, 1));
+        //Ennemis forts
+        map.put(21, new Ennemi("Dragon", 1, 1, 1, 1, 1, 2));
+        map.put(22, new Ennemi("Cerbère", 1, 1, 1, 1, 1, 1));
 
         return map;
     }

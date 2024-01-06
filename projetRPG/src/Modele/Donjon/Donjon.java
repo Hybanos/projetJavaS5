@@ -1,35 +1,31 @@
 package Modele.Donjon;
 
+import Controleur.Controleur;
 import Modele.Item.Item;
 import Modele.Personnage.Ennemi;
+import Modele.Personnage.Inventaire;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Donjon {
     private Salle premiereSalle;
     private Salle salleActuelle;
     private Salle premiereSalleBackUp;
     private Salle salleActuelleBackUp;
+    private Controleur c = Controleur.getInstance();
 
 
-    public Donjon(List<Set<Ennemi>> lesEnnemis, List<Set<Item>> lesItems){
-        int taille = Math.min(lesEnnemis.size(), lesItems.size());
-        premiereSalle = new Salle(lesEnnemis.get(0), lesItems.get(0));
-        premiereSalleBackUp = new Salle(lesEnnemis.get(0), lesItems.get(0));
+    public Donjon() {
+        ArrayList<Ennemi> enemis = new ArrayList<>();
+        enemis.add(c.getTheme().getLesEnnemis().get(1));
+        Inventaire items = new Inventaire();
+        items.ajouterItem(c.getTheme().getLesConsommables().get(3));
+        items.ajouterItem(c.getTheme().getLesConsommables().get(3));
+        items.ajouterItem(c.getTheme().getLesConsommables().get(3));
+        premiereSalle = new Salle(enemis, items);
+        premiereSalleBackUp = premiereSalle;
         salleActuelle = premiereSalle;
-        salleActuelleBackUp = premiereSalleBackUp;
-        for (int i = 1; i < taille; i++){
-            salleActuelle.ajouterSalleFin(new Salle(lesEnnemis.get(i), lesItems.get(i)));
-            salleActuelleBackUp.ajouterSalleFin(new Salle(lesEnnemis.get(i), lesItems.get(i)));
-        }
-    }
-
-    public Donjon(Salle premiereSalle){
-        this.premiereSalle = premiereSalle;
-        this.salleActuelle = premiereSalle;
-        premiereSalleBackUp = new Salle(premiereSalle);
         salleActuelleBackUp = premiereSalleBackUp;
     }
 
@@ -58,12 +54,12 @@ public class Donjon {
     }
 
 
-    public void ajouterSalleFin(Salle salle){
+    public void ajouterSalleFin(Salle salle) {
         premiereSalle.ajouterSalleFin(salle);
         premiereSalleBackUp.ajouterSalleFin(new Salle(salle));
     }
 
-    public void resetSalleActuelle(){
+    public void resetSalleActuelle() {
         Salle salleSuivante = salleActuelle.getSalleSuivante();
         Salle sallePrecedente = salleActuelle.getSallePrecedente();
         Salle salle = new Salle(salleActuelleBackUp);
@@ -73,28 +69,28 @@ public class Donjon {
         sallePrecedente.setSalleSuivante(salle);
     }
 
-    public void salleSuivante(){
+    public void salleSuivante() {
         salleActuelle = salleActuelle.getSalleSuivante();
         salleActuelleBackUp = salleActuelleBackUp.getSalleSuivante();
     }
 
-    public void sallePrecedente(){
+    public void sallePrecedente() {
         salleActuelle = salleActuelle.getSallePrecedente();
         salleActuelleBackUp = salleActuelleBackUp.getSallePrecedente();
     }
 
-    public void resetDonjon(){
+    public void resetDonjon() {
         premiereSalle = new Salle(premiereSalleBackUp);
         salleActuelle = premiereSalle;
         salleActuelleBackUp = premiereSalleBackUp;
-        while (salleActuelleBackUp != null){
+        while (salleActuelleBackUp != null) {
             resetSalleActuelle();
             salleActuelle = salleActuelle.getSalleSuivante();
             salleActuelleBackUp = salleActuelleBackUp.getSalleSuivante();
         }
     }
 
-    public String toString(){
+    public String toString() {
         return "Le Donjon :\n";
     }
 

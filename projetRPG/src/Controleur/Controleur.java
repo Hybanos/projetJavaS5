@@ -1,18 +1,18 @@
 package Controleur;
 
+import Modele.Donjon.Donjon;
+import Modele.Donjon.Salle;
 import Modele.Item.Equipement;
-import Modele.Item.Item;
-import Modele.Personnage.ClassePersonnage;
+import Modele.Personnage.Ennemi;
 import Modele.Personnage.Inventaire;
 import Modele.Personnage.Joueur;
+import Modele.Personnage.Personnage;
 import Modele.Theme.MF.MedievalFantastique;
-import Modele.Theme.MF.RegistresMF;
 import Modele.Theme.SF.ScienceFiction;
 import Modele.Theme.Theme;
 import Vue.Ihm;
 
 import java.util.AbstractMap;
-import java.util.HashMap;
 
 public class Controleur {
     //À voir si on ne fait pas un contrôleur par thème
@@ -20,8 +20,11 @@ public class Controleur {
     //En vrai peut-être quand même
 
     private static Controleur instance;
-    private Theme theme;
-    private Ihm ihm;
+    private Theme theme = null;
+    private Ihm ihm = null;
+    private Donjon donjon = null;
+    private Salle salle = null;
+    private int vie = 2;
 
     public static Controleur getInstance() {
         if (instance == null)
@@ -54,14 +57,70 @@ public class Controleur {
         System.out.println("Fin de la création du personnage, redirection vers le menu principal ...");
         while (true) {
             int choix = ihm.interractionMenu();
-            if (choix == 0) {
-                System.exit(0);
+            switch (choix) {
+                case 0:
+                    System.exit(0);
+                case 1:
+                    gererInventaireJoueur(joueur);
+                    break;
+                case 2:
+                    donjon = new Donjon();
+                    joueur.setEnDonjon(true);
+                    salle = donjon.getSalleActuelle();
+                    controleurDonjon(joueur);
+                    break;
             }
-            if (choix == 1) {
-                gererInventaireJoueur(joueur);
+        }
+    }
+
+    /**
+     * Permet une gestiuon lorsqu'un joueur est dans un donjon
+     *
+     * @param j le joueur concerné
+     */
+    public void controleurDonjon(Joueur j) {
+        controleurSalle(j);
+    }
+
+    /**
+     * Permet une gestion de la salle plus précisément
+     *
+     * @param j le joueur dans la salle
+     */
+    public void controleurSalle(Joueur j) {
+        while (true) {
+            for (int i = 0; i < salle.getLesEnnemis().size(); i++) {
+                Ennemi ennemi = salle.getLesEnnemis().get(i);
+                if (ennemi.estEnVie()) {
+                    System.out.println("L'ennemi " + ennemi.getNom() + " vous a fait " + ennemi.attaquer(j) + " dégâts.");
+                } else {
+                    salle.getLesEnnemis().remove(i);
+                }
             }
-            if (choix == 2) {
-                // Lancer le dongeon
+            if (salle.estVide()) {
+                System.out.println("Bravo vous avez tué tous les ennemis dans cette salle !");
+            }
+            while (true) {
+                int choix = ihm.interractionSalle(j, salle);
+                if (choix == 98) {
+                    break; // A voir quand tu quittes c'est complexe
+                }
+                if (choix == 99) {
+                    gererInventaireJoueur(j);
+                    break;
+                }
+                if (choix == 97) {
+                    gererInventaireSalle(j, salle);
+                    break;
+                }
+                if (choix < salle.getLesEnnemis().size()) {
+                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix) + " a raçu " + j.attaquerArme(salle.getLesEnnemis().get(choix)) + " dégâts.");
+                    break;
+                }
+                if (choix >= 10 && choix < salle.getLesEnnemis().size() + 10) {
+                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix - 10) + " a raçu " + j.attaquerSort(salle.getLesEnnemis().get(choix - 10)) + " dégâts.");
+                    break;
+                }
             }
         }
     }
@@ -137,7 +196,7 @@ public class Controleur {
      */
     public void gererInventaireJoueur(Joueur j) {
         while (true) {
-            int choix = ihm.interractionInventaire(j);
+            int choix = ihm.interractionInventaireJoueur(j);
             if (choix == 98) {
                 break;
             }
@@ -156,38 +215,66 @@ public class Controleur {
                 }
             }
             if (choix <= 19) {
-                while (true) {
+                if (j.getInventaire().isItem(choix)) {
                     int action = ihm.interractionItem(j, choix);
-                    if (action == 0) {
-                        break;
-                    }
-                    if (action == 1) {
-                        //Si un joueur est hors du donjon faire :
-                        j.jeterItem(choix);
-                        break;
-                        //Si un joueur est dans un donjon faire :
-                        //Donjon.getSalleActuelle.ajouterItem(j.jeterItem(choix);
-                        //break;
-                    }
-                    if (action == 2) {
-                        j.utiliser(choix);
-                        break;
-                    }
-                    if (action == 3) {
-                        Equipement aEquiper = (Equipement) j.getInventaire().getItem(choix); //Equipement à équiper dans l'inventaire
-                        Equipement dejaEquipe = j.desequiper(aEquiper.getEmplacement()); //Equipement deja équipé
-                        if (j.equiper(aEquiper)) {
-                            j.getInventaire().supprItem(choix);
-                            if (dejaEquipe != null) {
-                                j.getInventaire().ajouterItem(dejaEquipe);
+                    switch (action) {
+                        case 0:
+                            break;
+                        case 1:
+                            if (j.isEnDonjon()) {
+                                donjon.getSalleActuelle().ajouterItem(j.jeterItem(choix));
+                                break;
+                            } else {
+                                j.jeterItem(choix);
+                                break;
                             }
-                        } else {
-                            if (dejaEquipe != null) {
-                                j.equiper(dejaEquipe);
+                        case 2:
+                            j.utiliser(choix);
+                            break;
+                        case 3:
+                            Equipement aEquiper = (Equipement) j.getInventaire().getItem(choix); //Equipement à équiper dans l'inventaire
+                            Equipement dejaEquipe = j.desequiper(aEquiper.getEmplacement()); //Equipement deja équipé
+                            if (j.equiper(aEquiper)) {
+                                j.getInventaire().supprItem(choix);
+                                if (dejaEquipe != null) {
+                                    j.ajouterItem(dejaEquipe);
+                                }
+                            } else {
+                                if (dejaEquipe != null) {
+                                    j.equiper(dejaEquipe);
+                                }
                             }
-                        }
+                            break;
+                    }
+                }
+            } else {
+                System.out.println("L'Objet demandé n'existe pas");
+            }
+        }
+    }
+
+    /**
+     * Permet de gérér l'inventaire dans une salle
+     *
+     * @param j le joueur effectuant des modifications
+     * @param s la salle concernée
+     */
+    public void gererInventaireSalle(Joueur j, Salle s) {
+        while (true) {
+            int choix = ihm.interractionInventaireSalle(j, s);
+            if (choix == 98) {
+                break;
+            }
+            if (choix <= 19) {
+                if (s.getLesItems().isItem(choix)) {
+                    if (!j.ajouterItem(s.getLesItems().getItem(choix))) {
+                        System.out.println("Vous n'avez plus de place");
+                    } else {
+                        s.getLesItems().supprItem(choix);
                         break;
                     }
+                } else {
+                    System.out.println("L'Objet demandé n'existe pas");
                 }
             }
         }

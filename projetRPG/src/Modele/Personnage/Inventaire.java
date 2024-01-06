@@ -13,7 +13,7 @@ public class Inventaire {
 
     //emplacements
     private Map<String, Equipement> equipements;
-
+    private int nbItems = 0;
     private final int tailleMax = 20;
 
     public Inventaire() {
@@ -34,8 +34,20 @@ public class Inventaire {
         equipements.put(arme.getEmplacement(), arme);
     }
 
-    public void ajouterItem(Item item) {
-        this.sac.add(item);
+    /**
+     * permet d'ajouter un item dans l'inventaire mais en vérifiant le nombre maximum autorisé
+     *
+     * @param item item à ajouter
+     * @return true c'est effectué, false sinon
+     */
+    public boolean ajouterItem(Item item) {
+        boolean effectue = false;
+        if (nbItems <= tailleMax - 1) {
+            this.sac.add(item);
+            effectue = true;
+            nbItems++;
+        }
+        return effectue;
     }
 
     public Item getItem(int index) {
@@ -43,7 +55,24 @@ public class Inventaire {
     }
 
     public Item supprItem(int index) {
+        nbItems--;
         return this.sac.remove(index);
+    }
+
+    public int getNbItems() {
+        return nbItems;
+    }
+
+    public void setNbItems(int nbItems) {
+        this.nbItems = nbItems;
+    }
+
+    public int getTailleMax() {
+        return tailleMax;
+    }
+
+    public boolean isItem(int index) {
+        return index < this.sac.size();
     }
 
     /**
@@ -63,7 +92,7 @@ public class Inventaire {
     public String toString() {
         String inv = "";
         if (this.sac.isEmpty()) {
-            inv = "Le sac est vide";
+            inv = "Il n'y a pas d'objets";
         } else {
             for (int i = 0; i < this.sac.size(); i++) {
                 inv += "[" + i + "] " + this.sac.get(i) + "\n";
