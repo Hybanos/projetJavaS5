@@ -1,5 +1,6 @@
 package Modele.Theme.SF;
 
+import Modele.Theme.MF.RegistresMF;
 import Modele.Theme.Theme;
 
 public class ScienceFiction extends Theme {
@@ -27,7 +28,8 @@ public class ScienceFiction extends Theme {
         System.out.println("Init. Items");
         lesBibelots = RegistresSF.genererBibelots();
         lesConsommables = RegistresSF.genererConsomable();
-        lesEquipements = RegistresSF.genererEquipements();
+        lesArmes = RegistresSF.genererArmes();
+        lesArmures = RegistresSF.genererArmures();
     }
 
     private void initDonjon() {
@@ -36,6 +38,8 @@ public class ScienceFiction extends Theme {
 
     private void initEnnemis() {
         System.out.println("Init. Ennemis");
-        lesEnnemis = RegistresSF.genererEnnemis();
+        lesPetitsEnnemis = RegistresSF.genererPetitsEnnemis();
+        lesGrosEnnemis = RegistresSF.genererGrosEnnemis();
+        lesBoss = RegistresSF.genererBoss();
     }
 }

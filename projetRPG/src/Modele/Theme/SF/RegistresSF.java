@@ -41,7 +41,7 @@ public class RegistresSF {
         return map;
     }
 
-    public static Map<Integer, Equipement> genererEquipements() {
+    public static Map<Integer, Equipement> genererArmes() {
         Map<Integer, Equipement> map = new HashMap<>();
 
         //Armes
@@ -66,6 +66,13 @@ public class RegistresSF {
         map.put(118, new Equipement("Vielle tôle", "Un morceau de métail découpé, rien de plus", "arme", 1, 0, 0.6, 2, 0, 0, 0));
         map.put(119, new Equipement("Plaque en carbonne", "Un plaque en carbonne très résitante", "arme", 2, 0, 0.6, 4, 0, 0, 0, (j) -> j.getClasse() == c.getTheme().getLesClasses().get(1) && j.getForce() > 2));
 
+
+        return map;
+    }
+
+
+    public static Map<Integer, Equipement> genererArmures() {
+        Map<Integer, Equipement> map = new HashMap<>();
 
         //Armures
         map.put(200, new Equipement("Nu", "Tout nu", "partout", 0, 0, 0, 0, 0, 0, 0));
@@ -100,18 +107,32 @@ public class RegistresSF {
         return map;
     }
 
-    public static Map<Integer, Ennemi> genererEnnemis() {
+    public static Map<Integer, Ennemi> genererPetitsEnnemis() {
         Map<Integer, Ennemi> map = new HashMap<>();
 
         //Ennemis faibles
         map.put(1, new Ennemi("Petit robot", 1, 1, 1, 1, 1, 1));
         map.put(2, new Ennemi("Pirate novice", 2, 2, 2, 1, 1, 1));
         map.put(3, new Ennemi("Petit blob alien", 1, 1, 1, 2, 99, 2));
+
+        return map;
+    }
+
+    public static Map<Integer, Ennemi> genererGrosEnnemis() {
+        Map<Integer, Ennemi> map = new HashMap<>();
+
         //Ennemis moyens
         map.put(11, new Ennemi("Combatant robot", 1, 1, 1, 3, 99, 2));
         map.put(12, new Ennemi("Pirate de l'espace", 3, 4, 1, 1, 1, 1));
         map.put(13, new Ennemi("Faucheur alien", 4, 3, 1, 1, 1, 1));
         map.put(14, new Ennemi("Soldat corrompu", 1, 2, 1, 3, 99, 2));
+
+        return map;
+    }
+
+    public static Map<Integer, Ennemi> genererBoss() {
+        Map<Integer, Ennemi> map = new HashMap<>();
+
         //Ennemis forts
         map.put(21, new Ennemi("TigreGPT", 1, 3, 1, 5, 99, 2));
         map.put(22, new Ennemi("Seigneur alien", 5, 5, 5, 1, 1, 1));
