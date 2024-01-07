@@ -81,7 +81,7 @@ public class Salle {
             affichage = "Il n'y a pas d'ennemis.";
         } else {
             for (int i = 0; i < this.lesEnnemis.size(); i++) {
-                affichage += "[" + i + "] " + this.lesEnnemis.get(i) + "\n";
+                affichage += "\u001B[36m[" + i + "]\u001B[0m " + this.lesEnnemis.get(i) + "\n";
             }
         }
         return affichage;

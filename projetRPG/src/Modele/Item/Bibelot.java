@@ -14,6 +14,6 @@ public class Bibelot extends Item {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "\u001B[33m" + super.toString();
     }
 }

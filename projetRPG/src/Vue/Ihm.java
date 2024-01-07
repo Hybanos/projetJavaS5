@@ -28,12 +28,12 @@ public class Ihm {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("""
-                    Veuillez choisir le thème de la partie :
+                    \u001B[36mVeuillez choisir le thème de la partie :\u001B[0m
                                         
-                    [1] Médiéval Fantastique - Plongez dans un monde féérique avec sa magie et ses différents monstres imaginaires !
-                    [2] Science Fiction - Battez-vous pour prendre le contrôle du vaisseau spatial, mais ça ne sera pas de tout repos !
+                    \u001B[34m[1]\u001B[0m Médiéval Fantastique - Plongez dans un monde féérique avec sa magie et ses différents monstres imaginaires !
+                    \u001B[34m[2]\u001B[0m Science Fiction - Battez-vous pour prendre le contrôle du vaisseau spatial, mais ça ne sera pas de tout repos !
                                         
-                    [Q] Quitter
+                    \u001B[31m[Q] Quitter\u001B[0m
                     """);
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
@@ -58,7 +58,7 @@ public class Ihm {
     public String choixNomJoueur() {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("Veuillez saisir le nom du joueur :");
+            System.out.println("\u001B[36mVeuillez saisir le nom du joueur :\n\u001B[0m");
 
             if (sc.hasNextLine()) {
                 return sc.nextLine();
@@ -75,15 +75,15 @@ public class Ihm {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("""
-                    Veuillez choisir votre classe :
+                    \u001B[36mVeuillez choisir votre classe :\u001B[0m
                                         
-                    [1] Barbare : Force ++ / Constitution +++ / Dextérité - / Intelligence -- / Mana -
-                    [2] Mage : Force - / Constitution -- / Dextérité - / Intelligence ++ / Mana +++
-                    [3] Archer : Force - / Constitution - / Dextérité ++ / Intelligence + / Mana +
-                    [4] Chevalier : Force + / Constitution ++ / Dextérité + / Intelligence - / Mana -
-                    [5] Assassin : Force + / Constitution + / Dextérité ++ / Intelligence - / Mana --
+                    \u001B[34m[1]\u001B[0m Barbare : Force ++ / Constitution +++ / Dextérité - / Intelligence -- / Mana -
+                    \u001B[34m[2]\u001B[0m Mage : Force - / Constitution -- / Dextérité - / Intelligence ++ / Mana +++
+                    \u001B[34m[3]\u001B[0m Archer : Force - / Constitution - / Dextérité ++ / Intelligence + / Mana +
+                    \u001B[34m[4]\u001B[0m Chevalier : Force + / Constitution ++ / Dextérité + / Intelligence - / Mana -
+                    \u001B[34m[5]\u001B[0m Assassin : Force + / Constitution + / Dextérité ++ / Intelligence - / Mana --
                                         
-                    [Q] Quitter
+                    \u001B[31m[Q] Quitter\u001B[0m
                     """);
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
@@ -118,14 +118,14 @@ public class Ihm {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("""
-                    Veuillez choisir votre classe :
+                    \u001B[36mVeuillez choisir votre classe :\u001B[0m
                                         
-                    [1] Robot : Force - / Constitution - / Dextérité ++ / Pouvoir + / Énergie +
-                    [2] Alien : Force - / Constitution -- / Dextérité - / Pouvoir +++ / Énergie ++
-                    [3] Sportif : Force +++ / Constitution ++ / Dextérité - / Pouvoir -- / Énergie -
-                    [4] Pirate Spatial : Force + / Constitution ++ / Dextérité + / Pouvoir - / Énergie -
+                    \u001B[34m[1]\u001B[0m Robot : Force - / Constitution - / Dextérité ++ / Pouvoir + / Énergie +
+                    \u001B[34m[2]\u001B[0m Alien : Force - / Constitution -- / Dextérité - / Pouvoir +++ / Énergie ++
+                    \u001B[34m[3]\u001B[0m Sportif : Force +++ / Constitution ++ / Dextérité - / Pouvoir -- / Énergie -
+                    \u001B[34m[4]\u001B[0m Pirate Spatial : Force + / Constitution ++ / Dextérité + / Pouvoir - / Énergie -
                                         
-                    [Q] Quitter
+                    \u001B[31m[Q] Quitter\u001B[0m
                     """);
 
             if (sc.hasNextLine()) {
@@ -158,7 +158,7 @@ public class Ihm {
     public boolean demanderValidation(String texte) {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("Vous avez choisi " + texte + ". Validez-vous votre choix ?");
+            System.out.println("\u001B[36mVous avez choisi \u001B[31m" + texte + "\u001B[36m. Validez-vous votre choix ?\n\u001B[0m");
 
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
@@ -186,9 +186,9 @@ public class Ihm {
             if (c.getTheme().getNom().equals("sf"))
                 mot = "vaisseau";
             System.out.println("Menu du jeu :\n\n" +
-                    "[A] Accéder à l'inventaire\n" +
-                    "[B] Entrer dans le " + mot + ".\n\n" +
-                    "[Q] Quitter");
+                    "\u001B[34m[A]\u001B[0m Accéder à l'inventaire\n" +
+                    "\u001B[34m[B]\u001B[0m Entrer dans le " + mot + ".\n\n" +
+                    "\u001B[31m[Q] Quitter\n\u001B[0m");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
@@ -215,7 +215,11 @@ public class Ihm {
         while (true) {
             afficherEssentiel(j);
             afficherInventaireJoueur(j);
-            System.out.println("\n[S] Ouvrir le panneau des statistiques\n[E] <nombre> Interaction avec l'objet indiqué\n[Q] Quitter");
+            String mot = "\u001B[34m[S]\u001B[0m Ouvrir le panneau des statistiques\n\n\u001B[31m[Q] Quitter\n\u001B[0m";
+            if (j.getInventaire().getNbItems() != 0) {
+                mot = "\u001B[34m[<nombre>]\u001B[0m Interaction avec l'objet indiqué\n" + mot;
+            }
+            System.out.println(mot);
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
@@ -244,15 +248,21 @@ public class Ihm {
         while (true) {
             afficherEssentiel(j);
             afficherInventaireSalle(s);
-            System.out.println("\n[E] <nombre> Récupérer l'objet indiqué\n[Q] Quitter");
+            String mot = "\u001B[31m[Q] Quitter\n\u001B[0m";
+            if (s.getLesItems().getNbItems() != 0) {
+                mot = "\u001B[34m[<nombre>]\u001B[0m Récupérer l'objet indiqué\n\n" + mot;
+            }
+            System.out.println(mot);
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
                     return 98;
                 }
-                int index = patternsItems(rep);
-                if (index != -1) {
-                    return index;
+                if (s.getLesItems().getNbItems() != 0) {
+                    int index = patternsItems(rep);
+                    if (index != -1) {
+                        return index;
+                    }
                 }
             }
         }
@@ -265,21 +275,14 @@ public class Ihm {
      * @return une chiffre de 0 à 19 pour l'item dans l'inventaire
      */
     public int patternsItems(String rep) {
-        Pattern pattern1 = Pattern.compile("^[E,e][0-9]$");
-        Pattern pattern2 = Pattern.compile("^[E,e][0-1][0-9]$");
-        Pattern pattern3 = Pattern.compile("^[E,e] [0-9]$");
-        Pattern pattern4 = Pattern.compile("^[E,e] [0-1][0-9]$");
+        Pattern pattern1 = Pattern.compile("^[0-9]$");
+        Pattern pattern2 = Pattern.compile("^[0-1][0-9]$");
 
         boolean compa1 = pattern1.matcher(rep).find();
         boolean compa2 = pattern2.matcher(rep).find();
-        boolean compa3 = pattern3.matcher(rep).find();
-        boolean compa4 = pattern4.matcher(rep).find();
 
         if (compa1 || compa2) {
-            return Integer.parseInt(rep.substring(1));
-        }
-        if (compa3 || compa4) {
-            return Integer.parseInt(rep.substring(2));
+            return Integer.parseInt(rep);
         }
         return -1;
     }
@@ -296,12 +299,12 @@ public class Ihm {
         while (true) {
             afficherEssentiel(j);
             afficherSalle(s);
-            String message = "\n[E] Accéder à l'inventaire du joueur\n[R] Voir les objets dans la pièce";
+            String message = "\n\u001B[34m[E]\u001B[0m Accéder à l'inventaire du joueur\n\u001B[34m[R]\u001B[0m Voir les objets dans la pièce\n";
             if (option == 1) {
-                message = "\n[A] Attaquer le monstre indiqué avec son arme\n[S] Attaquer le monstre indiqué avec un sort" + message;
+                message = "\u001B[34m[A] <nombre>\u001B[0m Attaquer le monstre indiqué avec son arme\n\u001B[34m[S] <nombre>\u001B[0m Attaquer le monstre indiqué avec une capacité" + message;
             }
             if (option == 2) {
-                message = "\n[N] Accéder à la pièce suivante" + message;
+                message = "\u001B[34m[N]\u001B[0m Accéder à la pièce suivante" + message;
             }
             System.out.println(message);
             if (sc.hasNextLine()) {
@@ -352,7 +355,7 @@ public class Ihm {
     public int interractionMort(int retours) {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("Vous êtes morts...\n\n[1] Menu principal\n[2] Revenir dans la salle précédente (Retours possibles : " + retours + ")");
+            System.out.println("Vous êtes morts...\n\n\u001B[34m[1]\u001B[0m Menu principal\n\u001B[34m[2]\u001B[0m Revenir dans la salle précédente \u001B[31m(Retours possibles : " + retours + ")\n\u001B[0m");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("1".equalsIgnoreCase(rep) || "2".equalsIgnoreCase(rep)) {
@@ -372,8 +375,20 @@ public class Ihm {
     public AbstractMap.SimpleEntry<Integer, Integer> interractionStatistiques(Joueur j) {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            afficherStatistiques(j);
-            System.out.println("[E] <stat> <nombre> Ajouter des points\n(Exemple : -> A 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> Intelligence\n5 -> Capacité Magique\n[Q] Quitter");
+            String mot1 = "";
+            String mot2 = "";
+            switch (c.getTheme().getNom()) {
+                case "mf":
+                    mot1 = "Intelligence";
+                    mot2 = "Capacité Magique";
+                    break;
+                case "sf":
+                    mot1 = "Pouvoir";
+                    mot2 = "Énergie";
+                    break;
+            }
+            afficherStatistiques(j, mot1, mot2);
+            System.out.println("\u001B[34m[E] <stat> <nombre>\u001B[0m Ajouter des points\n(Exemple : -> A 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> " + mot1 + "\n5 -> " + mot2 + "\n\u001B[31m[Q] Retour\n\u001B[0m");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
@@ -402,14 +417,14 @@ public class Ihm {
     public int interractionItem(Joueur j, int i) {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println(j.getInventaire().getItem(i) + "\n\n[J] Jeter l'Objet");
+            System.out.println(j.getInventaire().getItem(i) + "\n\n\u001B[34m[J]\u001B[0m Jeter l'Objet");
             if (j.getInventaire().getItem(i).getType() == 2) {
-                System.out.println("[E] Utiliser l'Objet");
+                System.out.println("\u001B[34m[E]\u001B[0m Utiliser l'Objet");
             }
             if (j.getInventaire().getItem(i).getType() == 3) {
-                System.out.println("[E] Équiper l'Objet");
+                System.out.println("\u001B[34m[E]\u001B[0m Équiper l'Objet");
             }
-            System.out.println("[Q] Quitter\n");
+            System.out.println("\u001B[31m[Q] Annuler\n\u001B[0m");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
@@ -429,25 +444,14 @@ public class Ihm {
     // Afficher
 
     /**
-     * Permet d'afficher un joueur complet
-     *
-     * @param j le joueur à afficher
-     */
-    public void afficherJoueur(Joueur j) {
-        afficherEssentiel(j);
-        afficherStatistiques(j);
-        afficherInventaireJoueur(j);
-    }
-
-    /**
      * Permet d'afficher uniquement l'essentiel (nom, vie et mana) d'un joueur
      *
      * @param j le joueur concerné
      */
     public void afficherEssentiel(Joueur j) {
-        System.out.println(j.getNom() +
-                "\n\nVie : " + j.getVie() + "/" + j.getMAX_VIE() + "\n" +
-                "Mana : " + j.getMana() + "/" + j.getMAX_MANA() + "\n");
+        System.out.println("\u001B[33m" + j.getNom() +
+                "\n\u001B[36mVie\u001B[0m : " + j.getVie() + "/" + j.getMAX_VIE() + "\n" +
+                "\u001B[36mMana\u001B[0m : " + j.getMana() + "/" + j.getMAX_MANA() + "\n");
     }
 
     /**
@@ -455,15 +459,15 @@ public class Ihm {
      *
      * @param j le joueur concerné
      */
-    public void afficherStatistiques(Joueur j) {
-        System.out.println("Statistiques :\n" +
-                "- Force : " + j.getForce() + "\n" +
-                "- Constitution : " + j.getConstitution() + "\n" +
-                "- Dextérité : " + j.getDexterite() + "\n" +
-                "- Intelligence : " + j.getIntelligence() + "\n" +
-                "- Capacité Magique : " + j.getCapacite() + "\n" +
-                "- Points Disponibles : " + j.getPts_dispo() + "\n" +
-                "- Probabilité de toucher : " + (int) (((((double) j.getDexterite() / 10) + j.getInventaire().getEquipement("arme").getPrecision()) / 2) * 100) + "%\n");
+    public void afficherStatistiques(Joueur j, String mot1, String mot2) {
+        System.out.println("\u001B[33mStatistiques\u001B[0m :\n" +
+                "- \u001B[36mForce\u001B[0m : " + j.getForce() + "\n" +
+                "- \u001B[36mConstitution\u001B[0m : " + j.getConstitution() + "\n" +
+                "- \u001B[36mDextérité\u001B[0m : " + j.getDexterite() + "\n" +
+                "- \u001B[36m" + mot1 + "\u001B[0m : " + j.getIntelligence() + "\n" +
+                "- \u001B[36m" + mot2 + "\u001B[0m : " + j.getCapacite() + "\n" +
+                "- \u001B[35mPoints Disponibles\u001B[0m : " + j.getPts_dispo() + "\n" +
+                "- \u001B[35mProbabilité de toucher\u001B[0m : " + (int) (((((double) j.getDexterite() / 10) + j.getInventaire().getEquipement("arme").getPrecision()) / 2) * 100) + "%\n");
     }
 
     /**
@@ -472,13 +476,13 @@ public class Ihm {
      * @param j le joueur concerné
      */
     public void afficherInventaireJoueur(Joueur j) {
-        System.out.println("Équipement :\n" +
-                "- Arme : " + j.getInventaire().getEquipement("arme") + "\n" +
-                "- Tête : " + j.getInventaire().getEquipement("tete") + "\n" +
-                "- Torse : " + j.getInventaire().getEquipement("torse") + "\n" +
-                "- Jambes : " + j.getInventaire().getEquipement("jambes") + "\n" +
-                "- Pieds : " + j.getInventaire().getEquipement("pieds") + "\n" +
-                "\nInventaire : " + j.getInventaire().getNbItems() + "/" + j.getInventaire().getTailleMax() + "\n" +
+        System.out.println("\u001B[33mÉquipement\u001B[0m :\n" +
+                "- \u001B[36mArme\u001B[0m : " + j.getInventaire().getEquipement("arme") + "\n" +
+                "- \u001B[36mTête\u001B[0m : " + j.getInventaire().getEquipement("tete") + "\n" +
+                "- \u001B[36mTorse\u001B[0m : " + j.getInventaire().getEquipement("torse") + "\n" +
+                "- \u001B[36mJambes\u001B[0m : " + j.getInventaire().getEquipement("jambes") + "\n" +
+                "- \u001B[36mPieds\u001B[0m : " + j.getInventaire().getEquipement("pieds") + "\n" +
+                "\n\u001B[33mInventaire\u001B[0m : " + j.getInventaire().getNbItems() + "/" + j.getInventaire().getTailleMax() + "\n\n" +
                 j.getInventaire());
     }
 
@@ -488,7 +492,7 @@ public class Ihm {
      * @param s la salle concernée
      */
     public void afficherInventaireSalle(Salle s) {
-        System.out.println("Objets au sol :\n" +
+        System.out.println("\u001B[33mObjets au sol\u001B[0m :\n" +
                 s.getLesItems());
     }
 

@@ -21,6 +21,6 @@ public abstract class Item {
 
     @Override
     public String toString() {
-        return nom + " | " + description;
+        return nom + "\u001B[0m | " + description;
     }
 }

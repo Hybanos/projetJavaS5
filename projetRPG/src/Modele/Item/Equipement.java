@@ -83,6 +83,6 @@ public class Equipement extends Item {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "\u001B[35m" + super.toString();
     }
 }

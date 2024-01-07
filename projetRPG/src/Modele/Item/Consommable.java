@@ -24,6 +24,6 @@ public class Consommable extends Item {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "\u001B[36m" + super.toString();
     }
 }

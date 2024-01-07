@@ -110,10 +110,10 @@ public class Inventaire {
     public String toString() {
         String inv = "";
         if (this.sac.isEmpty()) {
-            inv = "Il n'y a pas d'objets";
+            inv = "\u001B[31mIl n'y a pas d'objets\n\u001B[0m";
         } else {
             for (int i = 0; i < this.sac.size(); i++) {
-                inv += "[" + i + "] " + this.sac.get(i) + "\n";
+                inv += "\u001B[34m[" + i + "]\u001B[0m " + this.sac.get(i) + "\n";
             }
         }
         return inv;

@@ -14,6 +14,7 @@ import Vue.Ihm;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Controleur {
     //À voir si on ne fait pas un contrôleur par thème
@@ -59,7 +60,7 @@ public class Controleur {
         joueur.ajouterItem(theme.getLesArmes().get(101)); // première arme
         joueur.ajouterItem(theme.getLesArmures().get(201)); // première armure
         joueur.ajouterItem(theme.getLesConsommables().get(1));
-        System.out.println("Fin de la création du personnage, redirection vers le menu principal ...");
+        System.out.println("\u001B[36mFin de la création du personnage, redirection vers le menu principal ...\n\u001B[0m");
         while (true) {
             int choix = ihm.interractionMenu();
             switch (choix) {
@@ -70,6 +71,8 @@ public class Controleur {
                     break;
                 case 2:
                     donjon = new Donjon();
+                    lvlSalle = 1;
+                    retours = 2;
                     joueur.setEnDonjon(true);
                     salle = donjon.getSalleActuelle();
                     joueur = controleurDonjon(joueur);
@@ -100,11 +103,14 @@ public class Controleur {
                         salle.ajouterSalleFin(new Salle(ennemis, objets));
                         salle = donjon.salleSuivante();
                         j.setPts_dispo(j.getPts_dispo() + lvlSalle);
-                        j.ajouterMana(3);
-                        j.ajouterVie(5);
+                        System.out.println("\u001B[32mVous avez récupéré " + (lvlSalle) + " points de statistiques\u001B[0m");
+                        j.ajouterMana(j.getCapacite());
+                        System.out.println("\u001B[32mVous avez récupéré " + j.getCapacite() + " points de capacité\u001B[0m");
+                        j.ajouterVie(2 * j.getConstitution());
+                        System.out.println("\u001B[32mVous avez récupéré " + 2 * j.getConstitution() + " points de vie\u001B[0m");
                         break;
                     } else {
-                        System.out.println("Bravo ! vous avez fini le jeu !");
+                        System.out.println("\u001B[33mBravo ! vous avez fini le jeu !");
                         j.ajouterItem(theme.getLesBibelots().get(300));
                         j.setEnDonjon(false);
                         return j;
@@ -113,8 +119,6 @@ public class Controleur {
                     j.setVie(1);
                     j.getInventaire().supprConsommables();
                     j.setEnDonjon(false);
-                    lvlSalle = 1;
-                    retours = 2;
                     return j;
                 case 2:
                     //cas où le joueur reviens à la salle précédente
@@ -136,15 +140,16 @@ public class Controleur {
      */
     public ArrayList<Ennemi> genererEnnemis(int niveau) {
         ArrayList<Ennemi> liste = new ArrayList<>();
+        Random ran = new Random();
 
         for (int i = 1; i <= niveau; i++) {
             if (i % 5 == 0) {
-                liste.add(theme.getLesBoss().get(21 + (int) (Math.random() * theme.getLesBoss().size())).copy());
+                liste.add(theme.getLesBoss().get(ran.nextInt(theme.getLesBoss().size())+21).copy());
             }
             if (i % 3 == 0) {
-                liste.add(theme.getLesGrosEnnemis().get(11 + (int) (Math.random() * theme.getLesGrosEnnemis().size())).copy());
+                liste.add(theme.getLesGrosEnnemis().get(ran.nextInt(theme.getLesGrosEnnemis().size())+11).copy());
             } else {
-                liste.add(theme.getLesPetitsEnnemis().get(1 + (int) (Math.random() * theme.getLesGrosEnnemis().size())).copy());
+                liste.add(theme.getLesPetitsEnnemis().get(ran.nextInt(theme.getLesPetitsEnnemis().size())+1).copy());
             }
         }
 
@@ -159,16 +164,17 @@ public class Controleur {
      */
     public Inventaire genererObjets(int niveau) {
         Inventaire inv = new Inventaire();
+        Random ran = new Random();
 
         for (int i = 1; i <= niveau; i++) {
             if (i % 3 == 0) {
-                inv.ajouterItem(theme.getLesArmes().get(101 + (int) (Math.random() * theme.getLesArmes().size())));
-                inv.ajouterItem(theme.getLesArmures().get(201 + (int) (Math.random() * theme.getLesArmures().size())));
+                inv.ajouterItem(theme.getLesArmes().get(ran.nextInt(theme.getLesArmes().size()-1)+101));
+                inv.ajouterItem(theme.getLesArmures().get(ran.nextInt(theme.getLesArmures().size()-1)+201));
             }
             if (i % 2 == 0) {
-                inv.ajouterItem(theme.getLesConsommables().get(1 + (int) (Math.random() * 10)));
+                inv.ajouterItem(theme.getLesConsommables().get(ran.nextInt(theme.getLesConsommables().size())+1));
             } else {
-                inv.ajouterItem(theme.getLesBibelots().get(301 + (int) (Math.random() * 6)));
+                inv.ajouterItem(theme.getLesBibelots().get(ran.nextInt(theme.getLesConsommables().size()-1)+301));
             }
         }
 
@@ -186,9 +192,10 @@ public class Controleur {
             if (j.estEnVie()) {
                 int choix;
                 if (salle.estVide()) {
-                    System.out.println("Bravo vous avez tué tous les ennemis dans cette salle !");
+                    System.out.println("\u001B[32mBravo vous avez tué tous les ennemis dans cette salle !\n\u001B[0m");
                     choix = ihm.interractionSalle(j, salle, 2);
                 } else {
+                    System.out.println("\n");
                     choix = ihm.interractionSalle(j, salle, 1);
                 }
                 if (choix == 99) {
@@ -201,21 +208,21 @@ public class Controleur {
                     return 0;
                 }
                 if (choix < salle.getLesEnnemis().size()) {
-                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix) + " a reçu " + j.attaquerArme(salle.getLesEnnemis().get(choix)) + " dégâts.");
+                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix) + " a reçu \u001B[31m" + j.attaquerArme(salle.getLesEnnemis().get(choix)) + "\u001B[0m dégâts.");
                 }
                 if (choix >= 10 && choix < salle.getLesEnnemis().size() + 10) {
-                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix - 10) + " a reçu " + j.attaquerSort(salle.getLesEnnemis().get(choix - 10)) + " dégâts.");
+                    System.out.println("L'ennemi " + salle.getLesEnnemis().get(choix - 10) + " a reçu \u001B[31m" + j.attaquerSort(salle.getLesEnnemis().get(choix - 10)) + "\u001B[0m dégâts.");
                 }
                 for (int i = 0; i < salle.getLesEnnemis().size(); i++) {
                     Ennemi ennemi = salle.getLesEnnemis().get(i);
                     if (ennemi.estEnVie()) {
-                        System.out.println("L'ennemi " + ennemi.getNom() + " vous a fait " + ennemi.attaquer(j) + " dégâts.");
+                        System.out.println("L'ennemi " + ennemi.getNom() + " vous a fait \u001B[31m" + ennemi.attaquer(j) + "\u001B[0m dégâts.");
                     } else {
                         salle.getLesEnnemis().remove(i);
-                        System.out.println("Vous avez tué " + ennemi.getNom() + " !");
+                        System.out.println("\u001B[32mVous avez tué " + ennemi.getNom() + " !\u001B[0m");
                         if (Math.random() <= 0.3) {
                             salle.ajouterItem(Math.random() <= 0.5 ? theme.getLesArmes().get(100 + (int) (Math.random() * theme.getLesArmes().size())) : theme.getLesArmures().get(200 + (int) (Math.random() * theme.getLesArmures().size())));
-                            System.out.println("Le monstre a laissé tomber un objet au sol");
+                            System.out.println("\u001B[36mLe monstre a laissé tomber un objet au sol\u001B[0m");
                         }
                     }
                 }
@@ -236,11 +243,11 @@ public class Controleur {
                 int choix = ihm.interractionMort(retours);
                 switch (choix) {
                     case 1:
-                        if (ihm.demanderValidation("de quitter le donjon : vous sortirez avec 1 PV et sans vos consommables")) {
+                        if (ihm.demanderValidation("\u001B[36mde \u001B[31mquitter le donjon\u001B[36m : vous sortirez avec \u001B[31m1 PV\u001B[36m et \u001B[31msans vos consommables")) {
                             return 1;
                         }
                     case 2:
-                        if (ihm.demanderValidation("de retourner dans le passé : vous reviendrez à la pièce précédente (utilisera 1 retour)")) {
+                        if (ihm.demanderValidation("\u001B[36mde \u001B[31mretourner dans le passé\u001B[36m : vous reviendrez à la \u001B[31mpièce précédente (utilisera 1 retour)")) {
                             return 2;
                         }
                 }
@@ -361,12 +368,15 @@ public class Controleur {
                         break;
                     } else {
                         if (j.utiliserPoints(addStat.getKey(), addStat.getValue())) {
-                            System.out.println("Points ajoutés");
+                            System.out.println("\u001B[32mPoints ajoutés\u001B[0m");
                         } else {
-                            System.out.println("Vous n'avez pas assez de points");
+                            System.out.println("\u001B[31mVous n'avez pas assez de points\u001B[0m");
                         }
                     }
                 }
+            }
+            if (choix <= 19 && !j.getInventaire().isItem(choix)) {
+                System.out.println("\u001B[31mL'Objet demandé n'existe pas\u001B[0m");
             }
             if (choix <= 19) {
                 if (j.getInventaire().isItem(choix)) {
@@ -389,20 +399,22 @@ public class Controleur {
                             Equipement aEquiper = (Equipement) j.getInventaire().getItem(choix); //Equipement à équiper dans l'inventaire
                             Equipement dejaEquipe = j.desequiper(aEquiper.getEmplacement()); //Equipement deja équipé
                             if (j.equiper(aEquiper)) {
+                                System.out.println("\u001B[32mVous avez équipé l'objet\u001B[0m");
                                 j.getInventaire().supprItem(choix);
                                 if (dejaEquipe != null) {
                                     j.ajouterItem(dejaEquipe);
                                 }
                             } else {
+                                System.out.println("\u001B[31mVous ne pouvez pas équiper cet objet\u001B[0m");
                                 if (dejaEquipe != null) {
                                     j.equiper(dejaEquipe);
                                 }
                             }
                             break;
+                        default:
+                            System.out.println("\u001B[31mL'Objet demandée est impossible\u001B[0m");
                     }
                 }
-            } else {
-                System.out.println("L'Objet demandé n'existe pas");
             }
         }
     }
@@ -422,13 +434,13 @@ public class Controleur {
             if (choix <= 19) {
                 if (s.getLesItems().isItem(choix)) {
                     if (!j.ajouterItem(s.getLesItems().getItem(choix))) {
-                        System.out.println("Vous n'avez plus de place");
+                        System.out.println("\u001B[31mVous n'avez plus de place\u001B[0m");
                     } else {
                         s.getLesItems().supprItem(choix);
                         break;
                     }
                 } else {
-                    System.out.println("L'Objet demandé n'existe pas");
+                    System.out.println("\u001B[31mL'Objet demandé n'existe pas\u001B[0m");
                 }
             }
         }
