@@ -123,10 +123,12 @@ public class Ihm {
                     [1] Robot : Force - / Constitution - / Dextérité ++ / Pouvoir + / Énergie +
                     [2] Alien : Force - / Constitution -- / Dextérité - / Pouvoir +++ / Énergie ++
                     [3] Sportif : Force +++ / Constitution ++ / Dextérité - / Pouvoir -- / Énergie -
-                    [4] Pirate spatial : Force + / Constitution ++ / Dextérité + / Pouvoir - / Énergie -
                                         
                     [Q] Quitter
                     """);
+                    // [4] Pirate spatial : Force + / Constitution ++ / Dextérité + / Pouvoir - / Énergie -
+                    // j'avais fait que 3 classes quand j'ai fait le spreadsheet 💀
+
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("1".equalsIgnoreCase(rep) || "robot".equalsIgnoreCase(rep)) {
@@ -138,9 +140,9 @@ public class Ihm {
                 if ("3".equalsIgnoreCase(rep) || "sportif".equalsIgnoreCase(rep)) {
                     return "Sportif";
                 }
-                if ("4".equalsIgnoreCase(rep) || "pirate".equalsIgnoreCase(rep) || "pirate spatial".equalsIgnoreCase(rep)) {
-                    return "Pirate Spatial";
-                }
+                // if ("4".equalsIgnoreCase(rep) || "pirate".equalsIgnoreCase(rep) || "pirate spatial".equalsIgnoreCase(rep)) {
+                //     return "Pirate Spatial";
+                // }
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
                     return "q";
                 }

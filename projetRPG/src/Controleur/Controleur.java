@@ -298,7 +298,28 @@ public class Controleur {
     }
 
     public Joueur persoSF() {
-        return null;
+        while (true) {
+            String nom = ihm.choixNomJoueur();
+            if (ihm.demanderValidation(nom)) {
+                while (true) {
+                    String classe = ihm.choixClasseSF();
+                    if ("q".equalsIgnoreCase(classe)) {
+                        return null;
+                    }
+                    if (ihm.demanderValidation(classe)) {
+                        if ("sportif".equalsIgnoreCase(classe)) {
+                            return new Joueur(nom, theme.getLesClasses().get(1), new Inventaire(), 4, 5, 2, 1, 2);
+                        }
+                        if ("alien".equalsIgnoreCase(classe)) {
+                            return new Joueur(nom, theme.getLesClasses().get(2), new Inventaire(), 2, 1, 2, 4, 5);
+                        }
+                        if ("robot".equalsIgnoreCase(classe)) {
+                            return new Joueur(nom, theme.getLesClasses().get(3), new Inventaire(), 2, 2, 4, 3, 3);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
