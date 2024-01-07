@@ -19,7 +19,7 @@ public class Joueur extends Personnage {
         this.pts_dispo = 0;
     }
 
-    public Joueur(Joueur j) {
+    public Joueur(Joueur j){
         super(j.getNom(), j.getVie(), j.getMAX_VIE(), j.getMana(), j.getMAX_MANA(), j.getForce(), j.getConstitution(), j.getDexterite(), j.getIntelligence(), j.getCapacite());
         this.classe = j.classe;
         this.inventaire = new Inventaire(j.inventaire);
@@ -67,7 +67,7 @@ public class Joueur extends Personnage {
      */
     @Override
     public boolean coupTouche() {
-        double probabilite = (((double) this.getDexterite() / 10) + inventaire.getEquipement("arme").getPrecision()) / 2;
+        double probabilite = (((double) this.getDexterite() / 10) * inventaire.getEquipement("arme").getPrecision());
         //par exemple, le joueur a 7 de dextérité et une arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
         double random = Math.random();
         return random <= probabilite;

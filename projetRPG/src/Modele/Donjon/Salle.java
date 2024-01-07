@@ -78,7 +78,7 @@ public class Salle {
     public String affichertLesEnnemis() {
         String affichage = "";
         if (this.lesEnnemis.isEmpty()) {
-            affichage = "Il n'y a pas d'ennemis.";
+            affichage = "\u001B[31mIl n'y a pas d'ennemis.\n\u001B[0m";
         } else {
             for (int i = 0; i < this.lesEnnemis.size(); i++) {
                 affichage += "\u001B[36m[" + i + "]\u001B[0m " + this.lesEnnemis.get(i) + "\n";

@@ -10,7 +10,7 @@ public class Inventaire {
 
     private final Controleur c = Controleur.getInstance();
     private List<Item> sac;
-    private final int tailleMax = 20;
+    private final int tailleMax = 30;
 
     //emplacements
     private Map<String, Equipement> equipements;

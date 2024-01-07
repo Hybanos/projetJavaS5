@@ -276,7 +276,7 @@ public class Ihm {
      */
     public int patternsItems(String rep) {
         Pattern pattern1 = Pattern.compile("^[0-9]$");
-        Pattern pattern2 = Pattern.compile("^[0-1][0-9]$");
+        Pattern pattern2 = Pattern.compile("^[0-2][0-9]$");
 
         boolean compa1 = pattern1.matcher(rep).find();
         boolean compa2 = pattern2.matcher(rep).find();
@@ -388,7 +388,7 @@ public class Ihm {
                     break;
             }
             afficherStatistiques(j, mot1, mot2);
-            System.out.println("\u001B[34m[E] <stat> <nombre>\u001B[0m Ajouter des points\n(Exemple : -> A 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> " + mot1 + "\n5 -> " + mot2 + "\n\u001B[31m[Q] Retour\n\u001B[0m");
+            System.out.println("\u001B[34m[E] <stat> <nombre>\u001B[0m Ajouter des points\n(Exemple : -> E 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> " + mot1 + "\n5 -> " + mot2 + "\n\u001B[31m[Q] Retour\n\u001B[0m");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {

@@ -7,7 +7,6 @@ import Modele.Personnage.Ennemi;
 import Modele.Personnage.Inventaire;
 import Modele.Personnage.Joueur;
 import Modele.Theme.MF.MedievalFantastique;
-import Modele.Theme.MF.RegistresMF;
 import Modele.Theme.SF.ScienceFiction;
 import Modele.Theme.Theme;
 import Vue.Ihm;
@@ -102,8 +101,8 @@ public class Controleur {
                         Inventaire objets = genererObjets(lvlSalle);
                         salle.ajouterSalleFin(new Salle(ennemis, objets));
                         salle = donjon.salleSuivante();
-                        j.setPts_dispo(j.getPts_dispo() + lvlSalle);
-                        System.out.println("\u001B[32mVous avez récupéré " + (lvlSalle) + " points de statistiques\u001B[0m");
+                        j.setPts_dispo(j.getPts_dispo() + (int) (lvlSalle / 1.5));
+                        System.out.println("\u001B[32mVous avez récupéré " + (int) (lvlSalle / 1.5) + " points de statistiques\u001B[0m");
                         j.ajouterMana(j.getCapacite());
                         System.out.println("\u001B[32mVous avez récupéré " + j.getCapacite() + " points de capacité\u001B[0m");
                         j.ajouterVie(2 * j.getConstitution());
@@ -144,12 +143,12 @@ public class Controleur {
 
         for (int i = 1; i <= niveau; i++) {
             if (i % 5 == 0) {
-                liste.add(theme.getLesBoss().get(ran.nextInt(theme.getLesBoss().size())+21).copy());
+                liste.add(theme.getLesBoss().get(ran.nextInt(theme.getLesBoss().size()) + 21).copy());
             }
             if (i % 3 == 0) {
-                liste.add(theme.getLesGrosEnnemis().get(ran.nextInt(theme.getLesGrosEnnemis().size())+11).copy());
+                liste.add(theme.getLesGrosEnnemis().get(ran.nextInt(theme.getLesGrosEnnemis().size()) + 11).copy());
             } else {
-                liste.add(theme.getLesPetitsEnnemis().get(ran.nextInt(theme.getLesPetitsEnnemis().size())+1).copy());
+                liste.add(theme.getLesPetitsEnnemis().get(ran.nextInt(theme.getLesPetitsEnnemis().size()) + 1).copy());
             }
         }
 
@@ -168,13 +167,13 @@ public class Controleur {
 
         for (int i = 1; i <= niveau; i++) {
             if (i % 3 == 0) {
-                inv.ajouterItem(theme.getLesArmes().get(ran.nextInt(theme.getLesArmes().size()-1)+101));
-                inv.ajouterItem(theme.getLesArmures().get(ran.nextInt(theme.getLesArmures().size()-1)+201));
+                inv.ajouterItem(theme.getLesArmes().get(ran.nextInt(theme.getLesArmes().size() - 1) + 101));
+                inv.ajouterItem(theme.getLesArmures().get(ran.nextInt(theme.getLesArmures().size() - 1) + 201));
             }
             if (i % 2 == 0) {
-                inv.ajouterItem(theme.getLesConsommables().get(ran.nextInt(theme.getLesConsommables().size())+1));
+                inv.ajouterItem(theme.getLesConsommables().get(ran.nextInt(theme.getLesConsommables().size()) + 1));
             } else {
-                inv.ajouterItem(theme.getLesBibelots().get(ran.nextInt(theme.getLesConsommables().size()-1)+301));
+                inv.ajouterItem(theme.getLesBibelots().get(ran.nextInt(theme.getLesConsommables().size() - 1) + 301));
             }
         }
 
