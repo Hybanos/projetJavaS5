@@ -36,6 +36,19 @@ public abstract class Personnage {
         this.mana = MAX_MANA;
     }
 
+    public Personnage(String nom, int vie, int MAX_VIE, int mana, int MAX_MANA, int force, int constitution, int dexterite, int intelligence, int capacite) {
+        this.nom = nom;
+        this.vie = vie;
+        this.MAX_VIE = MAX_VIE;
+        this.mana = mana;
+        this.MAX_MANA = MAX_MANA;
+        this.force = force;
+        this.constitution = constitution;
+        this.dexterite = dexterite;
+        this.intelligence = intelligence;
+        this.capacite = capacite;
+    }
+
     public String getNom() {
         return nom;
     }

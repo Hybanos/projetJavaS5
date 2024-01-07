@@ -10,7 +10,7 @@ public class Ennemi extends Personnage {
     }
 
     public Ennemi(Ennemi e) {
-        super(e.getNom(), e.getForce(), e.getConstitution(), e.getDexterite(), e.getIntelligence(), e.getCapacite());
+        super(e.getNom(), e.getVie(), e.getMAX_VIE(), e.getMana(), e.getMAX_MANA(), e.getForce(), e.getConstitution(), e.getDexterite(), e.getIntelligence(), e.getCapacite());
         attaquePref = e.attaquePref;
     }
 

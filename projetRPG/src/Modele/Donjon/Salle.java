@@ -6,15 +6,11 @@ import Modele.Personnage.Ennemi;
 import Modele.Personnage.Inventaire;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class Salle {
     private ArrayList<Ennemi> lesEnnemis = new ArrayList<>();
     private Inventaire lesItems = new Inventaire();
     private Salle salleSuivante = null;
-    private Salle sallePrecedente = null;
 
 
     public Salle(ArrayList<Ennemi> lesEnnemis, Inventaire lesItems) {
@@ -23,40 +19,29 @@ public class Salle {
     }
 
     public Salle(Salle salle) {
-        lesEnnemis = salle.getLesEnnemis();
-        lesItems = salle.getLesItems();
+        lesEnnemis = new ArrayList<>(salle.getCopieEnnemis());
+        lesItems = new Inventaire(salle.getLesItems());
+        salleSuivante = null;
+    }
+
+    public ArrayList<Ennemi> getCopieEnnemis() {
+        ArrayList<Ennemi> liste = new ArrayList<>();
+        for (Ennemi lesEnnemi : lesEnnemis) {
+            liste.add(lesEnnemi.copy());
+        }
+        return liste;
     }
 
     public ArrayList<Ennemi> getLesEnnemis() {
         return lesEnnemis;
     }
 
-    public void setLesEnnemis(ArrayList<Ennemi> lesEnnemis) {
-        this.lesEnnemis = lesEnnemis;
-    }
-
     public Inventaire getLesItems() {
         return lesItems;
     }
 
-    public void setLesItems(Inventaire lesItems) {
-        this.lesItems = lesItems;
-    }
-
     public Salle getSalleSuivante() {
         return salleSuivante;
-    }
-
-    public void setSalleSuivante(Salle salleSuivante) {
-        this.salleSuivante = salleSuivante;
-    }
-
-    public Salle getSallePrecedente() {
-        return sallePrecedente;
-    }
-
-    public void setSallePrecedente(Salle sallePrecedente) {
-        this.sallePrecedente = sallePrecedente;
     }
 
     public void ajouterItem(Item i) {
@@ -66,14 +51,13 @@ public class Salle {
     public void ajouterSalleFin(Salle salle) {
         if (salleSuivante == null) {
             salleSuivante = salle;
-            salle.setSallePrecedente(this);
         } else {
             salleSuivante.ajouterSalleFin(salle);
         }
     }
 
     public boolean estVide() {
-        return lesEnnemis.size() == 0;
+        return lesEnnemis.isEmpty();
     }
 
     /**

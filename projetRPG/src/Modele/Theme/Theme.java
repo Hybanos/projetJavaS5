@@ -13,10 +13,13 @@ public abstract class Theme {
 
     private String nom;
     protected Map<Integer, ClassePersonnage> lesClasses = new HashMap<>();
-    protected Map<Integer, Equipement> lesEquipements = new HashMap<>();
+    protected Map<Integer, Equipement> lesArmes = new HashMap<>();
+    protected Map<Integer, Equipement> lesArmures = new HashMap<>();
     protected Map<Integer, Consommable> lesConsommables = new HashMap<>();
     protected Map<Integer, Bibelot> lesBibelots = new HashMap<>();
-    protected Map<Integer, Ennemi> lesEnnemis = new HashMap<>();
+    protected Map<Integer, Ennemi> lesPetitsEnnemis = new HashMap<>();
+    protected Map<Integer, Ennemi> lesGrosEnnemis = new HashMap<>();
+    protected Map<Integer, Ennemi> lesBoss = new HashMap<>();
 
     //Ajouter un attribut pour le Donjon
 
@@ -36,8 +39,12 @@ public abstract class Theme {
         return lesClasses;
     }
 
-    public Map<Integer, Equipement> getLesEquipements() {
-        return lesEquipements;
+    public Map<Integer, Equipement> getLesArmes() {
+        return lesArmes;
+    }
+
+    public Map<Integer, Equipement> getLesArmures() {
+        return lesArmures;
     }
 
     public Map<Integer, Consommable> getLesConsommables() {
@@ -48,7 +55,15 @@ public abstract class Theme {
         return lesBibelots;
     }
 
-    public Map<Integer, Ennemi> getLesEnnemis() {
-        return lesEnnemis;
+    public Map<Integer, Ennemi> getLesPetitsEnnemis() {
+        return lesPetitsEnnemis;
+    }
+
+    public Map<Integer, Ennemi> getLesGrosEnnemis() {
+        return lesGrosEnnemis;
+    }
+
+    public Map<Integer, Ennemi> getLesBoss() {
+        return lesBoss;
     }
 }
