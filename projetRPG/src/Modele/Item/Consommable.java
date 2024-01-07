@@ -10,7 +10,7 @@ public class Consommable extends Item {
         this.mana = mana;
     }
 
-    public int getType(){
+    public int getType() {
         return 2;
     }
 

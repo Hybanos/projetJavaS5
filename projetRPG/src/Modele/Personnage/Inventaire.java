@@ -25,7 +25,7 @@ public class Inventaire {
         equipements.put("pieds", c.getTheme().getLesArmures().get(200));
     }
 
-    public Inventaire(Inventaire i){
+    public Inventaire(Inventaire i) {
         this.sac = new ArrayList<>(i.getSac());
         this.equipements = new HashMap<>(i.getLesEquipements());
     }

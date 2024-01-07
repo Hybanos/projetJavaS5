@@ -8,7 +8,7 @@ public class Bibelot extends Item {
         super(nom, description);
     }
 
-    public int getType(){
+    public int getType() {
         return 1;
     }
 

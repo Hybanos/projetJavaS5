@@ -19,7 +19,7 @@ public class Joueur extends Personnage {
         this.pts_dispo = 0;
     }
 
-    public Joueur(Joueur j){
+    public Joueur(Joueur j) {
         super(j.getNom(), j.getVie(), j.getMAX_VIE(), j.getMana(), j.getMAX_MANA(), j.getForce(), j.getConstitution(), j.getDexterite(), j.getIntelligence(), j.getCapacite());
         this.classe = j.classe;
         this.inventaire = new Inventaire(j.inventaire);

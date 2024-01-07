@@ -82,6 +82,7 @@ public class Controleur {
      * Permet une gestiuon lorsqu'un joueur est dans un donjon
      *
      * @param j le joueur concerné
+     * @return le joueur modifié après son passage dans le donjon
      */
     public Joueur controleurDonjon(Joueur j) {
         while (true) {
@@ -127,6 +128,12 @@ public class Controleur {
         }
     }
 
+    /**
+     * Génère les ennemis dans une salle
+     *
+     * @param niveau le niveau de la salle
+     * @return une liste dennemis
+     */
     public ArrayList<Ennemi> genererEnnemis(int niveau) {
         ArrayList<Ennemi> liste = new ArrayList<>();
 
@@ -144,6 +151,12 @@ public class Controleur {
         return liste;
     }
 
+    /**
+     * Génère les objets d'une salle selon son niveau
+     *
+     * @param niveau le nivea de la salle
+     * @return l'inventaire d'objets créé
+     */
     public Inventaire genererObjets(int niveau) {
         Inventaire inv = new Inventaire();
 
@@ -262,7 +275,7 @@ public class Controleur {
     }
 
     /**
-     * Permet de créer un joueur avec son nom et sa classe en fonction du thème
+     * Permet de créer un joueur avec son nom et sa classe sur le thème : Médiéval fantastique
      *
      * @return un joueur
      */
@@ -297,6 +310,11 @@ public class Controleur {
         }
     }
 
+    /**
+     * Permet de créer un joueur avec son nom et sa classe sur le thème : Science fiction
+     *
+     * @return un joueur
+     */
     public Joueur persoSF() {
         while (true) {
             String nom = ihm.choixNomJoueur();
@@ -315,6 +333,9 @@ public class Controleur {
                         }
                         if ("robot".equalsIgnoreCase(classe)) {
                             return new Joueur(nom, theme.getLesClasses().get(3), new Inventaire(), 2, 2, 4, 3, 3);
+                        }
+                        if ("pirate spatial".equalsIgnoreCase(classe)) {
+                            return new Joueur(nom, theme.getLesClasses().get(4), new Inventaire(), 3, 4, 3, 2, 2);
                         }
                     }
                 }

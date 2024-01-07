@@ -16,6 +16,7 @@ public abstract class Item {
     public String getDescription() {
         return description;
     }
+
     public abstract int getType();
 
     @Override

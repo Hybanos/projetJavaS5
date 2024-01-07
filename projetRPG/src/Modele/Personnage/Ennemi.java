@@ -42,6 +42,12 @@ public class Ennemi extends Personnage {
         return adversaire.recevoirCoup(degats);
     }
 
+    /**
+     * Permet de choisir le type d'attaque d'un ennemi
+     *
+     * @param j personnage a attaquer
+     * @return les dégâts reçus par le personnage
+     */
     public int attaquer(Personnage j) {
         if (attaquePref == 1) {
             return attaquerArme(j);
@@ -52,6 +58,12 @@ public class Ennemi extends Personnage {
         return 0;
     }
 
+    /**
+     * Permet de recevoir un coup
+     *
+     * @param degats les dégâts reçus
+     * @return les dégâts réels (ici, les mêmes mais c'est différent dans le joueur)
+     */
     @Override
     public int recevoirCoup(int degats) {
         if (degats > 0) {

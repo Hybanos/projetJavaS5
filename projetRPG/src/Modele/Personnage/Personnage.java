@@ -157,7 +157,9 @@ public abstract class Personnage {
     }
 
     public abstract boolean coupTouche();
+
     public abstract int attaquerArme(Personnage adversaire);
+
     public abstract int recevoirCoup(int degats);
 
     //Méthodes de gestion du joueur

@@ -32,7 +32,7 @@ public class RegistresMF {
         map.put(1, new Consommable("Baguette de pain frais", "Une baguette pas trop cuite s'il vous plait !", 2, 0));
         map.put(2, new Consommable("Morceau de pain rassis", "Ce vieux morceau de pain fait triste mine", 1, 0));
         map.put(3, new Consommable("Carotte", "Cette carotte, bien que crue, a l'air apétissante", 1, 0));
-        map.put(4, new Consommable("Patate","Une simple pomme de terre crue, elle a l'air mangeable" , 1, 0));
+        map.put(4, new Consommable("Patate", "Une simple pomme de terre crue, elle a l'air mangeable", 1, 0));
         map.put(5, new Consommable("Petite potion de soin", "Une petite potion qui régénère un peu de vie", 3, 0));
         map.put(6, new Consommable("Potion de soin moyenne", "Cette moyenne potion permet de se soigner en partie", 5, 0));
         map.put(7, new Consommable("Grande potion de soin", "Un grande potion de soin, est très efficace pour se soigner", 1000, 0)); // -1 == potion qui baisse la vie ?

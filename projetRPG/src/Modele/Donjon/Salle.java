@@ -24,6 +24,11 @@ public class Salle {
         salleSuivante = null;
     }
 
+    /**
+     * récupère une copie des ennemis pour garder leur état dans l'historique
+     *
+     * @return liste d'ennemis copiée de la salle
+     */
     public ArrayList<Ennemi> getCopieEnnemis() {
         ArrayList<Ennemi> liste = new ArrayList<>();
         for (Ennemi lesEnnemi : lesEnnemis) {
@@ -48,6 +53,11 @@ public class Salle {
         lesItems.ajouterItem(i);
     }
 
+    /**
+     * Permet d'ajouter une salle à la fin de la précédente
+     *
+     * @param salle salle à ajouter
+     */
     public void ajouterSalleFin(Salle salle) {
         if (salleSuivante == null) {
             salleSuivante = salle;
@@ -62,6 +72,7 @@ public class Salle {
 
     /**
      * Permet d'afficher les ennemis et leur vie
+     *
      * @return un affichage contenant tous les ennemis dans une salle
      */
     public String affichertLesEnnemis() {

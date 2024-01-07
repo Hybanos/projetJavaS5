@@ -123,11 +123,10 @@ public class Ihm {
                     [1] Robot : Force - / Constitution - / Dextérité ++ / Pouvoir + / Énergie +
                     [2] Alien : Force - / Constitution -- / Dextérité - / Pouvoir +++ / Énergie ++
                     [3] Sportif : Force +++ / Constitution ++ / Dextérité - / Pouvoir -- / Énergie -
+                    [4] Pirate Spatial : Force + / Constitution ++ / Dextérité + / Pouvoir - / Énergie -
                                         
                     [Q] Quitter
                     """);
-                    // [4] Pirate spatial : Force + / Constitution ++ / Dextérité + / Pouvoir - / Énergie -
-                    // j'avais fait que 3 classes quand j'ai fait le spreadsheet 💀
 
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
@@ -140,9 +139,9 @@ public class Ihm {
                 if ("3".equalsIgnoreCase(rep) || "sportif".equalsIgnoreCase(rep)) {
                     return "Sportif";
                 }
-                // if ("4".equalsIgnoreCase(rep) || "pirate".equalsIgnoreCase(rep) || "pirate spatial".equalsIgnoreCase(rep)) {
-                //     return "Pirate Spatial";
-                // }
+                if ("4".equalsIgnoreCase(rep) || "pirate".equalsIgnoreCase(rep) || "pirate spatial".equalsIgnoreCase(rep)) {
+                    return "Pirate Spatial";
+                }
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
                     return "q";
                 }
@@ -344,6 +343,12 @@ public class Ihm {
         }
     }
 
+    /**
+     * Permet de faire un choix lors de la mort
+     *
+     * @param retours nombre de retours disponibles
+     * @return le choix répondu
+     */
     public int interractionMort(int retours) {
         Scanner sc = new Scanner(System.in);
         while (true) {
