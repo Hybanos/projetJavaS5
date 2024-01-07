@@ -56,7 +56,7 @@ public class Controleur {
         if (joueur == null) {
             System.exit(0);
         }
-        joueur.ajouterItem(theme.getLesArmes().get(101)); // première arme
+        joueur.equiper(theme.getLesArmes().get(101)); // première arme
         joueur.ajouterItem(theme.getLesArmures().get(201)); // première armure
         joueur.ajouterItem(theme.getLesConsommables().get(1));
         System.out.println("\u001B[36mFin de la création du personnage, redirection vers le menu principal ...\n\u001B[0m");
@@ -167,13 +167,16 @@ public class Controleur {
 
         for (int i = 1; i <= niveau; i++) {
             if (i % 3 == 0) {
-                inv.ajouterItem(theme.getLesArmes().get(ran.nextInt(theme.getLesArmes().size() - 1) + 101));
-                inv.ajouterItem(theme.getLesArmures().get(ran.nextInt(theme.getLesArmures().size() - 1) + 201));
-            }
-            if (i % 2 == 0) {
-                inv.ajouterItem(theme.getLesConsommables().get(ran.nextInt(theme.getLesConsommables().size()) + 1));
+                int num = ran.nextInt(theme.getLesArmes().size() - 1) + 101;
+                inv.ajouterItem(theme.getLesArmes().get(num));
+                num = ran.nextInt(theme.getLesArmures().size() - 1) + 201;
+                inv.ajouterItem(theme.getLesArmures().get(num));
+            } else if (i % 2 == 0) {
+                int num = ran.nextInt(theme.getLesConsommables().size()) + 1;
+                inv.ajouterItem(theme.getLesConsommables().get(num));
             } else {
-                inv.ajouterItem(theme.getLesBibelots().get(ran.nextInt(theme.getLesConsommables().size() - 1) + 301));
+                int num = ran.nextInt(theme.getLesBibelots().size() - 1) + 301;
+                inv.ajouterItem(theme.getLesBibelots().get(num));
             }
         }
 

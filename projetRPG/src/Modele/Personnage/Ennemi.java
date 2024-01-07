@@ -21,8 +21,7 @@ public class Ennemi extends Personnage {
      */
     @Override
     public boolean coupTouche() {
-        double probabilite = (((double) this.getDexterite() / 10)) / 2;
-        //par exemple, le joueur a 7 de dextérité et une arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
+        double probabilite = (((double) this.getDexterite() / 5));
         double random = Math.random();
         return random <= probabilite;
     }

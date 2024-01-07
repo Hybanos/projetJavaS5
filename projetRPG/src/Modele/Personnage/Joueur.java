@@ -21,7 +21,7 @@ public class Joueur extends Personnage {
         this.pts_dispo = 0;
     }
 
-    public Joueur(Joueur j){
+    public Joueur(Joueur j) {
         super(j.getNom(), j.getVie(), j.getMAX_VIE(), j.getMana(), j.getMAX_MANA(), j.getForce(), j.getConstitution(), j.getDexterite(), j.getIntelligence(), j.getCapacite());
         this.classe = j.classe;
         this.inventaire = new Inventaire(j.inventaire);
@@ -69,8 +69,8 @@ public class Joueur extends Personnage {
      */
     @Override
     public boolean coupTouche() {
-        double probabilite = ((sqrt(getDexterite())*1.2)*(getInventaire().getEquipement("arme").getPrecision()/2.1));
-        //Si jamais j'ai testé plusieurs calculs mais c'était souvent un peu nul https://docs.google.com/spreadsheets/d/1v2rxGENgxwLwfs2m9Wv_tw_4fUDRRqrqgqimWpPO42Q/edit?usp=sharing
+        double probabilite = ((sqrt(getDexterite()) * 1.2) * (getInventaire().getEquipement("arme").getPrecision() / 2.1));
+        //Si jamais, j'ai testé plusieurs calculs mais c'était souvent un peu nul en terme de probabilités https://docs.google.com/spreadsheets/d/1v2rxGENgxwLwfs2m9Wv_tw_4fUDRRqrqgqimWpPO42Q/edit?usp=sharing
         double random = Math.random();
         return random <= probabilite;
     }
@@ -216,7 +216,7 @@ public class Joueur extends Personnage {
                     break;
                 case 2:
                     this.setConstitution(getConstitution() + points);
-                    this.setMAX_VIE(getMAX_VIE() + getConstitution() * 10);
+                    this.setMAX_VIE(getConstitution() * 10);
                     this.setVie(getVie() + points * 10);
                     this.pts_dispo -= points;
                     break;

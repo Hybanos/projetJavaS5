@@ -469,7 +469,7 @@ public class Ihm {
                 "- \u001B[36m" + mot1 + "\u001B[0m : " + j.getIntelligence() + "\n" +
                 "- \u001B[36m" + mot2 + "\u001B[0m : " + j.getCapacite() + "\n" +
                 "- \u001B[35mPoints Disponibles\u001B[0m : " + j.getPts_dispo() + "\n" +
-                "- \u001B[35mProbabilité de toucher\u001B[0m : " + (int) ((sqrt(j.getDexterite())*1.2)*(j.getInventaire().getEquipement("arme").getPrecision()/2.1)));
+                "- \u001B[35mProbabilité de toucher\u001B[0m : " + (int) ((sqrt(j.getDexterite()) * 1.2) * (j.getInventaire().getEquipement("arme").getPrecision() / 2.1) * 100) + "%");
     }
 
     /**
