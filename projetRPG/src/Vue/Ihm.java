@@ -366,14 +366,14 @@ public class Ihm {
         Scanner sc = new Scanner(System.in);
         while (true) {
             afficherStatistiques(j);
-            System.out.println("[A] <stat> <nombre> Ajouter des points\n(Exemple : -> A 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> Intelligence\n5 -> Capacité Magique\n[Q] Quitter");
+            System.out.println("[E] <stat> <nombre> Ajouter des points\n(Exemple : -> A 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> Intelligence\n5 -> Capacité Magique\n[Q] Quitter");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
                     return null;
                 }
-                Pattern pattern1 = Pattern.compile("^[Aa] [1-5] [0-9]$");
-                Pattern pattern2 = Pattern.compile("^[Aa] [1-5] [0-9][0-9]$");
+                Pattern pattern1 = Pattern.compile("^[Ee] [1-5] [0-9]$");
+                Pattern pattern2 = Pattern.compile("^[Ee] [1-5] [0-9][0-9]$");
 
                 boolean compa1 = pattern1.matcher(rep).find();
                 boolean compa2 = pattern2.matcher(rep).find();

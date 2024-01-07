@@ -25,7 +25,8 @@ public class MedievalFantastique extends Theme {
         System.out.println("Init. Items");
         lesBibelots = RegistresMF.genererBibelots();
         lesConsommables = RegistresMF.genererConsomable();
-        lesEquipements = RegistresMF.genererEquipements();
+        lesArmes = RegistresMF.genererArmes();
+        lesArmures = RegistresMF.genererArmures();
     }
 
     private void initDonjon() {
@@ -34,6 +35,8 @@ public class MedievalFantastique extends Theme {
 
     private void initEnnemis() {
         System.out.println("Init. Ennemis");
-        lesEnnemis = RegistresMF.genererEnnemis();
+        lesPetitsEnnemis = RegistresMF.genererPetitsEnnemis();
+        lesGrosEnnemis = RegistresMF.genererGrosEnnemis();
+        lesBoss = RegistresMF.genererBoss();
     }
 }

@@ -25,8 +25,11 @@ public class Controleur {
     private Ihm ihm = null;
     private Donjon donjon = null;
     private Salle salle = null;
+    private Joueur backupJoueur = null; // sauvegarde temporaire de début de salle
+    private Joueur saveJoueur = null; // véritable sauvegarde du joueur à récupérer
+    private Salle backupSalle = null;
     private int lvlSalle = 1;
-    private int lvlMax = 10;
+    private final int lvlMax = 10;
     private int retours = 2;
 
     public static Controleur getInstance() {
@@ -43,10 +46,6 @@ public class Controleur {
         return theme;
     }
 
-    public void setTheme(Theme theme) {
-        this.theme = theme;
-    }
-
     /**
      * Contrôleur principal, permet de gérer le jeu
      */
@@ -57,9 +56,8 @@ public class Controleur {
         if (joueur == null) {
             System.exit(0);
         }
-        joueur.ajouterItem(theme.getLesEquipements().get(101));
-        joueur.ajouterItem(theme.getLesEquipements().get(201));
-        joueur.ajouterItem(theme.getLesEquipements().get(213));
+        joueur.ajouterItem(theme.getLesArmes().get(101)); // première arme
+        joueur.ajouterItem(theme.getLesArmures().get(201)); // première armure
         joueur.ajouterItem(theme.getLesConsommables().get(1));
         System.out.println("Fin de la création du personnage, redirection vers le menu principal ...");
         while (true) {
@@ -74,7 +72,7 @@ public class Controleur {
                     donjon = new Donjon();
                     joueur.setEnDonjon(true);
                     salle = donjon.getSalleActuelle();
-                    controleurDonjon(joueur);
+                    joueur = controleurDonjon(joueur);
                     break;
             }
         }
@@ -85,12 +83,16 @@ public class Controleur {
      *
      * @param j le joueur concerné
      */
-    public void controleurDonjon(Joueur j) {
+    public Joueur controleurDonjon(Joueur j) {
         while (true) {
+            backupSalle = new Salle(salle);
+            backupJoueur = new Joueur(j);
             int resultat = controleurSalle(j);
             switch (resultat) {
                 case 0:
                     if (lvlSalle < lvlMax) {
+                        donjon.saveSalle(backupSalle);
+                        saveJoueur = new Joueur(backupJoueur);
                         lvlSalle++;
                         ArrayList<Ennemi> ennemis = genererEnnemis(lvlSalle);
                         Inventaire objets = genererObjets(lvlSalle);
@@ -98,21 +100,29 @@ public class Controleur {
                         salle = donjon.salleSuivante();
                         j.setPts_dispo(j.getPts_dispo() + lvlSalle);
                         j.ajouterMana(3);
+                        j.ajouterVie(5);
                         break;
                     } else {
                         System.out.println("Bravo ! vous avez fini le jeu !");
                         j.ajouterItem(theme.getLesBibelots().get(300));
                         j.setEnDonjon(false);
-                        return;
+                        return j;
                     }
                 case 1:
                     j.setVie(1);
                     j.getInventaire().supprConsommables();
                     j.setEnDonjon(false);
-                    retours--;
-                    return;
+                    lvlSalle = 1;
+                    retours = 2;
+                    return j;
                 case 2:
-
+                    //cas où le joueur reviens à la salle précédente
+                    retours--;
+                    lvlSalle--;
+                    j = new Joueur(saveJoueur);
+                    salle = donjon.getSaveSalle();
+                    donjon.setSalleActuelle(salle);
+                    break;
             }
         }
     }
@@ -122,12 +132,12 @@ public class Controleur {
 
         for (int i = 1; i <= niveau; i++) {
             if (i % 5 == 0) {
-                liste.add(theme.getLesEnnemis().get(21 + (int) (Math.random() * 2)).copy());
+                liste.add(theme.getLesBoss().get(21 + (int) (Math.random() * theme.getLesBoss().size())).copy());
             }
             if (i % 3 == 0) {
-                liste.add(theme.getLesEnnemis().get(11 + (int) (Math.random() * 5)).copy());
+                liste.add(theme.getLesGrosEnnemis().get(11 + (int) (Math.random() * theme.getLesGrosEnnemis().size())).copy());
             } else {
-                liste.add(theme.getLesEnnemis().get(1 + (int) (Math.random() * 6)).copy());
+                liste.add(theme.getLesPetitsEnnemis().get(1 + (int) (Math.random() * theme.getLesGrosEnnemis().size())).copy());
             }
         }
 
@@ -139,8 +149,8 @@ public class Controleur {
 
         for (int i = 1; i <= niveau; i++) {
             if (i % 3 == 0) {
-                inv.ajouterItem(theme.getLesEquipements().get(100 + (int) (Math.random() * 20)));
-                inv.ajouterItem(theme.getLesEquipements().get(200 + (int) (Math.random() * 21)));
+                inv.ajouterItem(theme.getLesArmes().get(101 + (int) (Math.random() * theme.getLesArmes().size())));
+                inv.ajouterItem(theme.getLesArmures().get(201 + (int) (Math.random() * theme.getLesArmures().size())));
             }
             if (i % 2 == 0) {
                 inv.ajouterItem(theme.getLesConsommables().get(1 + (int) (Math.random() * 10)));
@@ -190,6 +200,10 @@ public class Controleur {
                     } else {
                         salle.getLesEnnemis().remove(i);
                         System.out.println("Vous avez tué " + ennemi.getNom() + " !");
+                        if (Math.random() <= 0.3) {
+                            salle.ajouterItem(Math.random() <= 0.5 ? theme.getLesArmes().get(100 + (int) (Math.random() * theme.getLesArmes().size())) : theme.getLesArmures().get(200 + (int) (Math.random() * theme.getLesArmures().size())));
+                            System.out.println("Le monstre a laissé tomber un objet au sol");
+                        }
                     }
                 }
             } else {
@@ -219,7 +233,7 @@ public class Controleur {
                 }
             }
         } else {
-            return 2;
+            return 1;
         }
     }
 

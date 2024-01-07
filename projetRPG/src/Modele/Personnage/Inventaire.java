@@ -18,11 +18,24 @@ public class Inventaire {
     public Inventaire() {
         this.sac = new ArrayList<>();
         this.equipements = new HashMap<>();
-        equipements.put("arme", c.getTheme().getLesEquipements().get(100));
-        equipements.put("tete", c.getTheme().getLesEquipements().get(200));
-        equipements.put("torse", c.getTheme().getLesEquipements().get(200));
-        equipements.put("jambes", c.getTheme().getLesEquipements().get(200));
-        equipements.put("pieds", c.getTheme().getLesEquipements().get(200));
+        equipements.put("arme", c.getTheme().getLesArmes().get(100));
+        equipements.put("tete", c.getTheme().getLesArmures().get(200));
+        equipements.put("torse", c.getTheme().getLesArmures().get(200));
+        equipements.put("jambes", c.getTheme().getLesArmures().get(200));
+        equipements.put("pieds", c.getTheme().getLesArmures().get(200));
+    }
+
+    public Inventaire(Inventaire i){
+        this.sac = new ArrayList<>(i.getSac());
+        this.equipements = new HashMap<>(i.getLesEquipements());
+    }
+
+    public List<Item> getSac() {
+        return sac;
+    }
+
+    public Map<String, Equipement> getLesEquipements() {
+        return equipements;
     }
 
     public Equipement getEquipement(String emplacement) {
@@ -75,9 +88,9 @@ public class Inventaire {
      */
     public void resetEquipement(String emplacement) {
         if (Objects.equals(emplacement, "arme")) {
-            equipements.put("arme", c.getTheme().getLesEquipements().get(100));
+            equipements.put("arme", c.getTheme().getLesArmures().get(100));
         } else {
-            equipements.put(emplacement, c.getTheme().getLesEquipements().get(200));
+            equipements.put(emplacement, c.getTheme().getLesArmures().get(200));
         }
     }
 
