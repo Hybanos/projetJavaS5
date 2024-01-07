@@ -12,13 +12,6 @@ import java.util.Map;
 
 public class RegistresMF {
 
-    /* Ca sert plus a rien mais je laisse ca au cas ou
-    private static int currInt;
-    private static int nextInt() {
-        return currInt++;
-    }
-    */
-
     private static Controleur c = Controleur.getInstance();
 
     public static Map<Integer, ClassePersonnage> genererClasses() {
