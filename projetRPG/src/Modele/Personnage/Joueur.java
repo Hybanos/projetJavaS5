@@ -4,6 +4,8 @@ import Modele.Item.Consommable;
 import Modele.Item.Equipement;
 import Modele.Item.Item;
 
+import static java.lang.Math.sqrt;
+
 public class Joueur extends Personnage {
 
     private ClassePersonnage classe;
@@ -67,8 +69,8 @@ public class Joueur extends Personnage {
      */
     @Override
     public boolean coupTouche() {
-        double probabilite = (((double) this.getDexterite() / 10) * inventaire.getEquipement("arme").getPrecision());
-        //par exemple, le joueur a 7 de dextérité et une arme à 80% de précision, il a donc 0.70 * 0.80 = 0.56 -> 56% de chances de toucher (pas clair, à voir le calcul)
+        double probabilite = ((sqrt(getDexterite())*1.2)*(getInventaire().getEquipement("arme").getPrecision()/2.1));
+        //Si jamais j'ai testé plusieurs calculs mais c'était souvent un peu nul https://docs.google.com/spreadsheets/d/1v2rxGENgxwLwfs2m9Wv_tw_4fUDRRqrqgqimWpPO42Q/edit?usp=sharing
         double random = Math.random();
         return random <= probabilite;
     }
