@@ -3,9 +3,7 @@ package Modele.Theme;
 import Modele.Item.Bibelot;
 import Modele.Item.Consommable;
 import Modele.Item.Equipement;
-import Modele.Personnage.ClassePersonnage;
 import Modele.Personnage.Ennemi;
-import Modele.Personnage.Joueur;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +11,7 @@ import java.util.Map;
 public abstract class Theme {
 
     private String nom;
-    protected Map<Integer, ClassePersonnage> lesClasses = new HashMap<>();
+    protected Map<Integer, String> lesClasses = new HashMap<>();
     protected Map<Integer, Equipement> lesArmes = new HashMap<>();
     protected Map<Integer, Equipement> lesArmures = new HashMap<>();
     protected Map<Integer, Consommable> lesConsommables = new HashMap<>();
@@ -32,13 +30,11 @@ public abstract class Theme {
 
     public abstract void initialiser();
 
-    public abstract void actionSpeciale(Joueur j);
-
     public String getNom() {
         return nom;
     }
 
-    public Map<Integer, ClassePersonnage> getLesClasses() {
+    public Map<Integer, String> getLesClasses() {
         return lesClasses;
     }
 

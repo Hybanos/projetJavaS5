@@ -77,8 +77,8 @@ public class Ennemi extends Personnage {
     }
 
     @Override
-    public ClassePersonnage getClasse() {
-        return null;
+    public String getClasse() {
+        return "";
     }
 
     public Ennemi copy() {

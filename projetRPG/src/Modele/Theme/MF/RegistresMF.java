@@ -4,7 +4,6 @@ import Controleur.Controleur;
 import Modele.Item.Bibelot;
 import Modele.Item.Consommable;
 import Modele.Item.Equipement;
-import Modele.Personnage.ClassePersonnage;
 import Modele.Personnage.Ennemi;
 
 import java.util.HashMap;
@@ -14,14 +13,14 @@ public class RegistresMF {
 
     private static final Controleur c = Controleur.getInstance();
 
-    public static Map<Integer, ClassePersonnage> genererClasses() {
-        Map<Integer, ClassePersonnage> map = new HashMap<>();
+    public static Map<Integer, String> genererClasses() {
+        Map<Integer, String> map = new HashMap<>();
 
-        map.put(1, new ClassePersonnage("barbare"));
-        map.put(2, new ClassePersonnage("mage"));
-        map.put(3, new ClassePersonnage("archer"));
-        map.put(4, new ClassePersonnage("chevalier"));
-        map.put(5, new ClassePersonnage("assassin"));
+        map.put(1, "barbare");
+        map.put(2, "mage");
+        map.put(3, "archer");
+        map.put(4, "chevalier");
+        map.put(5, "assassin");
 
         return map;
     }

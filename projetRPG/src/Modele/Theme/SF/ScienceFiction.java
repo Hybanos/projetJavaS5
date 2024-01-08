@@ -1,7 +1,5 @@
 package Modele.Theme.SF;
 
-import Modele.Personnage.Joueur;
-import Modele.Theme.MF.RegistresMF;
 import Modele.Theme.Theme;
 
 public class ScienceFiction extends Theme {
@@ -17,11 +15,6 @@ public class ScienceFiction extends Theme {
         initItems();
         initDonjon();
         initEnnemis();
-
-    }
-
-    @Override
-    public void actionSpeciale(Joueur j) {
 
     }
 

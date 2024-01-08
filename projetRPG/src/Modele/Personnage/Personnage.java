@@ -1,9 +1,5 @@
 package Modele.Personnage;
 
-import Modele.Item.Consommable;
-import Modele.Item.Equipement;
-import Modele.Item.Item;
-
 public abstract class Personnage {
     private String nom;
 
@@ -51,10 +47,6 @@ public abstract class Personnage {
 
     public String getNom() {
         return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
     }
 
     public int getVie() {
@@ -225,5 +217,5 @@ public abstract class Personnage {
         return "Personnage : " + nom;
     }
 
-    public abstract ClassePersonnage getClasse();
+    public abstract String getClasse();
 }

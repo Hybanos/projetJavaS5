@@ -1,12 +1,10 @@
 package Modele.Donjon;
 
 import Controleur.Controleur;
-import Modele.Item.Item;
 import Modele.Personnage.Ennemi;
 import Modele.Personnage.Inventaire;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Donjon {
     private Salle salleActuelle;

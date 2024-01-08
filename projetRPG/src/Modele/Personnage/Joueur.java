@@ -8,12 +8,12 @@ import static java.lang.Math.sqrt;
 
 public class Joueur extends Personnage {
 
-    private ClassePersonnage classe;
+    private String classe;
     private Inventaire inventaire;
     private boolean enDonjon;
     private int pts_dispo;
 
-    public Joueur(String nom, ClassePersonnage classe, Inventaire inventaire, int force, int constitution, int dexterite, int intelligence, int capacite) {
+    public Joueur(String nom, String classe, Inventaire inventaire, int force, int constitution, int dexterite, int intelligence, int capacite) {
         super(nom, force, constitution, dexterite, intelligence, capacite);
         this.classe = classe;
         this.inventaire = inventaire;
@@ -30,20 +30,12 @@ public class Joueur extends Personnage {
     }
 
     @Override
-    public ClassePersonnage getClasse() {
+    public String getClasse() {
         return classe;
-    }
-
-    public void setClasse(ClassePersonnage classe) {
-        this.classe = classe;
     }
 
     public Inventaire getInventaire() {
         return inventaire;
-    }
-
-    public void setInventaire(Inventaire inventaire) {
-        this.inventaire = inventaire;
     }
 
     public boolean isEnDonjon() {

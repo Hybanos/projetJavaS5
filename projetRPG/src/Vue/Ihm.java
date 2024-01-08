@@ -3,7 +3,6 @@ package Vue;
 import Controleur.Controleur;
 import Modele.Donjon.Salle;
 import Modele.Personnage.Joueur;
-import Modele.Personnage.Personnage;
 
 import java.util.AbstractMap;
 import java.util.Scanner;
