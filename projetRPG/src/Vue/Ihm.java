@@ -390,20 +390,27 @@ public class Ihm {
                     break;
             }
             afficherStatistiques(j, mot1, mot2);
-            System.out.println("\u001B[34m[E] <stat> <nombre>\u001B[0m Ajouter des points\n(Exemple : -> E 1 5 ajoute 5 points à la Force.)\n1 -> Force\n2 -> Constitution\n3 -> Dextérité\n4 -> " + mot1 + "\n5 -> " + mot2 + "\n\u001B[31m[Q] Retour\n\u001B[0m");
+            System.out.println("\n\u001B[34m[<stat> <nombre>]\u001B[0m Ajouter des points\n(Exemple : -> 1 5 ajoute 5 points à la Force.)\n\u001B[31m[Q] Retour\n\u001B[0m");
             if (sc.hasNextLine()) {
                 String rep = sc.nextLine();
                 if ("q".equalsIgnoreCase(rep) || "quitter".equalsIgnoreCase(rep)) {
                     return null;
                 }
-                Pattern pattern1 = Pattern.compile("^[Ee] [1-5] [0-9]$");
-                Pattern pattern2 = Pattern.compile("^[Ee] [1-5] [0-9][0-9]$");
+                Pattern pattern1 = Pattern.compile("^[1-5] [0-9]$");
+                Pattern pattern2 = Pattern.compile("^[1-5] [0-9][0-9]$");
+                Pattern pattern3 = Pattern.compile("^[1-5][0-9]$");
+                Pattern pattern4 = Pattern.compile("^[1-5][0-9][0-9]$");
 
                 boolean compa1 = pattern1.matcher(rep).find();
                 boolean compa2 = pattern2.matcher(rep).find();
+                boolean compa3 = pattern3.matcher(rep).find();
+                boolean compa4 = pattern4.matcher(rep).find();
 
                 if (compa1 || compa2) {
-                    return new AbstractMap.SimpleEntry<>(Integer.parseInt(rep.substring(2, 3)), Integer.parseInt(rep.substring(4)));
+                    return new AbstractMap.SimpleEntry<>(Integer.parseInt(rep.substring(0, 1)), Integer.parseInt(rep.substring(2)));
+                }
+                if (compa3 || compa4) {
+                    return new AbstractMap.SimpleEntry<>(Integer.parseInt(rep.substring(0, 1)), Integer.parseInt(rep.substring(1)));
                 }
             }
         }
@@ -463,13 +470,13 @@ public class Ihm {
      */
     public void afficherStatistiques(Joueur j, String mot1, String mot2) {
         System.out.println("\u001B[33mStatistiques\u001B[0m :\n" +
-                "- \u001B[36mForce\u001B[0m : " + j.getForce() + "\n" +
-                "- \u001B[36mConstitution\u001B[0m : " + j.getConstitution() + "\n" +
-                "- \u001B[36mDextérité\u001B[0m : " + j.getDexterite() + "\n" +
-                "- \u001B[36m" + mot1 + "\u001B[0m : " + j.getIntelligence() + "\n" +
-                "- \u001B[36m" + mot2 + "\u001B[0m : " + j.getCapacite() + "\n" +
-                "- \u001B[35mPoints Disponibles\u001B[0m : " + j.getPts_dispo() + "\n" +
-                "- \u001B[35mProbabilité de toucher\u001B[0m : " + (int) ((sqrt(j.getDexterite()) * 1.2) * (j.getInventaire().getEquipement("arme").getPrecision() / 2.1) * 100) + "%");
+                "\u001B[34m[1] \u001B[36mForce\u001B[0m : " + j.getForce() + "\n" +
+                "\u001B[34m[2] \u001B[36mConstitution\u001B[0m : " + j.getConstitution() + "\n" +
+                "\u001B[34m[3] \u001B[36mDextérité\u001B[0m : " + j.getDexterite() + "\n" +
+                "\u001B[34m[4] \u001B[36m" + mot1 + "\u001B[0m : " + j.getIntelligence() + "\n" +
+                "\u001B[34m[5] \u001B[36m" + mot2 + "\u001B[0m : " + j.getCapacite() + "\n" +
+                "-   \u001B[35mPoints Disponibles\u001B[0m : " + j.getPts_dispo() + "\n" +
+                "-   \u001B[35mProbabilité de toucher\u001B[0m : " + (int) ((sqrt(j.getDexterite()) * 1.2) * (j.getInventaire().getEquipement("arme").getPrecision() / 2.1) * 100) + "%");
     }
 
     /**
