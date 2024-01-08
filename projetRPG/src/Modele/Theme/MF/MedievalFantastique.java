@@ -1,5 +1,6 @@
 package Modele.Theme.MF;
 
+import Modele.Personnage.Joueur;
 import Modele.Theme.Theme;
 
 public class MedievalFantastique extends Theme {
@@ -14,6 +15,11 @@ public class MedievalFantastique extends Theme {
         initItems();
         initDonjon();
         initEnnemis();
+    }
+
+    @Override
+    public void actionSpeciale(Joueur j) {
+
     }
 
     private void initClasses() {

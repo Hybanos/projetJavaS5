@@ -223,7 +223,8 @@ public class Controleur {
                         salle.getLesEnnemis().remove(i);
                         System.out.println("\u001B[32mVous avez tué " + ennemi.getNom() + " !\u001B[0m");
                         if (Math.random() <= 0.3) {
-                            salle.ajouterItem(Math.random() <= 0.5 ? theme.getLesArmes().get(100 + (int) (Math.random() * theme.getLesArmes().size())) : theme.getLesArmures().get(200 + (int) (Math.random() * theme.getLesArmures().size())));
+                            Random ran = new Random();
+                            salle.ajouterItem(Math.random() <= 0.5 ? theme.getLesArmes().get(ran.nextInt(theme.getLesArmes().size() - 1) + 101) : theme.getLesArmures().get(ran.nextInt(theme.getLesArmures().size() - 1) + 201));
                             System.out.println("\u001B[36mLe monstre a laissé tomber un objet au sol\u001B[0m");
                         }
                     }

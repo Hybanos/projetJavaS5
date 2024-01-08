@@ -20,7 +20,7 @@ public class Ennemi extends Personnage {
      * @return true si le coup touche, false sinon
      */
     @Override
-    public boolean coupTouche() {
+    protected boolean coupTouche() {
         double probabilite = (((double) this.getDexterite() / 5));
         double random = Math.random();
         return random <= probabilite;
@@ -64,7 +64,7 @@ public class Ennemi extends Personnage {
      * @return les dégâts réels (ici, les mêmes mais c'est différent dans le joueur)
      */
     @Override
-    public int recevoirCoup(int degats) {
+    protected int recevoirCoup(int degats) {
         if (degats > 0) {
             setVie(getVie() - degats);
         }

@@ -1,5 +1,6 @@
 package Modele.Theme.SF;
 
+import Modele.Personnage.Joueur;
 import Modele.Theme.MF.RegistresMF;
 import Modele.Theme.Theme;
 
@@ -10,12 +11,17 @@ public class ScienceFiction extends Theme {
     }
 
     @Override
-    protected void initialiser() {
+    public void initialiser() {
         System.out.println("Init. Science Fiction");
         initClasses();
         initItems();
         initDonjon();
         initEnnemis();
+
+    }
+
+    @Override
+    public void actionSpeciale(Joueur j) {
 
     }
 

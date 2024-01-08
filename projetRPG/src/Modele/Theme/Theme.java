@@ -5,6 +5,7 @@ import Modele.Item.Consommable;
 import Modele.Item.Equipement;
 import Modele.Personnage.ClassePersonnage;
 import Modele.Personnage.Ennemi;
+import Modele.Personnage.Joueur;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,9 @@ public abstract class Theme {
         this.nom = nom;
     }
 
-    protected abstract void initialiser();
+    public abstract void initialiser();
+
+    public abstract void actionSpeciale(Joueur j);
 
     public String getNom() {
         return nom;

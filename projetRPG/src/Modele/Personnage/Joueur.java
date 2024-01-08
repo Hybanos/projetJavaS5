@@ -68,7 +68,7 @@ public class Joueur extends Personnage {
      * @return true si le coup touche, false sinon
      */
     @Override
-    public boolean coupTouche() {
+    protected boolean coupTouche() {
         double probabilite = ((sqrt(getDexterite()) * 1.2) * (getInventaire().getEquipement("arme").getPrecision() / 2.1));
         //Si jamais, j'ai testé plusieurs calculs mais c'était souvent un peu nul en terme de probabilités https://docs.google.com/spreadsheets/d/1v2rxGENgxwLwfs2m9Wv_tw_4fUDRRqrqgqimWpPO42Q/edit?usp=sharing
         double random = Math.random();
@@ -80,7 +80,7 @@ public class Joueur extends Personnage {
      *
      * @return les dégats de base sans ajout de dégats critiques
      */
-    public int degatsArme() {
+    private int degatsArme() {
         return this.getForce() + inventaire.getEquipement("arme").getDegats();
     }
 
@@ -91,7 +91,7 @@ public class Joueur extends Personnage {
      * @param degatsFlat valeurs de degats de base
      * @return les dégâts finaux
      */
-    public int degatsCrit(int degatsFlat) {
+    private int degatsCrit(int degatsFlat) {
         double random = Math.random();
         int degats = degatsFlat;
         if (random <= inventaire.getEquipement("arme").getCrit()) {
@@ -121,7 +121,7 @@ public class Joueur extends Personnage {
      * @param degats degats de bas avant réduction
      * @return les dégats finaux à appliquer au joueur
      */
-    public int reducDegats(int degats) {
+    private int reducDegats(int degats) {
         int armure = inventaire.getEquipement("arme").getProtection() + inventaire.getEquipement("tete").getProtection() + inventaire.getEquipement("torse").getProtection() + inventaire.getEquipement("jambes").getProtection() + inventaire.getEquipement("pieds").getProtection();
         return degats - (armure / 2);
     }
@@ -133,7 +133,7 @@ public class Joueur extends Personnage {
      * @return les degats que le joueur subit
      */
     @Override
-    public int recevoirCoup(int degats) {
+    protected int recevoirCoup(int degats) {
         int degatsReels = reducDegats(degats);
         if (degatsReels > 0) {
             setVie(getVie() - degatsReels);

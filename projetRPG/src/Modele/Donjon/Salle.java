@@ -29,7 +29,7 @@ public class Salle {
      *
      * @return liste d'ennemis copiée de la salle
      */
-    public ArrayList<Ennemi> getCopieEnnemis() {
+    private ArrayList<Ennemi> getCopieEnnemis() {
         ArrayList<Ennemi> liste = new ArrayList<>();
         for (Ennemi lesEnnemi : lesEnnemis) {
             liste.add(lesEnnemi.copy());
